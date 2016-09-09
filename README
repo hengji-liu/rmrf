@@ -1,2 +1,5 @@
-RMRF Team
+RMRF Team Member Notice:
+
+login to mysql create dababase called "bblib", execute in web/sql/tablegen.sql
+
 Li: I am using java 1.8/tomcat 7/ intellijIDEA for this project.
