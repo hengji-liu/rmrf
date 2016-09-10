@@ -1,5 +1,8 @@
 package daoImpl;
 
+import bean.Book;
+import bean.BookTransaction;
+import bean.User;
 import daoIterface.AdminDao;
 import util.DBHelper;
 
@@ -7,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Linus on 10/09/2016.
@@ -20,7 +25,7 @@ public class AdminDaoImpl implements AdminDao{
         ResultSet rs = null;
         try {
             conn = DBHelper.getConnection();
-            String sql = "select id from user where username=? and ps=? and identity='2';";
+            String sql = "select id from user where username=? and ps=? and type_='2';";
             psmt = conn.prepareStatement(sql);
             psmt.setString(1,userName);
             psmt.setString(2,password);
@@ -36,6 +41,45 @@ public class AdminDaoImpl implements AdminDao{
             closeCon(conn,rs,psmt);
         }
 
+    }
+
+    @Override
+    public List<BookTransaction> purchasedItem(String userName) {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        List<BookTransaction> bookTransactions = new ArrayList<>();
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "select user.username, user.firstname, user.lastname,book.title,book.price,transaction.time\n" +
+                    "from user,book,transaction \n" +
+                    "where transaction.seller = (select seller from transaction where buyer=?)\n" +
+                    "and transaction.seller=user.username and transaction.book_id = book.book_id";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1,userName);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                User seller = new User();
+                seller.setUsername(rs.getString("user"));
+                seller.setFirstname(rs.getString("firstname"));
+                seller.setLastname(rs.getString("lastname"));
+                Book book = new Book();
+                book.setTitle(rs.getString("title"));
+                book.setPrice(Integer.parseInt(rs.getString("price")));
+                String time = rs.getString("time");
+                BookTransaction bookTransaction = new BookTransaction();
+                bookTransaction.setBook(book);
+                bookTransaction.setSeller(seller);
+                bookTransaction.setTime(time);
+                bookTransactions.add(bookTransaction);
+            }
+            return bookTransactions;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            closeCon(conn,rs,psmt);
+        }
     }
 
 
@@ -70,8 +114,4 @@ public class AdminDaoImpl implements AdminDao{
     }
 
 
-    public static void main(String [] args){
-        AdminDao dao = new AdminDaoImpl();
-        System.out.println(dao.adminLogin("xx","123"));
-    }
 }

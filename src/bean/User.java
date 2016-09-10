@@ -22,6 +22,15 @@ public class User implements Serializable{
 
     }
 
+    public User(String username, String firstname, String lastname, String email, String birthday, String address) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.birthday = birthday;
+        this.address = address;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -101,4 +110,20 @@ public class User implements Serializable{
     public void setProfileImg(byte[] profileImg) {
         this.profileImg = profileImg;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", ps='" + ps + '\'' +
+                ", identity=" + identity +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", address='" + address + '\'' +
+                ", creditcard='" + creditcard + '\'' +
+                '}';
+    }
+
 }
