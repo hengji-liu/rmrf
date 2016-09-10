@@ -20,6 +20,7 @@ CREATE TABLE `user`
   img BLOB
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 ALTER TABLE user AUTO_INCREMENT = 100;
+
 CREATE TABLE `user_login` /*for tracking user activity*/
 (
   userid INT(15) NOT NULL,
@@ -28,8 +29,6 @@ CREATE TABLE `user_login` /*for tracking user activity*/
   PRIMARY KEY (userid,time)
 
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-
 
 CREATE TABLE `user_login` /*for tracking user activity*/
 (
