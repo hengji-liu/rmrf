@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Admin Login</title>
 </head>
 <body>
 
-<form action="controler" method="post">
+<form action="Controler" method="post">
     <!-- row one -->
     <div class="form-group row">
         <input type="hidden" name="sevice_requestType" value="admin_login">
         <div class="col-xs-3">
             <label for="publications">Admin Name:</label> <input
                 type="text" class="form-control"
-                name="<%=Config.searc_type_pub_title%>" placeholder="Admin Name">
+                name="admin_name" placeholder="Admin Name">
         </div>
 
         <div class="col-xs-3">
             <label for="exampleInputName2">Password:</label> <input
-                type="text" name="<%=Config.searc_type_author%>"
+                type="text" name="password"
                 class="form-control" placeholder="password">
         </div>
 
