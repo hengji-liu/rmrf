@@ -19,7 +19,17 @@ mysql -u root -p
 Rest password:
 
 ```
-reset to 12345:
-SET PASSWORD = PASSWORD('12345');
+mysql> reset to 12345:
+mysql> SET PASSWORD = PASSWORD('12345');
 ```
+
+(5)
+show all databases /create/switch to/drop database:
+```
+mysql> show DATABASES;
+mysql> create DATABASE db_name;
+mysql> use db_name;
+mysql> drop DATABASE db_name;
+```
+
 
