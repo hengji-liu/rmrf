@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+</head>
+<body>
+
+<form action="controler" method="post">
+    <!-- row one -->
+    <div class="form-group row">
+        <input type="hidden" name="sevice_requestType" value="admin_login">
+        <div class="col-xs-3">
+            <label for="publications">Admin Name:</label> <input
+                type="text" class="form-control"
+                name="<%=Config.searc_type_pub_title%>" placeholder="Admin Name">
+        </div>
+
+        <div class="col-xs-3">
+            <label for="exampleInputName2">Password:</label> <input
+                type="text" name="<%=Config.searc_type_author%>"
+                class="form-control" placeholder="password">
+        </div>
+
+
+        <div class="col-xs-2">
+            <button type="submit" class="form-control btn">Search</button>
+        </div>
+
+
+    </div>
+
+</form>
+
+
+
+
+</body>
+</html>

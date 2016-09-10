@@ -2,14 +2,15 @@ DROP TABLE IF EXISTS `transaction`;
 DROP TABLE IF EXISTS `cart`;
 DROP TABLE IF EXISTS `log_cart`;
 DROP TABLE IF EXISTS `book`;
+DROP TABLE IF EXISTS `user_login`;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user`
 (
   id         INT(15) PRIMARY KEY AUTO_INCREMENT,
   username   VARCHAR(30) UNIQUE COMMENT 'username',
-  ps         VARCHAR(128) COMMENT 'password',
-  identity   INT(15) NOT NULL DEFAULT '1',
+  ps         VARCHAR(40) COMMENT 'password', /*use sha-1 encryption*/
+  identity   INT(15) NOT NULL DEFAULT '1', /*1: normal user, 2 admin*/
   firstname  VARCHAR(30),
   lastname   VARCHAR(30),
   email      VARCHAR(30) NOT NULL ,
@@ -18,8 +19,16 @@ CREATE TABLE `user`
   creditcard VARCHAR(30),
   img BLOB
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
 ALTER TABLE user AUTO_INCREMENT = 100;
+
+CREATE TABLE `user_login` /*for tracking user activity*/
+(
+  userid INT(15) NOT NULL,
+  FOREIGN KEY (userid) REFERENCES user (id) ON DELETE CASCADE,
+  time DATE NOT NULL,
+  PRIMARY KEY (userid,time)
+
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 
 CREATE TABLE `book`
@@ -44,13 +53,13 @@ CREATE TABLE `book`
 
 CREATE TABLE `transaction`
 (
-  transaction_id INT(15) PRIMARY KEY AUTO_INCREMENT,
   seller INT(15) COMMENT 'refer to user.usename',
   FOREIGN KEY (seller) REFERENCES user (id) ON DELETE CASCADE ,
   buyer INT(15) COMMENT 'refer to user.usename',
   FOREIGN KEY (buyer) REFERENCES user (id) ON DELETE CASCADE,
   book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
-  time DATETIME NOT NULL
+  time DATETIME NOT NULL,
+  PRIMARY KEY (seller,buyer,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -62,11 +71,11 @@ if it is purchase, just remove it and add into transaction of course.
 */
 CREATE TABLE `cart`
 (
-  cart_id INT(15) PRIMARY KEY AUTO_INCREMENT,
   user_id INT(15) COMMENT 'refer to user.usename',
   FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
   book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
-  time_addded DATETIME NOT NULL
+  time_addded DATETIME NOT NULL,
+  PRIMARY KEY (user_id,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -76,18 +85,22 @@ it should also be removed.
 */
 CREATE TABLE `log_cart`
 (
-  cart_id INT(15) PRIMARY KEY AUTO_INCREMENT,
-  user_id INT(15) COMMENT 'refer to user.usename',
+  user_id INT(15) NOT NULL COMMENT 'refer to user.usename',
   FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
-  book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
+  book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE RESTRICT,
   time_addded DATETIME NOT NULL,
-  time_removed DATETIME NOT NULL
+  time_removed DATETIME NOT NULL,
+  PRIMARY KEY (user_id,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-/*Example insert
-INSERT INTO `user` values (NULL,'li','12345','1','li','quan','liquan1992@outlook.com','1992-07-02',NULL,NULL,NULL);
-INSERT INTO `user` (username,email) VALUE ('linus','12345@gmail.com');
+
+
+/*
+INSERT INTO `user` (username,ps,email,identity) VALUE ('liquan','123','liquan1992@outlook.com','2');
+INSERT INTO `user` (username,ps,email,identity) VALUE ('luoliquan','456','louliquan@email.com','1');
+*/
+/*
 INSERT INTO `book` (seller,title,paused,price) VALUES('100','the jsp','0','122');
 INSERT INTO `book` (seller,title,paused,price) VALUES('100','the jsp 2','0','10');
 INSERT INTO `transaction`(seller,buyer,book_id,time) VALUE ('100','101','1','2016-9-9 21:46:00');
