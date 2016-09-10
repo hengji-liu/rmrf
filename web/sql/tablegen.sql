@@ -9,7 +9,7 @@ CREATE TABLE `user`
 (
   username   VARCHAR(30),
   ps         VARCHAR(40) COMMENT 'password', /*use sha-1 encryption*/
-  type_   INT(15) NOT NULL DEFAULT '1', /*1: normal user, 2 admin*/
+  type_   INT(15) NOT NULL DEFAULT '1', /*1: normal user, 2 admin, 4 banned*/
   firstname  VARCHAR(30),
   lastname   VARCHAR(30),
   email      VARCHAR(30) NOT NULL ,
@@ -87,7 +87,7 @@ CREATE TABLE `log_cart`
   username VARCHAR(30) NOT NULL COMMENT 'refer to user.usename',
   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
   book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE RESTRICT,
-  time_addded DATETIME NOT NULL,
+  time_added DATETIME NOT NULL,
   time_removed DATETIME NOT NULL,
   PRIMARY KEY (username,book_id)
 
@@ -120,3 +120,5 @@ INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','boo
 
 INSERT INTO `transaction` (seller, buyer, book_id, time) VALUE ('hengji','liquan','1','2016-9-10');
 
+INSERT INTO `log_cart` (username, book_id, time_added, time_removed)
+VALUE ('liquan','2','2016-9-9 23:25','2016-9-10 20:25');

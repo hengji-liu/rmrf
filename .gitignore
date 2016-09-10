@@ -98,3 +98,4 @@ derby.log
 ######################
 # Liberty tools
 ######################
+/src/daoImpl/DaoTest.java

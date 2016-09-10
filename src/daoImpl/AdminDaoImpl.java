@@ -2,6 +2,7 @@ package daoImpl;
 
 import bean.Book;
 import bean.BookTransaction;
+import bean.CartItem;
 import bean.User;
 import daoIterface.AdminDao;
 import util.DBHelper;
@@ -44,7 +45,7 @@ public class AdminDaoImpl implements AdminDao{
     }
 
     @Override
-    public List<BookTransaction> purchasedItem(String userName) {
+    public List<BookTransaction> purchasedItems(String userName) {
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
@@ -60,7 +61,6 @@ public class AdminDaoImpl implements AdminDao{
             rs = psmt.executeQuery();
             while (rs.next()) {
                 User seller = new User();
-                seller.setUsername(rs.getString("user"));
                 seller.setFirstname(rs.getString("firstname"));
                 seller.setLastname(rs.getString("lastname"));
                 Book book = new Book();
@@ -74,6 +74,41 @@ public class AdminDaoImpl implements AdminDao{
                 bookTransactions.add(bookTransaction);
             }
             return bookTransactions;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            closeCon(conn,rs,psmt);
+        }
+    }
+
+    @Override
+    public List<CartItem> getAddThenRemovedITems(String userName) {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        List<CartItem> cartItems = new ArrayList<>();
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "select book.title,book.book_id, log_cart.time_added, log_cart.time_removed \n" +
+                    "from book, log_cart where username =? \n" +
+                    "and book.book_id = log_cart.book_id";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1,userName);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                Book book = new Book();
+                book.setTitle(rs.getString("title"));
+                book.setBookID(rs.getString("book_id"));
+                String time_added = rs.getString("time_added");
+                String time_removed = rs.getString("time_removed");
+                CartItem cartItem = new CartItem();
+                cartItem.setBook(book);
+                cartItem.setAddedTime(time_added);
+                cartItem.setRemoveTime(time_removed);
+                cartItems.add(cartItem);
+            }
+            return cartItems;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

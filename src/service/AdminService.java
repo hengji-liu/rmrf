@@ -17,9 +17,4 @@ public class AdminService {
     }
 
 
-    public List<User> getAllUser(){
-
-        return null;
-    }
-
 }

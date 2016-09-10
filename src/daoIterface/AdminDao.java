@@ -2,6 +2,7 @@ package daoIterface;
 
 import bean.Book;
 import bean.BookTransaction;
+import bean.CartItem;
 import bean.User;
 import util.EncryptionUtil;
 
@@ -19,8 +20,9 @@ public interface AdminDao {
      * @param userName
      * @return a List<Book> object, if size is 0, no purchase
      */
-    public List<BookTransaction> purchasedItem(String userName);
+    public List<BookTransaction> purchasedItems(String userName);
 
+    public List<CartItem> getAddThenRemovedITems(String userName);
 
 
 }
