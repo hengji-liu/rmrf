@@ -1,6 +1,6 @@
 package servlet;
 
-import service.AdminManager;
+import service.AdminService;
 import util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -37,8 +37,8 @@ public class Controler extends HttpServlet {
         String password = request.getParameter("password");
         if(StringUtil.isArgumentsContainNull(userName,password)) return;
 
-        AdminManager adminManager = new AdminManager();
-        if (adminManager.adminLogin(userName,password)){
+        AdminService adminService = new AdminService();
+        if (adminService.adminLogin(userName,password)){
             request.getRequestDispatcher("admin.jsp").forward(request,response);
         }else{
             request.getRequestDispatcher("adminLogin.jsp").forward(request,response);
