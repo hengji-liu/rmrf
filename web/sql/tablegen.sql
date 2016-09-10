@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS `transaction`;
 DROP TABLE IF EXISTS `cart`;
 DROP TABLE IF EXISTS `log_cart`;
 DROP TABLE IF EXISTS `book`;
+DROP TABLE IF EXISTS `user_login`;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user`
@@ -18,6 +19,16 @@ CREATE TABLE `user`
   creditcard VARCHAR(30),
   img BLOB
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE `user_login` /*for tracking user activity*/
+(
+  userid INT(15) NOT NULL,
+  FOREIGN KEY (userid) REFERENCES user (id) ON DELETE CASCADE,
+  time DATE NOT NULL,
+  PRIMARY KEY (userid,time)
+
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 
 ALTER TABLE user AUTO_INCREMENT = 100;
 
@@ -44,13 +55,13 @@ CREATE TABLE `book`
 
 CREATE TABLE `transaction`
 (
-  transaction_id INT(15) PRIMARY KEY AUTO_INCREMENT,
   seller INT(15) COMMENT 'refer to user.usename',
   FOREIGN KEY (seller) REFERENCES user (id) ON DELETE CASCADE ,
   buyer INT(15) COMMENT 'refer to user.usename',
   FOREIGN KEY (buyer) REFERENCES user (id) ON DELETE CASCADE,
   book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
-  time DATETIME NOT NULL
+  time DATETIME NOT NULL,
+  PRIMARY KEY (seller,buyer,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -62,11 +73,11 @@ if it is purchase, just remove it and add into transaction of course.
 */
 CREATE TABLE `cart`
 (
-  cart_id INT(15) PRIMARY KEY AUTO_INCREMENT,
   user_id INT(15) COMMENT 'refer to user.usename',
   FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
   book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
-  time_addded DATETIME NOT NULL
+  time_addded DATETIME NOT NULL,
+  PRIMARY KEY (user_id,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -76,12 +87,12 @@ it should also be removed.
 */
 CREATE TABLE `log_cart`
 (
-  cart_id INT(15) PRIMARY KEY AUTO_INCREMENT,
-  user_id INT(15) COMMENT 'refer to user.usename',
+  user_id INT(15) NOT NULL COMMENT 'refer to user.usename',
   FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
-  book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
+  book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE RESTRICT,
   time_addded DATETIME NOT NULL,
-  time_removed DATETIME NOT NULL
+  time_removed DATETIME NOT NULL,
+  PRIMARY KEY (user_id,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
