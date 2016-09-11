@@ -40,7 +40,7 @@ public class CartDaoImpl implements CartDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
 
     }

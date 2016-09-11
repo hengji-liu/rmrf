@@ -6,10 +6,10 @@
 </head>
 <body>
 
-<form action="Controler" method="post">
+<form action="BookTrade" method="post">
     <!-- row one -->
     <div class="form-group row">
-        <input type="hidden" name="sevice_requestType" value="admin_login">
+        <input type="hidden" name="reqtype" value="ADMIN_LOGIN">
         <div class="col-xs-3">
             <label for="publications">Admin Name:</label> <input
                 type="text" class="form-control"

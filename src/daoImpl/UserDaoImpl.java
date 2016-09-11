@@ -3,6 +3,8 @@ package daoImpl;
 import bean.User;
 import daoIterface.UserDao;
 import util.DBHelper;
+import util.DateUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +29,8 @@ public class UserDaoImpl implements UserDao{
             rs = psmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString("username"),rs.getString("firstname"),
-                        rs.getString("lastname"),rs.getString("email"),rs.getString("birthday"),rs.getString("address"));
+                        rs.getString("lastname"),rs.getString("email"),rs.getString("address"));
+                user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
                 users.add(user);
             }
             return users;
@@ -35,7 +38,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
     }
 
@@ -56,7 +59,8 @@ public class UserDaoImpl implements UserDao{
             rs = psmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString("username"),rs.getString("firstname"),
-                        rs.getString("lastname"),rs.getString("email"),rs.getString("birthday"),rs.getString("address"));
+                        rs.getString("lastname"),rs.getString("email"),rs.getString("address"));
+                user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
                 users.add(user);
             }
             return users;
@@ -64,7 +68,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
 
     }
@@ -82,7 +86,8 @@ public class UserDaoImpl implements UserDao{
             psmt.setString(1,userName);
             if (rs.next()) {
                 User user = new User(rs.getString("username"),rs.getString("firstname"),
-                        rs.getString("lastname"),rs.getString("email"),rs.getString("birthday"),rs.getString("address"));
+                        rs.getString("lastname"),rs.getString("email"),rs.getString("address"));
+                user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
                 return user;
             }
             return null;
@@ -90,7 +95,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
     }
 

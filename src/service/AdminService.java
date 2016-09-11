@@ -21,10 +21,15 @@ public class AdminService {
     public List<User> getAllUser(){
         UserDao userDao = new UserDaoImpl();
         List<User> userList = userDao.getAllUser();
+        if (userList.size() == 0) return null;
         return userList;
     }
 
-
-
+    public List<User> searchUser(String keyWord){
+        UserDao userDao = new UserDaoImpl();
+        List<User> userList = userDao.searchUserByName(keyWord);
+        if (userList.size() == 0) return null;
+        return userList;
+    }
 
 }

@@ -39,15 +39,15 @@ public class DBHelper {
     }
 
 
-    public static void closeConn(Connection con, ResultSet rs, PreparedStatement stmt){
-        if(con != null){
-            try {
-                con.close();
-                con = null;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
+    public static void realease(ResultSet rs, PreparedStatement stmt){
+//        if(con != null){
+//            try {
+//                con.close();
+//                con = null;
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
 
         if (rs != null) {
             try {

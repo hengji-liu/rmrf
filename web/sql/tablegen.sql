@@ -109,10 +109,16 @@ INSERT INTO `transaction`(seller,buyer,book_id,time) VALUE ('100','101','1','201
 INSERT INTO `user` (username,ps,email,type_) VALUE ('li','456','liquan1992@email.com','2');
 
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
-  VALUE ('hengji','hengji','liu','1234','liuhengji@outlook.com','1','sydney','1992-1-1');
+  VALUE ('hengji','Hengji','Liu','1234','liuhengji@outlook.com','1','Aydney','1992-1-1');
 
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
-  VALUE ('liquan','liquan','luo','2345','luoliquan@outlook.com','1','sydney','1992-1-2');
+  VALUE ('liquan','Liquan','Luo','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
+
+INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
+  VALUE ('ming','MingXuan','Hu','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
+
+INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
+  VALUE ('linus','Li','Quan','1234','liquan1992@outlook.com','1','Sydney','1992-1-2');
 
 INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','9321 full mark','100','0');
 INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','9321 full mark II','110','0');

@@ -25,7 +25,7 @@ public class AdminDaoImpl implements AdminDao{
         ResultSet rs = null;
         try {
             conn = DBHelper.getConnection();
-            String sql = "select id from user where username=? and ps=? and type_='2';";
+            String sql = "select * from user where username=? and ps=? and type_='2';";
             psmt = conn.prepareStatement(sql);
             psmt.setString(1,userName);
             psmt.setString(2,password);
@@ -38,7 +38,7 @@ public class AdminDaoImpl implements AdminDao{
             e.printStackTrace();
             return false;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
 
     }
@@ -77,7 +77,7 @@ public class AdminDaoImpl implements AdminDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
     }
 
@@ -112,7 +112,7 @@ public class AdminDaoImpl implements AdminDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
     }
 
@@ -138,7 +138,7 @@ public class AdminDaoImpl implements AdminDao{
             e.printStackTrace();
             return false;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
 
     }

@@ -14,7 +14,7 @@ public interface UserDao {
      */
     public List<User> getAllUser();
     /**
-     * search a certain user by name(Including username, firstname, lastname)
+     * search a certain user by keyword(Including username, firstname, lastname)
      * @param keyWord
      * @return
      */
