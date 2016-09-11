@@ -1,5 +1,6 @@
 package servlet;
 
+import bean.User;
 import service.AdminService;
 import util.StringUtil;
 
@@ -9,41 +10,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Linus on 10/09/2016.
  */
-@WebServlet("/Controler")
+@WebServlet("/BookTrade")
 public class Controler extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestType = request.getParameter("sevice_requestType");
-
+        String requestType = request.getParameter("reqtype");
+        AdminDispatcher adminDispatcher = null;
         switch (requestType) {
-            case "admin_login":
-                doAdminLogin(request,response);
+            case "ADMIN_LOGIN":
+                adminDispatcher = new AdminDispatcher();
+                adminDispatcher.doAdminLogin(request,response);
                 break;
+            case "USER_SEARCH":
+                adminDispatcher = new AdminDispatcher();
+                adminDispatcher.searchUsers(request,response);
+                break;
+            case "USER_MANAGE":
+                adminDispatcher = new AdminDispatcher();
+                break;
+
         }
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String requestType = request.getParameter("reqtype");
+        AdminDispatcher adminDispatcher = null;
+        switch (requestType) {
+            case "USER_LOG":
+                adminDispatcher = new AdminDispatcher();
+                adminDispatcher.prepareUserActivity(request,response);
+                break;
 
-    }
-
-
-    public void doAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
-        String userName = request.getParameter("admin_name");
-        String password = request.getParameter("password");
-        if(StringUtil.isArgumentsContainNull(userName,password)) return;
-
-        AdminService adminService = new AdminService();
-        if (adminService.adminLogin(userName,password)){
-            request.getRequestDispatcher("admin.jsp").forward(request,response);
-        }else{
-            request.getRequestDispatcher("adminLogin.jsp").forward(request,response);
         }
+
     }
+
+    //Admin Service starts...
+
+
+    //public void doAdmin
+
+    //Admin Service ends...
 
 
 }

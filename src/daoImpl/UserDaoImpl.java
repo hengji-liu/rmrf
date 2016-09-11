@@ -1,8 +1,12 @@
 package daoImpl;
 
+import bean.LoginLog;
 import bean.User;
 import daoIterface.UserDao;
+import sun.rmi.runtime.Log;
 import util.DBHelper;
+import util.DateUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +31,8 @@ public class UserDaoImpl implements UserDao{
             rs = psmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString("username"),rs.getString("firstname"),
-                        rs.getString("lastname"),rs.getString("email"),rs.getString("birthday"),rs.getString("address"));
+                        rs.getString("lastname"),rs.getString("email"),rs.getString("address"));
+                user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
                 users.add(user);
             }
             return users;
@@ -35,7 +40,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
     }
 
@@ -56,7 +61,8 @@ public class UserDaoImpl implements UserDao{
             rs = psmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString("username"),rs.getString("firstname"),
-                        rs.getString("lastname"),rs.getString("email"),rs.getString("birthday"),rs.getString("address"));
+                        rs.getString("lastname"),rs.getString("email"),rs.getString("address"));
+                user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
                 users.add(user);
             }
             return users;
@@ -64,7 +70,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
 
     }
@@ -78,11 +84,12 @@ public class UserDaoImpl implements UserDao{
             conn = DBHelper.getConnection();
             String sql = "select username,firstname,lastname,email,birthday,address from user where username=? and type_='1';";
             psmt = conn.prepareStatement(sql);
-            rs = psmt.executeQuery();
             psmt.setString(1,userName);
+            rs = psmt.executeQuery();
             if (rs.next()) {
                 User user = new User(rs.getString("username"),rs.getString("firstname"),
-                        rs.getString("lastname"),rs.getString("email"),rs.getString("birthday"),rs.getString("address"));
+                        rs.getString("lastname"),rs.getString("email"),rs.getString("address"));
+                user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
                 return user;
             }
             return null;
@@ -90,8 +97,51 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            DBHelper.closeConn(conn,rs,psmt);
+            DBHelper.realease(rs,psmt);
         }
+    }
+
+    @Override
+    public List<LoginLog> getLoginLog(String userName) {
+        List<LoginLog> loginLogList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "select * from `user_login` where username=? order by time desc";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1,userName);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                LoginLog loginLog = new LoginLog();
+                loginLog.setUserByName(userName);
+                loginLog.setTime(rs.getString("time"));
+                if (rs.getString("granted").equals("0")){
+                    loginLog.setGranted(false);
+                }else{
+                    loginLog.setGranted(true);
+                }
+                loginLogList.add(loginLog);
+            }
+            return loginLogList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            DBHelper.realease(rs,psmt);
+        }
+
+    }
+
+    /**
+     * Img is a bit large, get Image in Separate function
+     * @param userName
+     * @return
+     */
+    @Override
+    public byte[] getUserImg(String userName) {
+        return new byte[0];
     }
 
 

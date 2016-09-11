@@ -22,8 +22,6 @@ public interface AdminDao {
      */
     public List<BookTransaction> purchasedItems(String userName);
 
-    public List<CartItem> getAddedThenRemovedItemsInCart(String userName);
-
     /**
      * Ban or unban a user from system
      * @param userName

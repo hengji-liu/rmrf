@@ -16,6 +16,8 @@ public interface CartDao {
      */
     public List<CartItem> getUserCartItems(String userName);
 
+    public List<CartItem> getAddedThenRemovedItemsInCart(String userName);
+
     public boolean addCartItem(CartItem cartItem);
 
     public boolean remove(CartItem cartItem);

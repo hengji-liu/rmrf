@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h1>Digital Bibliographic Library.</h1>
+                <h1>Supper Book Trader</h1>
             </div>
 
             <div class="col-md-9">

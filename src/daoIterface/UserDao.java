@@ -1,5 +1,6 @@
 package daoIterface;
 
+import bean.LoginLog;
 import bean.User;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface UserDao {
      */
     public List<User> getAllUser();
     /**
-     * search a certain user by name(Including username, firstname, lastname)
+     * search a certain user by keyword(Including username, firstname, lastname)
      * @param keyWord
      * @return
      */
@@ -26,4 +27,20 @@ public interface UserDao {
      * @return User object or null if userName does not match any user;
      */
     public User getUserByUserName(String userName);
+
+    /**
+     * Get users login history
+     * @param userName
+     * @return
+     */
+    public List<LoginLog> getLoginLog(String userName);
+
+    /**
+     * Img is a bit large, get Image in Separate function
+     * @param userName
+     * @return
+     */
+    public byte[] getUserImg(String userName);
+
+
 }
