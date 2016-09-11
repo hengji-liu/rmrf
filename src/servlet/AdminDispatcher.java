@@ -1,5 +1,7 @@
 package servlet;
 
+import bean.CartItem;
+import bean.LoginLog;
 import bean.User;
 import service.AdminService;
 import util.StringUtil;
@@ -38,6 +40,19 @@ public class AdminDispatcher {
         List<User> userList = adminService.searchUser(keyWord);
         request.setAttribute("USER_SEARCH_RESULT",userList);
         request.getRequestDispatcher("admin.jsp").forward(request,response);
+    }
+
+    public void prepareUserActivity(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+        String userName = request.getParameter("username");
+        if(StringUtil.isArgumentsContainNull(userName)) return;
+        AdminService adminService = new AdminService();
+        List<LoginLog> loginLogList = adminService.getLoginLog(userName);
+        List<CartItem> cartRemovedList = adminService.getAddedButRemovedItems(userName);
+        List<CartItem> cartItems = adminService.getCartItems(userName);
+        request.getSession().setAttribute("LOGIN_LOG",loginLogList);
+        request.getSession().setAttribute("CART_REMOVED",cartRemovedList);
+        request.getSession().setAttribute("CART_ITEMS",cartItems);
+        response.sendRedirect("user_manage.jsp");
     }
 
 }

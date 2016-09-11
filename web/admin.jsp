@@ -13,22 +13,14 @@
 <table>
     <c:forEach items="${sessionScope.UERLIST}" var="user" varStatus="loop">
         <tr>
-<<<<<<< HEAD
             <td>
                 <a href="BookTrade?reqtype=USER_LOG&username=<c:out value="${user.username}"/>">
-                <c:out value="${user.username}"/></a>
+                    <c:out value="${user.username}"/></a>
             <td>
             <td><c:out value="${user.firstname}"/></td>
             <td><c:out value="${user.lastname}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.birthday}"/></td>
-=======
-            <td><c:out value="${user.username}" /></td>
-            <td><c:out value="${user.firstname}" /></td>
-            <td><c:out value="${user.lastname}" /></td>
-            <td><c:out value="${user.email}" /></td>
-            <td><c:out value="${user.birthday}" /></td>
->>>>>>> f87b7da330dabb9a48932fda229d00643de5d6e4
         </tr>
     </c:forEach>
 </table>
@@ -55,19 +47,12 @@
 <table>
     <c:forEach items="${USER_SEARCH_RESULT}" var="user" varStatus="loop">
         <tr>
-<<<<<<< HEAD
             <td><c:out value="${user.username}"/></td>
             <td><c:out value="${user.firstname}"/></td>
             <td><c:out value="${user.lastname}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.birthday}"/></td>
-=======
-            <td><c:out value="${user.username}" /></td>
-            <td><c:out value="${user.firstname}" /></td>
-            <td><c:out value="${user.lastname}" /></td>
-            <td><c:out value="${user.email}" /></td>
-            <td><c:out value="${user.birthday}" /></td>
->>>>>>> f87b7da330dabb9a48932fda229d00643de5d6e4
+
         </tr>
     </c:forEach>
 </table>

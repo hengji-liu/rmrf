@@ -25,7 +25,6 @@ public class Controler extends HttpServlet {
             case "ADMIN_LOGIN":
                 adminDispatcher = new AdminDispatcher();
                 adminDispatcher.doAdminLogin(request,response);
-<<<<<<< HEAD
                 break;
             case "USER_SEARCH":
                 adminDispatcher = new AdminDispatcher();
@@ -34,12 +33,6 @@ public class Controler extends HttpServlet {
             case "USER_MANAGE":
                 adminDispatcher = new AdminDispatcher();
                 break;
-=======
-                break;
-            case "USER_SEARCH":
-                adminDispatcher = new AdminDispatcher();
-                adminDispatcher.searchUsers(request,response);
->>>>>>> f87b7da330dabb9a48932fda229d00643de5d6e4
 
         }
 
