@@ -122,3 +122,9 @@ INSERT INTO `transaction` (seller, buyer, book_id, time) VALUE ('hengji','liquan
 
 INSERT INTO `log_cart` (username, book_id, time_added, time_removed)
 VALUE ('liquan','2','2016-9-9 23:25','2016-9-10 20:25');
+
+INSERT into `cart` (username, book_id, time_addded)
+VALUE ('liquan','1','2016-9-11 10:00');
+
+INSERT into `cart` (username, book_id, time_addded)
+  VALUE ('liquan','2','2016-9-11 11:00')

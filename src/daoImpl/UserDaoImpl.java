@@ -3,11 +3,9 @@ package daoImpl;
 import bean.User;
 import daoIterface.UserDao;
 import util.DBHelper;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,6 @@ import java.util.List;
  * Created by Linus on 10/09/2016.
  */
 public class UserDaoImpl implements UserDao{
-
 
     @Override
     public List<User> getAllUser() {
@@ -38,7 +35,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            closeCon(conn,rs,psmt);
+            DBHelper.closeConn(conn,rs,psmt);
         }
     }
 
@@ -67,7 +64,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            closeCon(conn,rs,psmt);
+            DBHelper.closeConn(conn,rs,psmt);
         }
 
     }
@@ -93,39 +90,8 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
             return null;
         } finally {
-            closeCon(conn,rs,psmt);
+            DBHelper.closeConn(conn,rs,psmt);
         }
-    }
-
-
-    public void closeCon(Connection con, ResultSet rs, PreparedStatement stmt){
-        if(con != null){
-            try {
-                con.close();
-                con = null;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        if (rs != null) {
-            try {
-                rs.close();
-                rs = null;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        if (stmt != null) {
-            try {
-                stmt.close();
-                stmt = null;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
     }
 
 

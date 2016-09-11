@@ -22,7 +22,16 @@ public interface AdminDao {
      */
     public List<BookTransaction> purchasedItems(String userName);
 
-    public List<CartItem> getAddThenRemovedITems(String userName);
+    public List<CartItem> getAddedThenRemovedItemsInCart(String userName);
+
+    /**
+     * Ban or unban a user from system
+     * @param userName
+     * @param ban true if it is a ban, false if it is a release from ban
+     * @return
+     */
+    public boolean banOrReleaseUser(String userName, boolean ban);
+
 
 
 }

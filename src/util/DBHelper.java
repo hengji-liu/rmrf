@@ -1,7 +1,6 @@
 package util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 /**
  * Created by Linus on 10/09/2016.
@@ -37,6 +36,37 @@ public class DBHelper {
             return conn;
         }
         return conn;
+    }
+
+
+    public static void closeConn(Connection con, ResultSet rs, PreparedStatement stmt){
+        if(con != null){
+            try {
+                con.close();
+                con = null;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (rs != null) {
+            try {
+                rs.close();
+                rs = null;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (stmt != null) {
+            try {
+                stmt.close();
+                stmt = null;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
 
     public static void main(String[] args) {

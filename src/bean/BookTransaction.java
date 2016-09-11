@@ -1,9 +1,11 @@
 package bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Linus on 10/09/2016.
  */
-public class BookTransaction {
+public class BookTransaction implements Serializable{
 
     private User seller;
     private User buyer;

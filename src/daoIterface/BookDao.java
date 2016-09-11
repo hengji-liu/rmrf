@@ -13,6 +13,13 @@ public interface BookDao {
 
     public Book getBookById(String bookID);
 
+    /**
+     * When provided a bookID, work out some related items
+     * @param bookID
+     * @return
+     */
+    public List<Book> getRelatedBooks(String bookID);
+
     /*TODO: Please define and implement more advanced book search!*/
 
 }

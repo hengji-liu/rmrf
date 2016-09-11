@@ -1,9 +1,11 @@
 package bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Linus on 10/09/2016.
  */
-public class CartItem {
+public class CartItem implements Serializable{
     private User intentional_buyer;
     private Book book;
     private String addedTime;

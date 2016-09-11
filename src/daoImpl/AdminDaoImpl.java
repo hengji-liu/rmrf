@@ -10,7 +10,6 @@ import util.DBHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class AdminDaoImpl implements AdminDao{
             e.printStackTrace();
             return false;
         } finally {
-            closeCon(conn,rs,psmt);
+            DBHelper.closeConn(conn,rs,psmt);
         }
 
     }
@@ -78,12 +77,12 @@ public class AdminDaoImpl implements AdminDao{
             e.printStackTrace();
             return null;
         } finally {
-            closeCon(conn,rs,psmt);
+            DBHelper.closeConn(conn,rs,psmt);
         }
     }
 
     @Override
-    public List<CartItem> getAddThenRemovedITems(String userName) {
+    public List<CartItem> getAddedThenRemovedItemsInCart(String userName) {
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
@@ -113,40 +112,39 @@ public class AdminDaoImpl implements AdminDao{
             e.printStackTrace();
             return null;
         } finally {
-            closeCon(conn,rs,psmt);
+            DBHelper.closeConn(conn,rs,psmt);
         }
     }
 
+    @Override
+    public boolean banOrReleaseUser(String userName, boolean ban) {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
 
-    public void closeCon(Connection con,ResultSet rs, PreparedStatement stmt){
-        if(con != null){
-            try {
-                con.close();
-                con = null;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "UPDATE `user` SET `user`.type_=? where username=?";
+            psmt = conn.prepareStatement(sql);
+            if(ban){
+                psmt.setString(1,"4");
+            }else {
+                psmt.setString(1,"1");
             }
-        }
-
-        if (rs != null) {
-            try {
-                rs.close();
-                rs = null;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        if (stmt != null) {
-            try {
-                stmt.close();
-                stmt = null;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            psmt.setString(2,userName);
+            psmt.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBHelper.closeConn(conn,rs,psmt);
         }
 
     }
+
+
+
 
 
 }

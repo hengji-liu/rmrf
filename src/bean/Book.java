@@ -1,9 +1,11 @@
 package bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Linus on 10/09/2016.
  */
-public class Book {
+public class Book implements Serializable{
 
     private String bookID;
     private String sellerID;

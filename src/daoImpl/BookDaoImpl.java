@@ -19,4 +19,9 @@ public class BookDaoImpl implements BookDao{
     public Book getBookById(String bookID) {
         return null;
     }
+
+    @Override
+    public List<Book> getRelatedBooks(String bookID) {
+        return null;
+    }
 }

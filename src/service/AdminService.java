@@ -2,7 +2,9 @@ package service;
 
 import bean.User;
 import daoImpl.AdminDaoImpl;
+import daoImpl.UserDaoImpl;
 import daoIterface.AdminDao;
+import daoIterface.UserDao;
 
 import java.util.List;
 
@@ -15,6 +17,14 @@ public class AdminService {
         AdminDao adminDao = new AdminDaoImpl();
         return adminDao.adminLogin(userName,password);
     }
+
+    public List<User> getAllUser(){
+        UserDao userDao = new UserDaoImpl();
+        List<User> userList = userDao.getAllUser();
+        return userList;
+    }
+
+
 
 
 }
