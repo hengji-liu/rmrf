@@ -81,6 +81,40 @@ public class AdminDaoImpl implements AdminDao{
         }
     }
 
+    @Override
+    public List<CartItem> getAddedThenRemovedItemsInCart(String userName) {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        List<CartItem> cartItems = new ArrayList<>();
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "select book.title,book.book_id, log_cart.time_added, log_cart.time_removed \n" +
+                    "from book, log_cart where username =? \n" +
+                    "and book.book_id = log_cart.book_id";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1,userName);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                Book book = new Book();
+                book.setTitle(rs.getString("title"));
+                book.setBookID(rs.getString("book_id"));
+                String time_added = rs.getString("time_added");
+                String time_removed = rs.getString("time_removed");
+                CartItem cartItem = new CartItem();
+                cartItem.setBook(book);
+                cartItem.setAddedTime(time_added);
+                cartItem.setRemoveTime(time_removed);
+                cartItems.add(cartItem);
+            }
+            return cartItems;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            DBHelper.realease(rs,psmt);
+        }
+    }
 
     @Override
     public boolean banOrReleaseUser(String userName, boolean ban) {
