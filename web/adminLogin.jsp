@@ -22,18 +22,13 @@
                 class="form-control" placeholder="password">
         </div>
 
-
         <div class="col-xs-2">
             <button type="submit" class="form-control btn">Search</button>
         </div>
 
-
     </div>
 
 </form>
-
-
-
 
 </body>
 </html>
