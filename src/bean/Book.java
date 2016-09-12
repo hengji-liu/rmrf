@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Linus on 10/09/2016.
  */
 public class Book implements Serializable{
-
+	//test book 
     private String bookID;
     private String sellerID;
     private String type;
