@@ -20,31 +20,32 @@ public class Controler extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestType = request.getParameter("reqtype");
-        AdminDispatcher adminDispatcher = null;
+
+        AdminService adminService = null;
         switch (requestType) {
             case "ADMIN_LOGIN":
-                adminDispatcher = new AdminDispatcher();
-                adminDispatcher.doAdminLogin(request,response);
+                adminService = new AdminService();
+                adminService.adminLogin(request,response);
                 break;
             case "USER_SEARCH":
-                adminDispatcher = new AdminDispatcher();
-                adminDispatcher.searchUsers(request,response);
+                adminService = new AdminService();
+                adminService.searchUsers(request,response);
                 break;
-            case "USER_MANAGE":
-                adminDispatcher = new AdminDispatcher();
+            case "BAN_USER":
+                adminService = new AdminService();
+                adminService.banAUser(request,response);
                 break;
-
         }
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestType = request.getParameter("reqtype");
-        AdminDispatcher adminDispatcher = null;
+        AdminService service = null;
         switch (requestType) {
             case "USER_LOG":
-                adminDispatcher = new AdminDispatcher();
-                adminDispatcher.prepareUserActivity(request,response);
+                service = new AdminService();
+                service.prepareUserActivity(request,response);
                 break;
 
         }

@@ -5,7 +5,7 @@
     <title>Managing BBLIB</title>
 </head>
 <body>
-<h1> Hello Admin</h1>
+<h1>Hello Admin</h1>
 
 <p>List of all users(with page split!)</p>
 <c:out value="${'hello'}"/>
@@ -52,7 +52,6 @@
             <td><c:out value="${user.lastname}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.birthday}"/></td>
-
         </tr>
     </c:forEach>
 </table>

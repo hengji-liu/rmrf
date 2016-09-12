@@ -17,6 +17,15 @@ public class User implements Serializable{
     private String address;
     private String creditcard;
     private byte[] profileImg;
+    private boolean banned;
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
 
     public User(){
 

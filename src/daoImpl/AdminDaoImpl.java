@@ -62,14 +62,17 @@ public class AdminDaoImpl implements AdminDao{
                 User seller = new User();
                 seller.setFirstname(rs.getString("firstname"));
                 seller.setLastname(rs.getString("lastname"));
+                seller.setUsername(rs.getString("username"));
                 Book book = new Book();
                 book.setTitle(rs.getString("title"));
                 book.setPrice(Integer.parseInt(rs.getString("price")));
                 String time = rs.getString("time");
                 BookTransaction bookTransaction = new BookTransaction();
+
                 bookTransaction.setBook(book);
                 bookTransaction.setSeller(seller);
                 bookTransaction.setTime(time);
+
                 bookTransactions.add(bookTransaction);
             }
             return bookTransactions;
@@ -98,7 +101,7 @@ public class AdminDaoImpl implements AdminDao{
                 psmt.setString(1,"1");
             }
             psmt.setString(2,userName);
-            psmt.execute();
+            psmt.executeUpdate();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
