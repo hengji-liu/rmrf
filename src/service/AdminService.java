@@ -110,7 +110,7 @@ public class AdminService {
 
     private List<User> getAllUser() {
         UserDao userDao = new UserDaoImpl();
-        List<User> userList = userDao.getAllUser();
+        List<User> userList = userDao.getAllUsers();
         if (userList == null || userList.size() == 0) return null;
         return userList;
     }

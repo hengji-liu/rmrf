@@ -19,7 +19,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
 
     @Override
-    public List<User> getAllUser() {
+    public List<User> getAllUsers() {
         List<User> users=new ArrayList<>();
         Connection conn = null;
         PreparedStatement psmt = null;

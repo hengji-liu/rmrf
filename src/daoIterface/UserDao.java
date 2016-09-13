@@ -13,7 +13,7 @@ public interface UserDao {
      * find All user currently using the system (Admin not included)
      * @return
      */
-    public List<User> getAllUser();
+    public List<User> getAllUsers();
     /**
      * search a certain user by keyword(Including username, firstname, lastname)
      * @param keyWord
