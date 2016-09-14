@@ -26,7 +26,8 @@ public class UserDaoImpl implements UserDao{
         ResultSet rs = null;
         try {
             conn = DBHelper.getConnection();
-            String sql = "select username,firstname,lastname,email,birthday,address from user where type_='1';";
+            String sql = "select username,firstname,lastname,email,birthday,address " +
+                    "from user where type_='1' or type_='4';";
             psmt = conn.prepareStatement(sql);
             rs = psmt.executeQuery();
             while (rs.next()) {

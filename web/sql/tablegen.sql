@@ -27,6 +27,7 @@ CREATE TABLE `user_login` /*for tracking user activity*/
   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
   time DATETIME NOT NULL,
   granted BOOL,
+  ip VARCHAR(30),
   PRIMARY KEY (username,time)
 
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -47,7 +48,8 @@ CREATE TABLE `book`
   tag VARCHAR(30),/* tag for related item search*/
   paused BOOL NOT NULL ,/* 0 is false 1 is true*/
   img LONGBLOB,
-  price INT(5)
+  price INT(5),
+  visited INT(5) /*if a book is visited by user, the count should be increased*/
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 

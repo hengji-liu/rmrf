@@ -31,6 +31,8 @@ public class AdminService {
         AdminDao adminDao = new AdminDaoImpl();
         if (adminDao.adminLogin(userName, password)) {
             List<User> userList = getAllUser(); //prepare user list
+            request.getSession().setAttribute("admin_name",userName);
+            request.getSession().setAttribute("password",password);
             request.getSession().setAttribute("UERLIST", userList);
             response.sendRedirect("admin.jsp");
         } else {
@@ -70,10 +72,21 @@ public class AdminService {
         if(StringUtil.isArgumentsContainNull(userName)) return;
         AdminDao adminDao = new AdminDaoImpl();
         if(!adminDao.banOrReleaseUser(userName, true)){
-            //TODO: Add error
+            //TODO: Add err
         }
 
     }
+
+    public void releaseUser(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+        String userName = request.getParameter("username");
+        if(StringUtil.isArgumentsContainNull(userName)) return;
+        AdminDao adminDao = new AdminDaoImpl();
+        if(!adminDao.banOrReleaseUser(userName, false)){
+            //TODO: Add err
+        }
+
+    }
+
 
     private List<BookTransaction> getBookTransactions(String userName){
         AdminDao adminDao = new AdminDaoImpl();
@@ -122,5 +135,9 @@ public class AdminService {
         return userList;
     }
 
+    public boolean adminVerification(String userName,String password){
+        AdminDao adminDao = new AdminDaoImpl();
+        return adminDao.adminLogin(userName, password);
+    }
 }
 

@@ -4,6 +4,7 @@ import bean.User;
 import service.AdminService;
 import util.StringUtil;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,16 @@ import java.util.List;
 public class Controler extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestType = request.getParameter("reqtype");
+        resolvedCommand(request,response);
 
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        resolvedCommand(request,response);
+    }
+
+    private void resolvedCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String requestType = request.getParameter("reqtype");
         AdminService adminService = null;
         switch (requestType) {
             case "ADMIN_LOGIN":
@@ -35,29 +44,11 @@ public class Controler extends HttpServlet {
                 adminService = new AdminService();
                 adminService.banAUser(request,response);
                 break;
-        }
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestType = request.getParameter("reqtype");
-        AdminService service = null;
-        switch (requestType) {
             case "USER_LOG":
-                service = new AdminService();
-                service.prepareUserActivity(request,response);
+                adminService = new AdminService();
+                adminService.prepareUserActivity(request,response);
                 break;
-
         }
-
     }
-
-    //Admin Service starts...
-
-
-    //public void doAdmin
-
-    //Admin Service ends...
-
 
 }
