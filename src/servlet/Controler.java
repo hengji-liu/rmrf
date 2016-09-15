@@ -30,6 +30,7 @@ public class Controler extends HttpServlet {
 
     private void resolvedCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String requestType = request.getParameter("reqtype");
+
         AdminService adminService = null;
         switch (requestType) {
             case "ADMIN_LOGIN":
@@ -42,11 +43,15 @@ public class Controler extends HttpServlet {
                 break;
             case "BAN_USER":
                 adminService = new AdminService();
-                adminService.banAUser(request,response);
+                adminService.banAUser(request,response,true);
                 break;
             case "USER_LOG":
                 adminService = new AdminService();
                 adminService.prepareUserActivity(request,response);
+                break;
+            case "UNBAN_USER":
+                adminService = new AdminService();
+                adminService.banAUser(request,response,false);
                 break;
         }
     }

@@ -36,7 +36,8 @@ public class AdminService {
             request.getSession().setAttribute("UERLIST", userList);
             response.sendRedirect("admin.jsp");
         } else {
-            request.getRequestDispatcher("adminLogin.jsp").forward(request, response);
+            request.setAttribute("wrong","true");
+            request.getRequestDispatcher("adminlogin.jsp").forward(request, response);
         }
 
         return adminDao.adminLogin(userName, password);
@@ -50,7 +51,6 @@ public class AdminService {
         request.getRequestDispatcher("admin.jsp").forward(request,response);
     }
 
-
     public void prepareUserActivity(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
         String userName = request.getParameter("username");
         if(StringUtil.isArgumentsContainNull(userName)) return;
@@ -58,35 +58,32 @@ public class AdminService {
         List<CartItem> cartRemovedList = getAddedButRemovedItems(userName);
         List<CartItem> cartItems = getCartItems(userName);
         List<BookTransaction> bookTransactions = getBookTransactions(userName);
+        User userInfo = getUser(userName);
         request.getSession().setAttribute("LOGIN_LOG",loginLogList);
         request.getSession().setAttribute("CART_REMOVED",cartRemovedList);
         request.getSession().setAttribute("CART_ITEMS",cartItems);
         request.getSession().setAttribute("TRANSACTIONS",bookTransactions);
-        request.setAttribute("username",userName);
+        request.getSession().setAttribute("USER_INFO",userInfo);
         request.getRequestDispatcher("user_manage.jsp").forward(request,response);
     }
 
-
-    public void banAUser(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+    public void banAUser(HttpServletRequest request, HttpServletResponse response, boolean ban) throws ServletException,IOException{
         String userName = request.getParameter("username");
         if(StringUtil.isArgumentsContainNull(userName)) return;
         AdminDao adminDao = new AdminDaoImpl();
-        if(!adminDao.banOrReleaseUser(userName, true)){
+        if(!adminDao.banOrReleaseUser(userName, ban)){
             //TODO: Add err
         }
+        User userInfo = getUser(userName);
+        request.getSession().setAttribute("USER_INFO",userInfo);
+        request.getRequestDispatcher("user_manage.jsp").forward(request,response);
 
     }
 
-    public void releaseUser(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
-        String userName = request.getParameter("username");
-        if(StringUtil.isArgumentsContainNull(userName)) return;
-        AdminDao adminDao = new AdminDaoImpl();
-        if(!adminDao.banOrReleaseUser(userName, false)){
-            //TODO: Add err
-        }
-
+    private User getUser(String userName){
+        UserDao userDao = new UserDaoImpl();
+        return userDao.getUserByUserName(userName);
     }
-
 
     private List<BookTransaction> getBookTransactions(String userName){
         AdminDao adminDao = new AdminDaoImpl();
@@ -139,5 +136,7 @@ public class AdminService {
         AdminDao adminDao = new AdminDaoImpl();
         return adminDao.adminLogin(userName, password);
     }
+
+
 }
 

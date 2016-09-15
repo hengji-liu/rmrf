@@ -32,12 +32,12 @@
         <input type="hidden" name="reqtype" value="USER_SEARCH">
         <div class="col-xs-3">
             <label>User Search:</label> <input
-                type="text" class="form-control"
+                type_="text" class="form-control"
                 name="keyword" placeholder="Username/Real Name">
         </div>
 
         <div class="col-xs-2">
-            <button type="submit" class="form-control btn">Search</button>
+            <button type_="submit" class="form-control btn">Search</button>
         </div>
 
     </div>

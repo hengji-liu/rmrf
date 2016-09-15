@@ -5,11 +5,11 @@ import java.io.Serializable;
 /**
  * Created by Linus on 10/09/2016.
  */
-public class User implements Serializable{
+public class User implements Serializable {
 
     private String username;
     private String ps;
-    private int identity;
+    private int type_;
     private String firstname;
     private String lastname;
     private String email;
@@ -17,26 +17,36 @@ public class User implements Serializable{
     private String address;
     private String creditcard;
     private byte[] profileImg;
-    private boolean banned;
+
 
     public boolean isBanned() {
-        return banned;
+        return type_ == 4;
     }
 
-    public void setBanned(boolean banned) {
-        this.banned = banned;
+    public void setIfBanned(boolean banned) {
+        if (banned) type_ = 4;
+        type_ = 1;
     }
 
-    public User(){
+    public User() {
 
     }
+
+    public User(String username, String firstname, String lastname, String email, String address, int type_) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.address = address;
+        this.type_ = type_;
+    }
+
 
     public User(String username, String firstname, String lastname, String email, String address) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.birthday = birthday;
         this.address = address;
     }
 
@@ -56,12 +66,12 @@ public class User implements Serializable{
         this.ps = ps;
     }
 
-    public int getIdentity() {
-        return identity;
+    public int getType_() {
+        return type_;
     }
 
-    public void setIdentity(int identity) {
-        this.identity = identity;
+    public void setType_(int type_) {
+        this.type_ = type_;
     }
 
     public String getFirstname() {
@@ -125,7 +135,7 @@ public class User implements Serializable{
         return "User{" +
                 "username='" + username + '\'' +
                 ", ps='" + ps + '\'' +
-                ", identity=" + identity +
+                ", type_=" + type_ +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +

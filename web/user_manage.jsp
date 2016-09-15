@@ -8,7 +8,11 @@
 <body>
 
 <p>User Info: </p>
-<c:out value="${requestScope.username}"/>
+<c:out value="${sessionScope.USER_INFO.username}"/>
+<c:out value="${sessionScope.USER_INFO.firstname}"/>
+<c:out value="${sessionScope.USER_INFO.lastname}"/>
+<c:out value="${sessionScope.USER_INFO.isBanned()}"/>
+<c:out value="${sessionScope.USER_INFO.type_}"/>
 <p>Login log: </p>
 
 <table>
@@ -63,12 +67,26 @@
 <form action="BookTrade" method="post">
     <div class="form-group row">
         <input type="hidden" name="reqtype" value="BAN_USER">
-        <input type="hidden" name="username" value="<c:out value="${requestScope.username}"/>"/>
+        <input type="hidden" name="username" value="<c:out value="${sessionScope.USER_INFO.username}"/>"/>
+
         <div class="col-xs-2">
             <button type="submit" class="form-control btn">Ban This user!</button>
         </div>
     </div>
 </form>
+
+<form action="BookTrade" method="post">
+    <div class="form-group row">
+        <input type="hidden" name="reqtype" value="UNBAN_USER">
+        <input type="hidden" name="username" value="<c:out value="${sessionScope.USER_INFO.username}"/>"/>
+
+        <div class="col-xs-2">
+            <button type="submit" class="form-control btn">UnbanUser</button>
+        </div>
+    </div>
+</form>
+
+
 
 </body>
 </html>

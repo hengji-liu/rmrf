@@ -14,7 +14,7 @@ public class Book implements Serializable{
     private String editors;
     private String title;
     private String year;
-    private String address;
+    private String venue;
     private String publisher;
     private String isbn;
     private String tag;
@@ -78,12 +78,12 @@ public class Book implements Serializable{
         this.year = year;
     }
 
-    public String getAddress() {
-        return address;
+    public String getVenue() {
+        return venue;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setVenue(String venue) {
+        this.venue = venue;
     }
 
     public String getPublisher() {

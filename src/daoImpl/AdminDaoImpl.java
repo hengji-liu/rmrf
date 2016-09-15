@@ -51,10 +51,10 @@ public class AdminDaoImpl implements AdminDao{
         List<BookTransaction> bookTransactions = new ArrayList<>();
         try {
             conn = DBHelper.getConnection();
-            String sql = "select user.username, user.firstname, user.lastname,book.title,book.price,transaction.time\n" +
-                    "from user,book,transaction \n" +
-                    "where transaction.seller = (select seller from transaction where buyer=?)\n" +
-                    "and transaction.seller=user.username and transaction.book_id = book.book_id";
+            String sql = "select user.username, user.firstname, user.lastname,book.title,book.price,transactions.time\n" +
+                    "from user,book,transactions \n" +
+                    "where transactions.seller = (select seller from transactions where buyer=?)\n" +
+                    "and transactions.seller=user.username and transactions.book_id = book.book_id";
             psmt = conn.prepareStatement(sql);
             psmt.setString(1,userName);
             rs = psmt.executeQuery();
