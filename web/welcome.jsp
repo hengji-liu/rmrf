@@ -15,7 +15,9 @@
             <div class="col-md-3">
                 <h1>Supper Book Trader</h1>
             </div>
-
+			<c:if test='${not empty user}'>
+				${user.firstname }
+			</c:if>
             <div class="col-md-9">
                 <ul class="nav nav-tabs pull-right">
                     <li><a href="user/login.jsp">Log in</a></li>

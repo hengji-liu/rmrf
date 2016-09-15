@@ -42,5 +42,6 @@ public interface UserDao {
      */
     public byte[] getUserImg(String userName);
 
+    public User getUserWhenLogin(String username, String ps);
 
 }
