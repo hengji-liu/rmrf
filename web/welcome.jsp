@@ -1,13 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
-    <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet'
-          type_='text/css'>
+	<%@ include file="/logistics/pre.jsp"%>
+    <!--  <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet'
+          type_='text/css'>-->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <div class="header">
     <div class="container">
         <div class="row">
@@ -17,7 +18,7 @@
 
             <div class="col-md-9">
                 <ul class="nav nav-tabs pull-right">
-                    <li><a href="#">Log in</a></li>
+                    <li><a href="user/login.jsp">Log in</a></li>
                     <li><a href="#">Sign up</a></li>
                 </ul>
             </div>
@@ -39,7 +40,7 @@
         <p> We deliver the news that is relevant to you.</p>
     </div>
 </div>
-
+<!--  
 <div class="cards">
     <div class="container">
         <h2>Our Expertise.</h2>
@@ -75,5 +76,8 @@
     </div>
 </div>
 
+
+-->
+<jsp:include page="/logistics/js.jsp"></jsp:include>
 </body>
 </html>
