@@ -77,7 +77,7 @@ public class AdminService {
         request.getSession().setAttribute("CART_ITEMS", cartItems);
         request.getSession().setAttribute("TRANSACTIONS", bookTransactions);
         request.getSession().setAttribute("USER_INFO", userInfo);
-        request.getRequestDispatcher("user_search.jsp").forward(request, response);
+        request.getRequestDispatcher("user_search_admin.jsp").forward(request, response);
     }
 
     public void banAUser(HttpServletRequest request, HttpServletResponse response, boolean ban) throws ServletException, IOException {
@@ -89,7 +89,7 @@ public class AdminService {
         }
         User userInfo = getUser(userName);
         request.getSession().setAttribute("USER_INFO", userInfo);
-        request.getRequestDispatcher("user_search.jsp").forward(request, response);
+        request.getRequestDispatcher("user_search_admin.jsp").forward(request, response);
 
     }
 

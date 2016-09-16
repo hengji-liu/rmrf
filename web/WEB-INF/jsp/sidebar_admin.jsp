@@ -3,20 +3,20 @@
 
         <ul class="nav" id="side-menu">
             <li>
-                <a href="#">Site Management<span class="fa arrow"></span></a>
+                <a href="#">Site Management</a>
 
             </li>
 
             <li>
-                <a href="#">Book Management<span class="fa arrow"></span></a>
+                <a href="#">Book Management</a>
             </li>
 
             <li>
-                <a href="../../admin_all_users.jsp">User Management<span class="fa arrow"></span></a>
+                <a href="../../admin_all_users.jsp">User Management</a>
 
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="BookTrade?reqtype=USER_LIST&user_page=1">View All Users</a>
+                        <a href="c?reqtype=USER_LIST&user_page=1">View All Users</a>
                     </li>
                     <li>
                         <a href="#">Search Users</a>

@@ -13,7 +13,7 @@
 
 <body>
 
-<form class="login" action="BookTrade" method="post">
+<form class="login" action="c" method="post">
 
     <fieldset>
         <legend class="legend">Login</legend>

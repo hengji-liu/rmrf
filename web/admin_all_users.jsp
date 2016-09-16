@@ -45,7 +45,7 @@
 <div id="wrapper">
 
     <!-- Navigation -->
-    <jsp:include page="WEB-INF/jsp/nav.jsp"/>
+    <jsp:include page="WEB-INF/jsp/nav_admin.jsp"/>
 
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -72,25 +72,25 @@
 
             <c:choose>
                 <c:when test="${pager.totalRecord > 0 && pager.currentPage!=1}">
-                    <a href="BookTrade?reqtype=USER_LIST&user_page=1">Front</a>
+                    <a href="c?reqtype=USER_LIST&user_page=1">Front</a>
                 </c:when>
             </c:choose>
 
             <c:choose>
                 <c:when test="${pager.currentPage != 1}">
-                    <a href="BookTrade?reqtype=USER_LIST&user_page=<c:out value="${pager.currentPage-1}"/>">Prev</a>
+                    <a href="c?reqtype=USER_LIST&user_page=<c:out value="${pager.currentPage-1}"/>">Prev</a>
                 </c:when>
             </c:choose>
 
             <c:choose>
                 <c:when test="${pager.currentPage < pager.totalPage}">
-                    <a href="BookTrade?reqtype=USER_LIST&user_page=<c:out value="${pager.currentPage+1}"/>">Next</a>
+                    <a href="c?reqtype=USER_LIST&user_page=<c:out value="${pager.currentPage+1}"/>">Next</a>
                 </c:when>
             </c:choose>
 
             <c:choose>
                 <c:when test="${pager.currentPage < pager.totalPage}">
-                    <a href="BookTrade?reqtype=USER_LIST&user_page=<c:out value="${pager.totalPage}"/>">Bottom</a>
+                    <a href="c?reqtype=USER_LIST&user_page=<c:out value="${pager.totalPage}"/>">Bottom</a>
                 </c:when>
             </c:choose>
 
