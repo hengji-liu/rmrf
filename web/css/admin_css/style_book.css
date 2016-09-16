@@ -1,0 +1,124 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+
+body {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: #140e07;
+	color: #fff;
+}
+
+.container {
+	max-width: 940px;
+}
+
+.main {
+	margin: 80px 0px 0px 0px;
+}
+
+.main h1 {
+	font-size: 30px;
+	margin: 0 0 20px 0;
+}
+
+.main h3 {
+	font-size: 20px;
+	margin: 5 0 5px 0;
+}
+
+/* Header */
+.header {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.header .container {
+	padding: 30px 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+/*Main*/
+form input.form-control {
+	border: 2px;
+	border-radius: 4px;
+}
+
+.main .container {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.main .center_container {
+	text-align: center;
+}
+
+.main .page_btn {
+	background-color: #1c1c1c;
+	padding: 8px 30px;
+	text-decoration: none;
+	display: inline-block;
+	width:110px;
+	color: #d9d9d9;
+	font-size: 12px;
+	margin: 0 10px 0;
+}
+
+
+#cartadd {
+	width:180px;
+	color: #fff;
+	background: #36C9EB;
+	font-size: 12px;
+}
+
+.main .btn {
+	margin-top: 23px;
+	color: #fff;
+	background: #F5250A;
+	border: 0px;
+	border-radius: 4px;
+}
+
+.main table{
+	background-color: #1c1c1c;
+}
+
+.main table a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.main ul{
+	color: #150C0C;
+}
+
+.main .btn:hover {
+	color: #3dbefb;
+	background-color: #ff4000;
+	-webkit-transition: color 1s;
+}
+
+/* Footer */
+.footer .container {
+	padding: 20px 0;
+	border-top: 0px solid #e5e5e5;
+}
+
+.footer ul {
+	list-style: none;
+	padding: 0 20px;
+	margin-bottom: 80px;
+}
+
+.footer li {
+	display: inline;
+	margin-right: 20px;
+}
+
+.footer a {
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+}

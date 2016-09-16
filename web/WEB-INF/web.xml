@@ -6,4 +6,11 @@
     <welcome-file-list>
         <welcome-file>welcome.jsp</welcome-file>
     </welcome-file-list>
+
+    <context-param>
+        <description>Page item limit for user display in admin</description>
+        <param-name>user_page_limit</param-name>
+        <param-value>10</param-value>
+    </context-param>
+
 </web-app>

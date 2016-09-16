@@ -14,9 +14,8 @@ CREATE TABLE `user`
   lastname   VARCHAR(30),
   email      VARCHAR(30) NOT NULL ,
   birthday   DATE,
-  venue    VARCHAR(30),
+  address    VARCHAR(30),
   creditcard VARCHAR(30),
-  img LONGBLOB,
   PRIMARY KEY (username)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 ALTER TABLE user AUTO_INCREMENT = 100;
@@ -38,9 +37,9 @@ CREATE TABLE `book`
   seller VARCHAR(30) COMMENT 'refer to user.usename',
   FOREIGN KEY (seller) REFERENCES user (username) ON DELETE CASCADE ,
   book_type  VARCHAR(30) ,/*Should be retricted to certain types such as article, inproceedings ...'*/
-  authors VARCHAR(30),
-  editors VARCHAR(30),
-  title VARCHAR(30) NOT NULL ,
+  authors VARCHAR(100),
+  editors VARCHAR(100),
+  title VARCHAR(100) NOT NULL ,
   year DATE,
   venue VARCHAR(30),
   publisher VARCHAR(30),
@@ -95,42 +94,3 @@ CREATE TABLE `log_cart`
   PRIMARY KEY (username,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-
-INSERT INTO `user` (username,ps,email,type_) VALUE ('rmrfadmin','123','liquan1992@email.com','2');
-
-INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('hengji','Hengji','Liu','1234','liuhengji@outlook.com','1','Aydney','1992-1-1');
-
-INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('liquan','Liquan','Luo','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
-
-INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('ming','MingXuan','Hu','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
-
-INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('linus','Li','Quan','1234','liquan1992@outlook.com','1','Sydney','1992-1-2');
-
-INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','9321 full mark','100','0');
-INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','9321 full mark II','110','0');
-INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','9321 full mark III','120','0');
-INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','js all go','100','0');
-
-INSERT INTO `transactions` (seller, buyer, book_id, time) VALUE ('hengji','liquan','1','2016-9-10');
-
-INSERT INTO `log_cart` (username, book_id, time_added, time_removed)
-VALUE ('liquan','3','2016-9-9 23:25','2016-9-10 20:25');
-
-INSERT INTO `log_cart` (username, book_id, time_added, time_removed)
-  VALUE ('liquan','4','2016-9-9 23:25','2016-9-10 20:25');
-
-INSERT into `cart` (username, book_id, time_addded)
-VALUE ('liquan','1','2016-9-11 10:00');
-
-INSERT into `cart` (username, book_id, time_addded)
-  VALUE ('liquan','2','2016-9-11 11:00');
-
-insert into `user_login` (username, time, granted) VALUE ('liquan','2016-9-10 23:25','1');
-insert into `user_login` (username, time, granted) VALUE ('liquan','2016-9-11 23:25','1');
-insert into `user_login` (username, time, granted) VALUE ('liquan','2016-9-10 20:25','0');
-

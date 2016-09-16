@@ -1,0 +1,15 @@
+.user_search_bar input.form-control {
+    border: 2px;
+    border-radius: 4px;
+}
+
+.user_search_bar .btn {
+    background-color: #1c1c1c;
+    padding: 8px 30px;
+    text-decoration: none;
+    display: inline-block;
+    width:150px;
+    color: #d9d9d9;
+    font-size: 12px;
+    margin: 25px 0px 0 0;
+}

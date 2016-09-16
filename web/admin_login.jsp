@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <title>Elegant Login Form</title>
     <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/admin_css/reset.css">
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="css/style_login.css">
+    <link rel="stylesheet" href="css/admin_css/style_login.css">
 </head>
 
 <body>

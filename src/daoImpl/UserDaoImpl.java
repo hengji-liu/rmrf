@@ -1,5 +1,6 @@
 package daoImpl;
 
+import Config.ServiceConfig;
 import bean.LoginLog;
 import bean.User;
 import daoIterface.UserDao;
@@ -19,7 +20,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getUsers() {
         List<User> users=new ArrayList<>();
         Connection conn = null;
         PreparedStatement psmt = null;
@@ -29,6 +30,10 @@ public class UserDaoImpl implements UserDao{
             String sql = "select username,firstname,lastname,email,birthday,address,type_ " +
                     "from user where type_='1' or type_='4';";
             psmt = conn.prepareStatement(sql);
+//            int offset = (page-1)*ServiceConfig.USER_PAGE_LIMIT;
+//            int end = offset+ServiceConfig.USER_PAGE_LIMIT;
+//            psmt.setString(1,Integer.toString(offset));
+//            psmt.setString(2,Integer.toString(end));
             rs = psmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString("username"),rs.getString("firstname"),

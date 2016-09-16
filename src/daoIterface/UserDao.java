@@ -13,7 +13,7 @@ public interface UserDao {
      * find All user currently using the system (Admin not included)
      * @return
      */
-    public List<User> getAllUsers();
+    public List<User> getUsers();
     /**
      * search a certain user by keyword(Including username, firstname, lastname)
      * @param keyWord
@@ -41,6 +41,9 @@ public interface UserDao {
      * @return
      */
     public byte[] getUserImg(String userName);
+
+
+
 
 
 }
