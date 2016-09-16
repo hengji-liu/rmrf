@@ -1,8 +1,10 @@
 package daoImpl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,17 +147,6 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
-	/**
-	 * Img is a bit large, get Image in Separate function
-	 * 
-	 * @param userName
-	 * @return
-	 */
-	@Override
-	public byte[] getUserImg(String userName) {
-		return new byte[0];
-	}
-
 	@Override
 	public User getUserWhenLogin(String username, String ps) {
 		Connection conn = null;
@@ -201,4 +192,34 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
+	public int save(User u) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int newRowCount = 0;
+		try {
+			conn = DBHelper.getConnection();
+			String sql = "INSERT INTO " + USER + " VALUES (?,?,?,?,?,?,?,?,?)";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, u.getUsername());
+			psmt.setString(2, u.getPs());
+			psmt.setInt(3, u.getType_());
+			psmt.setString(4, u.getFirstname());
+			psmt.setString(5, u.getLastname());
+			psmt.setString(6, u.getEmail());
+			String[] bd = u.getBirthday().split("-");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date udate = format.parse(u.getBirthday());
+			long t = udate.getTime();
+			Date sdate = new java.sql.Date(t);
+			psmt.setDate(7, sdate);
+			psmt.setString(8, u.getAddress());
+			psmt.setString(9, u.getCreditcard());
+			newRowCount = psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.realease(null, psmt);
+		}
+		return newRowCount;
+	}
 }

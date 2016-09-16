@@ -16,7 +16,6 @@ CREATE TABLE `user`
   birthday   DATE,
   venue    VARCHAR(30),
   creditcard VARCHAR(30),
-  img LONGBLOB,
   PRIMARY KEY (username)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 ALTER TABLE user AUTO_INCREMENT = 100;
@@ -97,19 +96,19 @@ CREATE TABLE `log_cart`
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 
-INSERT INTO `user` (username,ps,email,type_) VALUE ('rmrfadmin','123','liquan1992@email.com','2');
+INSERT INTO `user` (username,ps,email,type_) VALUE ('rmrfadmin@rmrf.com','123','liquan1992@email.com','2');
 
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('hengji','Hengji','Liu','1234','liuhengji@outlook.com','1','Aydney','1992-1-1');
+  VALUE ('hengji@rmrf.com','Hengji','Liu','1234','liuhengji@outlook.com','1','Aydney','1992-1-1');
 
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('liquan','Liquan','Luo','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
+  VALUE ('liquan@rmrf.com','Liquan','Luo','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
 
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('ming','MingXuan','Hu','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
+  VALUE ('ming@rmrf.com','MingXuan','Hu','1234','luoliquan@outlook.com','1','Sydney','1992-1-2');
 
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,venue,birthday)
-  VALUE ('linus','Li','Quan','1234','liquan1992@outlook.com','1','Sydney','1992-1-2');
+  VALUE ('linus@rmrf.com','Li','Quan','1234','liquan1992@outlook.com','1','Sydney','1992-1-2');
 
 INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','9321 full mark','100','0');
 INSERT INTO `book` (seller, book_type, title, price,paused) VALUE ('hengji','book','9321 full mark II','110','0');
