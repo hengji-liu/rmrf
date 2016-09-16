@@ -30,32 +30,6 @@ public class UserDaoImpl implements UserDao {
 	private static final String USER = "user";
 	private static final String ONE = "1";
 
-	@Override
-	public List<User> getAllUsers() {
-		List<User> users = new ArrayList<>();
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		try {
-			conn = DBHelper.getConnection();
-			String sql = "select username,firstname,lastname,email,birthday,address,type_ "
-					+ "from user where type_='1' or type_='4';";
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			while (rs.next()) {
-				User user = new User(rs.getString("username"), rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("email"), rs.getString("address"), Integer.parseInt(rs.getString("type_")));
-				user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
-				users.add(user);
-			}
-			return users;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			DBHelper.realease(rs, psmt);
-		}
-	}
 
 	@Override
 	public List<User> searchUserByName(String keyWord) {

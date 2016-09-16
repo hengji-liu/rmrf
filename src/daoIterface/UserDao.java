@@ -9,11 +9,7 @@ import java.util.List;
  * Created by Linus on 10/09/2016.
  */
 public interface UserDao {
-    /**
-     * find All user currently using the system (Admin not included)
-     * @return
-     */
-    public List<User> getAllUsers();
+
     /**
      * search a certain user by keyword(Including username, firstname, lastname)
      * @param keyWord
