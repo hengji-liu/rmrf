@@ -1,5 +1,4 @@
 package util;
-
 /**
  * Created by Linus on 10/09/2016.
  */

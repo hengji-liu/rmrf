@@ -31,6 +31,10 @@ public class User implements Serializable {
 
     }
 
+    public User(String username) {
+        this.username = username;
+    }
+
     public User(String username, String firstname, String lastname, String email, String address, int type_) {
         this.username = username;
         this.firstname = firstname;

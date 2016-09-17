@@ -37,16 +37,15 @@ CREATE TABLE `book`
   seller VARCHAR(30) COMMENT 'refer to user.usename',
   FOREIGN KEY (seller) REFERENCES user (username) ON DELETE CASCADE ,
   book_type  VARCHAR(30) ,/*Should be retricted to certain types such as article, inproceedings ...'*/
-  authors VARCHAR(100),
-  editors VARCHAR(100),
-  title VARCHAR(100) NOT NULL ,
-  year DATE,
+  authors VARCHAR(1000),
+  editors VARCHAR(1000),
+  title VARCHAR(1000) NOT NULL ,
+  year VARCHAR(30),
   venue VARCHAR(30),
-  publisher VARCHAR(30),
-  isbn VARCHAR(30),
+  publisher VARCHAR(1000),
+  isbn VARCHAR(100),
   tag VARCHAR(30),/* tag for related item search*/
   paused BOOL NOT NULL ,/* 0 is false 1 is true*/
-  img LONGBLOB,
   price INT(5),
   visited INT(5) /*if a book is visited by user, the count should be increased*/
 
@@ -58,7 +57,7 @@ CREATE TABLE `transactions`
   FOREIGN KEY (seller) REFERENCES user (username) ON DELETE CASCADE ,
   buyer VARCHAR(30) COMMENT 'refer to user.usename',
   FOREIGN KEY (buyer) REFERENCES user (username) ON DELETE CASCADE,
-  book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
+  book_id INT(15) REFERENCES book (book_id) ON DELETE CASCADE,
   time DATETIME NOT NULL,
   PRIMARY KEY (seller,buyer,book_id)
 
@@ -74,7 +73,7 @@ CREATE TABLE `cart`
 (
   username VARCHAR(30) COMMENT 'refer to user.usename',
   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
-  book_id INT(15) REFERENCES book (book_id) ON DELETE RESTRICT,
+  book_id INT(15) REFERENCES book (book_id) ON DELETE CASCADE ,
   time_addded DATETIME NOT NULL,
   PRIMARY KEY (username,book_id)
 
@@ -88,7 +87,7 @@ CREATE TABLE `log_cart`
 (
   username VARCHAR(30) NOT NULL COMMENT 'refer to user.usename',
   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
-  book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE RESTRICT,
+  book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE CASCADE,
   time_added DATETIME NOT NULL,
   time_removed DATETIME NOT NULL,
   PRIMARY KEY (username,book_id)

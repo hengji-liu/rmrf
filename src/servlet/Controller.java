@@ -41,6 +41,10 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         if (!ServletFileUpload.isMultipartContent(request)) {// no file upload
             String requestType = request.getParameter(REQTYPE);
+            if(requestType == null){
+                response.sendRedirect("welcome.jsp");
+                return;
+            }
             AdminService adminService = null;
             UserService userService = null;
             switch (requestType) {
@@ -71,6 +75,10 @@ public class Controller extends HttpServlet {
                 case "USER_LIST":
                     adminService = new AdminService();
                     adminService.userList(request, response);
+                    break;
+                case "BOOK_LIST_ALL":
+                    adminService = new AdminService();
+                    adminService.getUnSoldBookList(request,response);
                     break;
             }
         } else {// contains file upload

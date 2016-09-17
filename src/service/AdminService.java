@@ -1,14 +1,8 @@
 package service;
 
 import bean.*;
-import daoImpl.AdminDaoImpl;
-import daoImpl.CartDaoImpl;
-import daoImpl.UserDaoImpl;
-import daoImpl.UserListDaoImpl;
-import daoIterface.AdminDao;
-import daoIterface.CartDao;
-import daoIterface.UserDao;
-import daoIterface.UserListDao;
+import daoImpl.*;
+import daoIterface.*;
 import util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -104,6 +98,20 @@ public class AdminService {
         request.getRequestDispatcher("admin/admin_single_user.jsp").forward(request, response);
 
     }
+
+    public void getUnSoldBookList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pageNum = request.getParameter("book_page");
+        BookDao bookDao = new BookDaoImpl();
+        Pager<Book> bookPager = null;
+        if(pageNum == null || pageNum.equals("1")){
+            bookPager = bookDao.getAllUnSoldBooks(1);
+        }else{
+            bookPager = bookDao.getAllUnSoldBooks(Integer.parseInt(pageNum));
+        }
+        request.setAttribute("book_pager",bookPager);
+        request.getRequestDispatcher("admin/admin_booklist.jsp").forward(request,response);
+    }
+
 
     private User getUser(String userName) {
         UserDao userDao = new UserDaoImpl();

@@ -11,7 +11,7 @@
             </li>
 
             <li>
-                <a href="#">Book Management</a>
+                <a href="/c?reqtype=BOOK_LIST_ALL&user_page=1">Book Management</a>
             </li>
 
             <li>

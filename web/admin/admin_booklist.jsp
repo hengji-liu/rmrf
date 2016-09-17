@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../WEB-INF/jsp/loginguard.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<jsp:include page="WEB-INF/jsp/loginguard.jsp"/>--%>
+<!-- display all users in page, no search-->
 <html>
 <html lang="en">
 <head>
@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Startmin - Bootstrap Admin Theme</title>
+    <title>Book Manage</title>
     <%@include file="/WEB-INF/jsp/jsp_css_inlcude.jsp"%>
 </head>
 <body>
@@ -20,20 +20,18 @@
 
     <!-- Navigation -->
     <jsp:include page="/WEB-INF/jsp/nav_admin.jsp"/>
-
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">DashBoard</h1>
+                    <h1 class="page-header">Book Management</h1>
                 </div>
             </div>
-            <%@include file="../WEB-INF/jsp/dashboard.jsp"%>
 
+            <!-- page selector-->
         </div>
     </div>
-
 </div>
 
 <!-- jQuery -->
