@@ -90,11 +90,18 @@ public class AdminService {
         if (StringUtil.isArgumentsContainNull(userName)) return;
         AdminDao adminDao = new AdminDaoImpl();
         if (!adminDao.banOrReleaseUser(userName, ban)) {
-            //TODO: Add err
         }
+        List<LoginLog> loginLogList = getLoginLog(userName);
+        List<CartItem> cartRemovedList = getAddedButRemovedItems(userName);
+        List<CartItem> cartItems = getCartItems(userName);
+        List<BookTransaction> bookTransactions = getBookTransactions(userName);
         User userInfo = getUser(userName);
-        request.getSession().setAttribute("USER_INFO", userInfo);
-        request.getRequestDispatcher("search_bar.jsp").forward(request, response);
+        request.setAttribute("LOGIN_LOG", loginLogList);
+        request.setAttribute("CART_REMOVED", cartRemovedList);
+        request.setAttribute("CART_ITEMS", cartItems);
+        request.setAttribute("TRANSACTIONS", bookTransactions);
+        request.setAttribute("USER_INFO", userInfo);
+        request.getRequestDispatcher("admin/admin_single_user.jsp").forward(request, response);
 
     }
 

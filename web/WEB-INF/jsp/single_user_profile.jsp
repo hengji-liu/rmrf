@@ -133,10 +133,17 @@
                     <a href="#" data-original-title="Broadcast Message" data-toggle="tooltip" type="button"
                        class="btn btn-sm btn-primary">Send Email</a>
                     <span class="pull-right">
-                            <a href="#" data-original-title="Edit this user" data-toggle="tooltip" type="button"
-                               class="btn btn-sm btn-success">Release</a>
-                            <a data-original-title="#" data-toggle="tooltip" type="button"
-                               class="btn btn-sm btn-danger">Ban User</a>
+                        <c:choose>
+                            <c:when test="${USER_INFO.type_ == 1}">
+                                <a data-original-title="Ban User" data-toggle="tooltip" type="button"
+                                   class="btn btn-sm btn-danger"
+                                   href="${pageContext.request.contextPath}/c?reqtype=BAN_USER&username=${USER_INFO.username}">Ban User</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a  data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"
+                                    href="${pageContext.request.contextPath}/c?reqtype=UNBAN_USER&username=${USER_INFO.username}">Release User</a>
+                            </c:otherwise>
+                        </c:choose>
                         </span>
                 </div>
 
