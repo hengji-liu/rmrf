@@ -18,11 +18,9 @@ import java.util.List;
  */
 public class UserListDaoImpl implements UserListDao{
 
-    public UserListDaoImpl(){
 
-    }
-
-    private int getTotalCount() {
+    @Override
+    public int getTotalUserCount() {
         int count = 0;
         Connection conn = null;
         PreparedStatement psmt = null;
@@ -47,7 +45,7 @@ public class UserListDaoImpl implements UserListDao{
     @Override
     public Pager<User> getUserPage(int page_num){
 
-        int totalRecords = getTotalCount();
+        int totalRecords = getTotalUserCount();
         List<User> users=new ArrayList<>();
         Connection conn = null;
         PreparedStatement psmt = null;
@@ -61,19 +59,80 @@ public class UserListDaoImpl implements UserListDao{
             psmt.setInt(2,ServiceConfig.USER_PAGE_LIMIT);//end
             rs = psmt.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString("username"),rs.getString("firstname"),
-                        rs.getString("lastname"),rs.getString("email"),rs.getString("address"),Integer.parseInt(rs.getString("type_")));
+                User user = new User(rs.getString("username"), rs.getString("firstname"),
+                        rs.getString("lastname"), rs.getString("email"), rs.getString("address"), Integer.parseInt(rs.getString("type_")));
                 user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
                 users.add(user);
             }
-            Pager<User> pager = new Pager<>(ServiceConfig.USER_PAGE_LIMIT, page_num,totalRecords, users);
-            return pager;
+            return new Pager<>(ServiceConfig.USER_PAGE_LIMIT, page_num,totalRecords, users);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         } finally {
             DBHelper.realease(rs,psmt);
         }
+    }
+
+    @Override
+    public int getTotalUserSearchCount(String keyWord) {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "SELECT count(*) FROM user WHERE (type_='1' or type_='4') AND "
+                    + "(username LIKE ? OR firstname LIKE ? OR lastname LIKE ?);";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, "%" + keyWord + "%");
+            psmt.setString(2, "%" + keyWord + "%");
+            psmt.setString(3, "%" + keyWord + "%");
+            rs = psmt.executeQuery();
+            if(rs.next()){
+                count = Integer.parseInt(rs.getString("count(*)"));
+            }
+            return count;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            DBHelper.realease(rs, psmt);
+        }
+    }
+
+    @Override
+    public Pager<User> searchUser(String keyWord, int page_num) {
+        int totalRecords = getTotalUserSearchCount(keyWord);
+        List<User> users = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "SELECT * FROM user WHERE (type_='1' or type_='4') AND "
+                    + "(username LIKE ? OR firstname LIKE ? OR lastname LIKE ?) LIMIT ?,?;";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, "%" + keyWord + "%");
+            psmt.setString(2, "%" + keyWord + "%");
+            psmt.setString(3, "%" + keyWord + "%");
+            int offset = (page_num-1)*ServiceConfig.USER_PAGE_LIMIT;
+            psmt.setInt(4,offset);
+            psmt.setInt(5,offset+ServiceConfig.USER_PAGE_LIMIT);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs.getString("username"), rs.getString("firstname"), rs.getString("lastname"),
+                        rs.getString("email"), rs.getString("address"));
+                user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
+                users.add(user);
+            }
+            return new Pager<>(ServiceConfig.USER_PAGE_LIMIT, page_num,totalRecords, users);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            DBHelper.realease(rs, psmt);
+        }
+
     }
 
 

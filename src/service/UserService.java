@@ -108,7 +108,7 @@ public class UserService {
 			}
 		}
 		u.setType_(1);
-
+		//TODO: SEND USER EMAIL
 		int newRowCount = dao.save(u);
 		if (0 == newRowCount) {
 			request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);

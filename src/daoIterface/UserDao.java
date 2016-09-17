@@ -10,12 +10,6 @@ import java.util.List;
  */
 public interface UserDao {
 
-    /**
-     * search a certain user by keyword(Including username, firstname, lastname)
-     * @param keyWord
-     * @return
-     */
-    public List<User> searchUserByName(String keyWord);
 
     /**
      * Get a user based on username

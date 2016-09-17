@@ -37,6 +37,7 @@ public class Pager<T> implements Serializable {
         return totalPage;
     }
 
+
     public int getPageSize() {
         return pageSize;
     }

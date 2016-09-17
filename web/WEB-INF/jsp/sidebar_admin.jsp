@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@include file="/WEB-INF/jsp/pre.jsp"%>
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
 
@@ -12,14 +15,14 @@
             </li>
 
             <li>
-                <a href="../../admin/admin_all_users.jsp">User Management</a>
+                <a href="/admin/admin_all_users.jsp">User Management</a>
 
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="c?reqtype=USER_LIST&user_page=1">View All Users</a>
+                        <a href="/c?reqtype=USER_LIST&user_page=1">View All Users</a>
                     </li>
                     <li>
-                        <a href="#">Search Users</a>
+                        <a href="/admin/admin_usersearch.jsp">Search Users</a>
                     </li>
                 </ul>
             </li>

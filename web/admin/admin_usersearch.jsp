@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../WEB-INF/jsp/loginguard.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!-- display all users in page, no search-->
 <html>
 <html lang="en">
 <head>
@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Startmin - Bootstrap Admin Theme</title>
+    <title>Search Users</title>
     <%@include file="/WEB-INF/jsp/jsp_css_inlcude.jsp"%>
 </head>
 <body>
@@ -20,28 +20,32 @@
 
     <!-- Navigation -->
     <jsp:include page="/WEB-INF/jsp/nav_admin.jsp"/>
+
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Managing Users</h1>
+                    <h1 class="page-header">User Search</h1>
                 </div>
             </div>
-            <!-- ... All Users List with page split ... -->
-            <%--<%@ include file="../WEB-INF/jsp/admin_searchbar.jsp" %>--%>
+            <!-- Search Bar-->
+            <jsp:include page="/WEB-INF/jsp/search_bar.jsp">
+                <jsp:param name="reqtype" value="USER_SEARCH" />
+            </jsp:include>
+            <!-- Search Result -->
             <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/user_display.jsp"/>
-            <%-- Include User display page--%>
-
+            <!-- Pager Result -->
             <div class="footer"> <!-- page selector-->
                 <div class="container">
                     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/page_selector.jsp">
-                        <jsp:param name="req_prefix" value="c?reqtype=USER_LIST&user_page=" />
+                        <jsp:param name="req_prefix" value="c?reqtype=USER_SEARCH&username=${username}&user_page=" />
                     </jsp:include>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- jQuery -->
@@ -58,3 +62,5 @@
 
 </body>
 </html>
+
+
