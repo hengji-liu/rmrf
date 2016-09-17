@@ -15,7 +15,7 @@
 	<form class="col-md-4 col-md-offset-4" action="c" method="post">
 		<input type="hidden" name="reqtype" value="user_login">
 		<div class="form-group">
-			<label for="username">Username</label> <input type="text"
+			<label for="username">Username</label> <input type="email"
 				class="form-control" id="username" name="username"
 				placeholder="Username">
 		</div>

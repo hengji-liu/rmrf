@@ -16,7 +16,6 @@ public class User implements Serializable {
     private String birthday;
     private String address;
     private String creditcard;
-    private byte[] profileImg;
 
 
     public boolean isBanned() {
@@ -120,14 +119,6 @@ public class User implements Serializable {
 
     public void setCreditcard(String creditcard) {
         this.creditcard = creditcard;
-    }
-
-    public byte[] getProfileImg() {
-        return profileImg;
-    }
-
-    public void setProfileImg(byte[] profileImg) {
-        this.profileImg = profileImg;
     }
 
     @Override

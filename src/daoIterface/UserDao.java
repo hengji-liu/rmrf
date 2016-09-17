@@ -31,16 +31,6 @@ public interface UserDao {
      */
     public List<LoginLog> getLoginLog(String userName);
 
-    /**
-     * Img is a bit large, get Image in Separate function
-     * @param userName
-     * @return
-     */
-    public byte[] getUserImg(String userName);
-
     public User getUserWhenLogin(String username, String ps);
-
-
-
-
+    public int save(User u);
 }
