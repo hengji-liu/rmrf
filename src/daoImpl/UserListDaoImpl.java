@@ -3,6 +3,7 @@ package daoImpl;
 import Config.ServiceConfig;
 import bean.Pager;
 import bean.User;
+import daoIterface.UserListDao;
 import util.DBHelper;
 import util.DateUtil;
 
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by Linus on 16/09/2016.
  */
-public class UserListDaoImpl {
+public class UserListDaoImpl implements UserListDao{
 
     public UserListDaoImpl(){
 
@@ -43,6 +44,7 @@ public class UserListDaoImpl {
         }
     }
 
+    @Override
     public Pager<User> getUserPage(int page_num){
 
         int totalRecords = getTotalCount();

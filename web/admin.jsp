@@ -1,26 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
-<!--Search user-->
-<form action="BookTrade" method="post">
-    <!-- row one -->
-    <div class="form-group row">
-        <input type="hidden" name="reqtype" value="USER_SEARCH">
-        <div class="col-xs-3">
-            <label>User Search:</label> <input
-                type_="text" class="form-control"
-                name="keyword" placeholder="Username/Real Name">
-        </div>
-
-        <div class="col-xs-2">
-            <button type_="submit" class="form-control btn">Search</button>
-        </div>
-    </div>
-</form>
-
-
-
 <%--<form action="BookTrade" method="post">--%>
     <%--<input type="hidden" name="reqtype" value="USER_SEARCH">--%>
     <%--<!-- row one -->--%>

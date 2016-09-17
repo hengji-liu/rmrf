@@ -32,11 +32,11 @@ public class AdminService {
         if (adminDao.adminLogin(userName, password)) {
             request.getSession().setAttribute("admin_name", userName);
             request.getSession().setAttribute("password", password);
-            request.getRequestDispatcher("admin_overall.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/admin_overall.jsp").forward(request, response);
 
         } else {
             request.setAttribute("wrong", "true");
-            request.getRequestDispatcher("admin_login.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/admin_login.jsp").forward(request, response);
         }
 
         return adminDao.adminLogin(userName, password);
@@ -53,7 +53,7 @@ public class AdminService {
             pager = userListDao.getUserPage(Integer.parseInt(pageNum));
         }
         request.setAttribute("pager", pager);
-        request.getRequestDispatcher("admin_all_users.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admin_all_users.jsp").forward(request, response);
     }
 
     public void searchUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

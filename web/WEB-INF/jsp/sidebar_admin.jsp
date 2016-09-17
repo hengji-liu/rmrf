@@ -12,7 +12,7 @@
             </li>
 
             <li>
-                <a href="../../admin_all_users.jsp">User Management</a>
+                <a href="../../admin/admin_all_users.jsp">User Management</a>
 
                 <ul class="nav nav-second-level">
                     <li>

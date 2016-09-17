@@ -8,8 +8,32 @@
     padding: 8px 30px;
     text-decoration: none;
     display: inline-block;
-    width:150px;
+    width:80%;
     color: #d9d9d9;
     font-size: 12px;
     margin: 25px 0px 0 0;
+}
+
+
+/* Footer */
+.footer .container {
+    margin: 0 0 0 35%;
+    border-top: 0px solid #e5e5e5;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0 20px;
+    margin-bottom: 80px;
+}
+
+.footer li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.footer a {
+    color: #515A5A;
+    text-decoration: none;
+    text-transform: uppercase;
 }
