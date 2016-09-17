@@ -15,6 +15,6 @@
     String ps = (String) session.getAttribute("password");
     AdminService service = new AdminService();
     if(!service.adminVerification(username,ps)){
-        response.sendRedirect("failure.jsp");
+        response.sendRedirect("../admin/admin_login.jsp");
     }
 %>

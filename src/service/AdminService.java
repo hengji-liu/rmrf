@@ -77,12 +77,12 @@ public class AdminService {
         List<CartItem> cartItems = getCartItems(userName);
         List<BookTransaction> bookTransactions = getBookTransactions(userName);
         User userInfo = getUser(userName);
-        request.getSession().setAttribute("LOGIN_LOG", loginLogList);
-        request.getSession().setAttribute("CART_REMOVED", cartRemovedList);
-        request.getSession().setAttribute("CART_ITEMS", cartItems);
-        request.getSession().setAttribute("TRANSACTIONS", bookTransactions);
-        request.getSession().setAttribute("USER_INFO", userInfo);
-        request.getRequestDispatcher("search_bar.jsp").forward(request, response);
+        request.setAttribute("LOGIN_LOG", loginLogList);
+        request.setAttribute("CART_REMOVED", cartRemovedList);
+        request.setAttribute("CART_ITEMS", cartItems);
+        request.setAttribute("TRANSACTIONS", bookTransactions);
+        request.setAttribute("USER_INFO", userInfo);
+        request.getRequestDispatcher("admin/admin_single_user.jsp").forward(request, response);
     }
 
     public void banAUser(HttpServletRequest request, HttpServletResponse response, boolean ban) throws ServletException, IOException {

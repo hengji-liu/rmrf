@@ -13,5 +13,8 @@ public class DateUtil {
     public static String getDateToDay(String originDateFormat){
         return originDateFormat.substring(0,10);
     }
+    public static String getDateToMin(String originDateFormat){
+        return originDateFormat.substring(0,16);
+    }
 
 }

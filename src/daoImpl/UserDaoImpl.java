@@ -71,7 +71,7 @@ public class UserDaoImpl implements UserDao {
 			while (rs.next()) {
 				LoginLog loginLog = new LoginLog();
 				loginLog.setUserByName(userName);
-				loginLog.setTime(rs.getString("time"));
+				loginLog.setTime(DateUtil.getDateToMin(rs.getString("time")));
 				if (rs.getString("granted").equals("0")) {
 					loginLog.setGranted(false);
 				} else {
