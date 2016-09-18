@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.FileItem;
 import bean.User;
 import daoImpl.UserDaoImpl;
 import daoIterface.UserDao;
+import util.EmailUtil;
 
 public class UserService {
 	// para
@@ -107,17 +108,34 @@ public class UserService {
 				item.delete();
 			}
 		}
-		u.setType_(1);
-
-		int newRowCount = dao.save(u);
-		if (0 == newRowCount) {
+		u.setType_(0);
+		EmailUtil.sendEmail("bblib registration confirmation email",
+				"localhost:8080/rmrf/c?reqtype=confirm&username=" + u.getUsername(), u.getEmail());
+		int newRowId = dao.save(u);
+		if (0 == newRowId) {
 			request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);
 		} else {
-			request.setAttribute(USER, u);
-			request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
+			// request.setAttribute(USER, u);
+			request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);
 		}
 	}
 
+	public void cofirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter(USERNAME);
+		UserDao dao = new UserDaoImpl();
+		dao.confirm(username);
+//		if (null == u) {
+//			request.setAttribute(LOGIN_FAILURE, LOGIN_FAILURE);
+//			request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+//		} else {
+//			request.setAttribute(USER, u);
+//			request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
+//		}
+	}
+
+	
+	
+	
 	private void makeDefaultImg(File source, File target) {
 		FileChannel in = null;
 		FileChannel out = null;

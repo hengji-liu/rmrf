@@ -9,7 +9,7 @@ CREATE TABLE `user`
 (
   username   VARCHAR(30),
   ps         VARCHAR(40) COMMENT 'password', /*use sha-1 encryption*/
-  type_   INT(15) NOT NULL DEFAULT '1', /*1: normal user, 2 admin, 4 banned*/
+  type_   INT(15) NOT NULL DEFAULT '1', /*0: to-be-confirm user 1: normal user, 2 admin, 4 banned*/
   firstname  VARCHAR(30),
   lastname   VARCHAR(30),
   email      VARCHAR(30) NOT NULL ,

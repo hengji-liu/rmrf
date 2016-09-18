@@ -31,6 +31,7 @@ public interface UserDao {
      */
     public List<LoginLog> getLoginLog(String userName);
 
-    public User getUserWhenLogin(String username, String ps);
-    public int save(User u);
+    User getUserWhenLogin(String username, String ps);
+    void confirm(String username);
+    int save(User u);
 }

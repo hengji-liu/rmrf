@@ -26,6 +26,7 @@ public class Controller extends HttpServlet {
 	private static final String REQTYPE = "reqtype";
 	private static final String USER_LOGIN = "user_login";
 	private static final String USER_REGISTER = "user_register";
+	private static final String CONFIRM = "confirm";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -45,6 +46,9 @@ public class Controller extends HttpServlet {
 			AdminService adminService = null;
 			UserService userService = null;
 			switch (requestType) {
+			case CONFIRM:
+				userService = new UserService();
+				userService.cofirm(request, response);
 			case USER_LOGIN:
 				userService = new UserService();
 				userService.login(request, response);

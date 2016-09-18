@@ -166,6 +166,10 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
+	public void confirm(String username){
+		
+	}
+	
 	public int save(User u) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
