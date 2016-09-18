@@ -51,6 +51,8 @@ CREATE TABLE `book`
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+ALTER TABLE book AUTO_INCREMENT = 1;
+
 CREATE TABLE `transactions`
 (
   seller  VARCHAR(30) COMMENT 'refer to user.usename',

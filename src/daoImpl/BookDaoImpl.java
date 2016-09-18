@@ -49,9 +49,12 @@ public class BookDaoImpl implements BookDao{
         ResultSet rs = null;
         try {
             conn = DBHelper.getConnection();
-            String sql = "select * from book " +
-                    "where book.book_id not in (select book_id from transactions);";
+            String sql = "select * from book where book.book_id not in (select book_id from transactions) LIMIT ?,?;";
             psmt = conn.prepareStatement(sql);
+            int offset = (pageNum-1)*ServiceConfig.USER_PAGE_LIMIT;
+            psmt.setInt(1,offset);
+            psmt.setInt(2,offset+ServiceConfig.USER_PAGE_LIMIT);
+            //System.out.println(psmt.toString());
             rs = psmt.executeQuery();
             while (rs.next()) {
                 Book book = new Book();

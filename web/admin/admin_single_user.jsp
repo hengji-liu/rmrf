@@ -27,9 +27,10 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">User Name</h1>
                 </div>
+                <jsp:include page="/WEB-INF/jsp/single_user_profile.jsp"/>
             </div>
             <!-- ... Your content goes here ... -->
-            <jsp:include page="/WEB-INF/jsp/single_user_profile.jsp"/>
+
         </div>
     </div>
 
