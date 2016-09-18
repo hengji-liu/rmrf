@@ -81,6 +81,10 @@ public class Controller extends HttpServlet {
                 adminService = new AdminService();
                 adminService.userList(request, response);
                 break;
+			case "BOOK_LIST_ALL":
+				adminService = new AdminService();
+				adminService.getUnSoldBookList(request,response);
+				break;
 			}
 		} else {// contains file upload
 			DiskFileItemFactory factory = new DiskFileItemFactory();

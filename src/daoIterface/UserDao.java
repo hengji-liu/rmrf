@@ -1,6 +1,7 @@
 package daoIterface;
 
 import bean.LoginLog;
+import bean.Pager;
 import bean.User;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface UserDao {
 
 
+    Pager<User> getUserPage(int page_num);
+    Pager<User> searchUser(String username,int page_num);
     /**
      * Get a user based on username
      * @param userName

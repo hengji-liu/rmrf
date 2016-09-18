@@ -30,7 +30,7 @@
                 <%--Display books--%>
                 <c:choose>
                     <c:when test="${not empty book_pager}">
-                        <form action="${pageContext.request.contextPath}/c" method="post">
+                        <form action="c" method="post">
                             <input type="hidden" name="reqtype" value="REMOVE_BOOK">
                             <table class="table">
                                 <thead>
@@ -60,8 +60,8 @@
                                 </tbody>
                             </table>
                             <ul class="pager">
-                                <c:set var="prev" value="${pageContext.request.contextPath}c?reqtype=BOOK_LIST_ALL&book_page=${book_pager.currentPage-1}" scope="page"/>
-                                <c:set var="next" value="${pageContext.request.contextPath}c?reqtype=BOOK_LIST_ALL&book_page=${book_pager.currentPage+1}" scope="page"/>
+                                <c:set var="prev" value="c?reqtype=BOOK_LIST_ALL&book_page=${book_pager.currentPage-1}" scope="page"/>
+                                <c:set var="next" value="c?reqtype=BOOK_LIST_ALL&book_page=${book_pager.currentPage+1}" scope="page"/>
                                 <c:choose>
                                     <c:when test="${book_pager.currentPage > 1}">
                                         <li><a href="${prev}">Previous</a></li>

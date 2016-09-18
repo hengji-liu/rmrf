@@ -38,7 +38,7 @@ public class AdminService {
 
     public void userList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pageNum = request.getParameter("user_page");
-        UserListDao userListDao = new UserListDaoImpl();
+        UserDao userListDao = new UserDaoImpl();
         Pager<User> pager = null;
         if (pageNum == null || pageNum.equals("1")) {
             pager = userListDao.getUserPage(1);
@@ -153,7 +153,7 @@ public class AdminService {
 
 
     private Pager<User> searchUser(String keyWord,int page) {
-        UserListDao userListDao = new UserListDaoImpl();
+        UserDao userListDao = new UserDaoImpl();
         return userListDao.searchUser(keyWord,page);
     }
 

@@ -53,7 +53,7 @@ public class EmailUtil {
         }
         return true;
     }
-//    public static void main(String args[]){
-//        EmailUtil.sendEmail("Registration Confirmation","yes its ok","liquansyd@gmail.com");
-//    }
+    public static void main(String args[]){
+        EmailUtil.sendEmail("Registration Confirmation","Hello you registered","liquan1992@outlook.com");
+    }
 }
