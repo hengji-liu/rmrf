@@ -108,18 +108,11 @@ public class UserService {
 				item.delete();
 			}
 		}
-<<<<<<< HEAD
 		u.setType_(0);
 		EmailUtil.sendEmail("bblib registration confirmation email",
 				"localhost:8080/rmrf/c?reqtype=confirm&username=" + u.getUsername(), u.getEmail());
 		int newRowId = dao.save(u);
 		if (0 == newRowId) {
-=======
-		u.setType_(1);
-		//TODO: SEND USER EMAIL
-		int newRowCount = dao.save(u);
-		if (0 == newRowCount) {
->>>>>>> refs/remotes/origin/master
 			request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);
 		} else {
 			// request.setAttribute(USER, u);
