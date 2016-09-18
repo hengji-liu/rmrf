@@ -21,7 +21,6 @@ public interface BookDao {
      */
     public List<Book> getRelatedBooks(String bookID);
 
-
     public Pager<Book> getAllUnSoldBooks(int pageNum);
 
     /*TODO: Please define and implement more advanced book search!*/
