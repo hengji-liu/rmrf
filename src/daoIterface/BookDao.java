@@ -1,6 +1,7 @@
 package daoIterface;
 
 import bean.Book;
+import bean.Pager;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public interface BookDao {
      * @return
      */
     public List<Book> getRelatedBooks(String bookID);
+
+
+    public Pager<Book> getAllUnSoldBooks(int pageNum);
 
     /*TODO: Please define and implement more advanced book search!*/
 

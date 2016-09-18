@@ -4,6 +4,8 @@ import bean.Book;
 import bean.CartItem;
 import daoIterface.CartDao;
 import util.DBHelper;
+import util.DateUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +24,8 @@ public class CartDaoImpl implements CartDao{
         ResultSet rs = null;
         try {
             conn = DBHelper.getConnection();
-            String sql = "select * from cart where username=?";
+            String sql = "select book.title,book.book_id, cart.time_addded from book, cart\n" +
+                    "where book.book_id=cart.book_id and username=?";
             psmt = conn.prepareStatement(sql);
             psmt.setString(1,userName);
             rs = psmt.executeQuery();
@@ -31,7 +34,8 @@ public class CartDaoImpl implements CartDao{
                 //book info too large, only retrive ID here!
                 Book book = new Book();
                 book.setBookID(rs.getString("book_id"));
-                cartItem.setAddedTime(rs.getString("time_addded"));
+                book.setTitle(rs.getString("title"));
+                cartItem.setAddedTime(DateUtil.getDateToMin(rs.getString("time_addded")));
                 cartItem.setBook(book);
                 cartItemList.add(cartItem);
             }
@@ -63,8 +67,8 @@ public class CartDaoImpl implements CartDao{
                 Book book = new Book();
                 book.setTitle(rs.getString("title"));
                 book.setBookID(rs.getString("book_id"));
-                String time_added = rs.getString("time_added");
-                String time_removed = rs.getString("time_removed");
+                String time_added = DateUtil.getDateToMin(rs.getString("time_added"));
+                String time_removed = DateUtil.getDateToMin(rs.getString("time_removed"));
                 CartItem cartItem = new CartItem();
                 cartItem.setBook(book);
                 cartItem.setAddedTime(time_added);

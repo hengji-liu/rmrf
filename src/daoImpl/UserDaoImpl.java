@@ -30,38 +30,6 @@ public class UserDaoImpl implements UserDao {
 	private static final String USER = "user";
 	private static final String ONE = "1";
 
-
-	@Override
-	public List<User> searchUserByName(String keyWord) {
-		List<User> users = new ArrayList<>();
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		try {
-			conn = DBHelper.getConnection();
-			String sql = "SELECT * FROM user WHERE (type_='1' or type_='4') AND "
-					+ "(username LIKE ? OR firstname LIKE ? OR lastname LIKE ?);";
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, "%" + keyWord + "%");
-			psmt.setString(2, "%" + keyWord + "%");
-			psmt.setString(3, "%" + keyWord + "%");
-			rs = psmt.executeQuery();
-			while (rs.next()) {
-				User user = new User(rs.getString("username"), rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("email"), rs.getString("address"));
-				user.setBirthday(DateUtil.getDateToDay(rs.getString("birthday")));
-				users.add(user);
-			}
-			return users;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			DBHelper.realease(rs, psmt);
-		}
-
-	}
-
 	@Override
 	public User getUserByUserName(String userName) {
 		Connection conn = null;
@@ -103,7 +71,7 @@ public class UserDaoImpl implements UserDao {
 			while (rs.next()) {
 				LoginLog loginLog = new LoginLog();
 				loginLog.setUserByName(userName);
-				loginLog.setTime(rs.getString("time"));
+				loginLog.setTime(DateUtil.getDateToMin(rs.getString("time")));
 				if (rs.getString("granted").equals("0")) {
 					loginLog.setGranted(false);
 				} else {

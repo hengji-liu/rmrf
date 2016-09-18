@@ -17,5 +17,3 @@ Export: export mysql database to .sql file
 cd /usr/local/mysql/bin (on my machine)
 ./mysqldump -u root -p bblib > ~/export.sql
 
-note:
-password use sha-1 encryption

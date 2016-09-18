@@ -1,13 +1,8 @@
 package service;
 
 import bean.*;
-import daoImpl.AdminDaoImpl;
-import daoImpl.CartDaoImpl;
-import daoImpl.UserDaoImpl;
-import daoImpl.UserListDaoImpl;
-import daoIterface.AdminDao;
-import daoIterface.CartDao;
-import daoIterface.UserDao;
+import daoImpl.*;
+import daoIterface.*;
 import util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -23,7 +18,6 @@ import java.util.List;
 public class AdminService {
 
     public boolean adminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String userName = request.getParameter("admin_name");
         String password = request.getParameter("password");
         if (StringUtil.isArgumentsContainNull(userName, password)) return false;
@@ -32,20 +26,19 @@ public class AdminService {
         if (adminDao.adminLogin(userName, password)) {
             request.getSession().setAttribute("admin_name", userName);
             request.getSession().setAttribute("password", password);
-            request.getRequestDispatcher("admin_overall.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/admin_overall.jsp").forward(request, response);
 
         } else {
             request.setAttribute("wrong", "true");
-            request.getRequestDispatcher("admin_login.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/admin_login.jsp").forward(request, response);
         }
-
         return adminDao.adminLogin(userName, password);
     }
 
 
     public void userList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pageNum = request.getParameter("user_page");
-        UserListDaoImpl userListDao = new UserListDaoImpl();
+        UserListDao userListDao = new UserListDaoImpl();
         Pager<User> pager = null;
         if (pageNum == null || pageNum.equals("1")) {
             pager = userListDao.getUserPage(1);
@@ -53,15 +46,21 @@ public class AdminService {
             pager = userListDao.getUserPage(Integer.parseInt(pageNum));
         }
         request.setAttribute("pager", pager);
-        request.getRequestDispatcher("admin_all_users.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admin_all_users.jsp").forward(request, response);
     }
 
     public void searchUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String keyWord = request.getParameter("keyword");
-        if (StringUtil.isArgumentsContainNull(keyWord)) return;
-        List<User> userList = searchUser(keyWord);
-        request.setAttribute("USER_SEARCH_RESULT", userList);
-        request.getRequestDispatcher("admin_all_users.jsp").forward(request, response);
+        String keyWord = request.getParameter("username");
+        String pageNum = request.getParameter("user_page");
+        Pager<User> pager = null;
+        if (pageNum == null || pageNum.equals("1")) {
+            pager = searchUser(keyWord,1);
+        } else {
+            pager = searchUser(keyWord,Integer.parseInt(pageNum));
+        }
+        request.setAttribute("pager", pager);
+        request.setAttribute("username",keyWord);
+        request.getRequestDispatcher("admin/admin_usersearch.jsp").forward(request, response);
     }
 
     public void prepareUserActivity(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,12 +71,12 @@ public class AdminService {
         List<CartItem> cartItems = getCartItems(userName);
         List<BookTransaction> bookTransactions = getBookTransactions(userName);
         User userInfo = getUser(userName);
-        request.getSession().setAttribute("LOGIN_LOG", loginLogList);
-        request.getSession().setAttribute("CART_REMOVED", cartRemovedList);
-        request.getSession().setAttribute("CART_ITEMS", cartItems);
-        request.getSession().setAttribute("TRANSACTIONS", bookTransactions);
-        request.getSession().setAttribute("USER_INFO", userInfo);
-        request.getRequestDispatcher("user_search.jsp").forward(request, response);
+        request.setAttribute("LOGIN_LOG", loginLogList);
+        request.setAttribute("CART_REMOVED", cartRemovedList);
+        request.setAttribute("CART_ITEMS", cartItems);
+        request.setAttribute("TRANSACTIONS", bookTransactions);
+        request.setAttribute("USER_INFO", userInfo);
+        request.getRequestDispatcher("admin/admin_single_user.jsp").forward(request, response);
     }
 
     public void banAUser(HttpServletRequest request, HttpServletResponse response, boolean ban) throws ServletException, IOException {
@@ -85,13 +84,34 @@ public class AdminService {
         if (StringUtil.isArgumentsContainNull(userName)) return;
         AdminDao adminDao = new AdminDaoImpl();
         if (!adminDao.banOrReleaseUser(userName, ban)) {
-            //TODO: Add err
         }
+        List<LoginLog> loginLogList = getLoginLog(userName);
+        List<CartItem> cartRemovedList = getAddedButRemovedItems(userName);
+        List<CartItem> cartItems = getCartItems(userName);
+        List<BookTransaction> bookTransactions = getBookTransactions(userName);
         User userInfo = getUser(userName);
-        request.getSession().setAttribute("USER_INFO", userInfo);
-        request.getRequestDispatcher("user_search.jsp").forward(request, response);
+        request.setAttribute("LOGIN_LOG", loginLogList);
+        request.setAttribute("CART_REMOVED", cartRemovedList);
+        request.setAttribute("CART_ITEMS", cartItems);
+        request.setAttribute("TRANSACTIONS", bookTransactions);
+        request.setAttribute("USER_INFO", userInfo);
+        request.getRequestDispatcher("admin/admin_single_user.jsp").forward(request, response);
 
     }
+
+    public void getUnSoldBookList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pageNum = request.getParameter("book_page");
+        BookDao bookDao = new BookDaoImpl();
+        Pager<Book> bookPager = null;
+        if(pageNum == null || pageNum.equals("1")){
+            bookPager = bookDao.getAllUnSoldBooks(1);
+        }else{
+            bookPager = bookDao.getAllUnSoldBooks(Integer.parseInt(pageNum));
+        }
+        request.setAttribute("book_pager",bookPager);
+        request.getRequestDispatcher("admin/admin_booklist.jsp").forward(request,response);
+    }
+
 
     private User getUser(String userName) {
         UserDao userDao = new UserDaoImpl();
@@ -132,11 +152,9 @@ public class AdminService {
     }
 
 
-    private List<User> searchUser(String keyWord) {
-        UserDao userDao = new UserDaoImpl();
-        List<User> userList = userDao.searchUserByName(keyWord);
-        if (userList == null || userList.size() == 0) return null;
-        return userList;
+    private Pager<User> searchUser(String keyWord,int page) {
+        UserListDao userListDao = new UserListDaoImpl();
+        return userListDao.searchUser(keyWord,page);
     }
 
     public boolean adminVerification(String userName, String password) {

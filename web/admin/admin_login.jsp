@@ -1,26 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/logistics/pre.jsp"%>
 <!DOCTYPE html>
 <html >
 <head>
     <meta charset="UTF-8">
-    <title>Elegant Login Form</title>
+    <title>Admin Login</title>
     <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="css/admin_css/reset.css">
+    <link rel="stylesheet" href="/css/admin_css/reset.css">
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="css/admin_css/style_login.css">
+    <link rel="stylesheet" href="/css/admin_css/style_login.css">
 </head>
 
 <body>
 
-<form class="login" action="BookTrade" method="post">
+<form class="login" action="c" method="post">
 
     <fieldset>
         <legend class="legend">Login</legend>
 
         <div class="input">
             <input name="admin_name" type="text" placeholder="Admin Name" required />
-            <span><i class="fa fa-envelope-o"></i></span>
+            <span><i class="fa fa-user"></i></span>
         </div>
 
         <div class="input">
@@ -41,9 +41,6 @@
     </fieldset>
 
 </form>
-
-
-
 
 </body>
 </html>

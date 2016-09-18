@@ -64,5 +64,5 @@
     </ul>
 
     <!-- Sidebar -->
-    <jsp:include page="sidebar.jsp"/>
+    <jsp:include page="sidebar_admin.jsp"/>
 </nav>

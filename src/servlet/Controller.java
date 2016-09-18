@@ -43,6 +43,10 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		if (!ServletFileUpload.isMultipartContent(request)) {// no file upload
 			String requestType = request.getParameter(REQTYPE);
+			if(requestType == null){
+                response.sendRedirect("welcome.jsp");
+                return;
+            }
 			AdminService adminService = null;
 			UserService userService = null;
 			switch (requestType) {

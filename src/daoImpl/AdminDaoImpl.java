@@ -6,6 +6,7 @@ import bean.CartItem;
 import bean.User;
 import daoIterface.AdminDao;
 import util.DBHelper;
+import util.DateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,13 +67,11 @@ public class AdminDaoImpl implements AdminDao{
                 Book book = new Book();
                 book.setTitle(rs.getString("title"));
                 book.setPrice(Integer.parseInt(rs.getString("price")));
-                String time = rs.getString("time");
+                String time = DateUtil.getDateToDay(rs.getString("time"));
                 BookTransaction bookTransaction = new BookTransaction();
-
                 bookTransaction.setBook(book);
                 bookTransaction.setSeller(seller);
                 bookTransaction.setTime(time);
-
                 bookTransactions.add(bookTransaction);
             }
             return bookTransactions;
