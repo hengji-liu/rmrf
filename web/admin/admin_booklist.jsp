@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../WEB-INF/jsp/loginguard.jsp" %>
+<%@include file="/WEB-INF/jsp/pre.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- display all users in page, no search-->
 <html>
@@ -29,7 +30,7 @@
                 </div>
                 <%--Display books--%>
                 <c:choose>
-                    <c:when test="${not empty book_pager}">
+                    <c:when test="${not empty pager}">
                         <form action="c" method="post">
                             <input type="hidden" name="reqtype" value="REMOVE_BOOK">
                             <table class="table">
@@ -44,8 +45,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:set var="count" value="${(book_pager.currentPage-1)*10+1}" scope="page"/>
-                                <c:forEach items="${book_pager.dataList}" var="book" varStatus="loop">
+                                <c:set var="count" value="${(pager.currentPage-1)*10+1}" scope="page"/>
+                                <c:forEach items="${pager.dataList}" var="book" varStatus="loop">
                                     <tr>
                                         <th scope="row"><c:out value="${count}"/></th>
                                         <%--TODO: title be an link--%>
@@ -59,18 +60,15 @@
                                 </c:forEach>
                                 </tbody>
                             </table>
-                            <ul class="pager">
-                                <c:set var="prev" value="c?reqtype=BOOK_LIST_ALL&book_page=${book_pager.currentPage-1}" scope="page"/>
-                                <c:set var="next" value="c?reqtype=BOOK_LIST_ALL&book_page=${book_pager.currentPage+1}" scope="page"/>
-                                <c:choose>
-                                    <c:when test="${book_pager.currentPage > 1}">
-                                        <li><a href="${prev}">Previous</a></li>
-                                    </c:when>
-                                    <c:when test="${book_pager.currentPage < book_pager.totalPage}">
-                                        <li><a href="${next}">Next</a></li>
-                                    </c:when>
-                                </c:choose>
-                            </ul>
+
+                            <c:set var="req" value="c?reqtype=BOOK_LIST_ALL&book_page=" scope="page"/>
+                            <div class="footer"> <!-- page selector-->
+                                <div class="container">
+                                    <jsp:include page="/WEB-INF/jsp/page_selector.jsp">
+                                        <jsp:param name="req_prefix" value="${req}"/>
+                                    </jsp:include>
+                                </div>
+                            </div>
                             <!-- Remove Button-->
                             <div class="form-group row">
                                 <div class="col-xs-4">

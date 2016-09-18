@@ -108,7 +108,7 @@ public class AdminService {
         }else{
             bookPager = bookDao.getAllUnSoldBooks(Integer.parseInt(pageNum));
         }
-        request.setAttribute("book_pager",bookPager);
+        request.setAttribute("pager",bookPager);
         request.getRequestDispatcher("admin/admin_booklist.jsp").forward(request,response);
     }
 

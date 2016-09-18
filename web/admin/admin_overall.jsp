@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../WEB-INF/jsp/loginguard.jsp" %>
+<%@include file="/WEB-INF/jsp/pre.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--<jsp:include page="WEB-INF/jsp/loginguard.jsp"/>--%>
 <html>

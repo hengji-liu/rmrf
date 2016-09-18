@@ -244,7 +244,7 @@ public class UserDaoImpl implements UserDao {
 
 			int offset = (page_num-1)*ServiceConfig.USER_PAGE_LIMIT;
 			psmt.setInt(4,offset);
-			psmt.setInt(5,offset+ServiceConfig.USER_PAGE_LIMIT);
+			psmt.setInt(5,ServiceConfig.USER_PAGE_LIMIT);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				User user = new User(rs.getString("username"), rs.getString("firstname"), rs.getString("lastname"),

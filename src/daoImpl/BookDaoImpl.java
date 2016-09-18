@@ -53,7 +53,7 @@ public class BookDaoImpl implements BookDao{
             psmt = conn.prepareStatement(sql);
             int offset = (pageNum-1)*ServiceConfig.USER_PAGE_LIMIT;
             psmt.setInt(1,offset);
-            psmt.setInt(2,offset+ServiceConfig.USER_PAGE_LIMIT);
+            psmt.setInt(2,ServiceConfig.USER_PAGE_LIMIT);
             //System.out.println(psmt.toString());
             rs = psmt.executeQuery();
             while (rs.next()) {

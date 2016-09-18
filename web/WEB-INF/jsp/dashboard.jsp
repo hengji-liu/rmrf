@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/WEB-INF/jsp/pre.jsp" %>
 <div class="container-fluid">
     <div class="row content">
         <div class="col-sm-9">
