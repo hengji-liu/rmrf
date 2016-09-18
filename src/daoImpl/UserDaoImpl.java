@@ -134,10 +134,22 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
-	public void confirm(String username){
-		
+	public void confirm(String username) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		try {
+			conn = DBHelper.getConnection();
+			String sql = "UPDATE user SET " + TYPE_ + "=" + ONE + " where " + USERNAME + "=?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, username);
+			psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.realease(null, psmt);
+		}
 	}
-	
+
 	public int save(User u) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
