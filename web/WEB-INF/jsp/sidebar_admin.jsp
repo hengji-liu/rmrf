@@ -11,18 +11,18 @@
             </li>
 
             <li>
-                <a href="/c?reqtype=BOOK_LIST_ALL&user_page=1">Book Management</a>
+                <a href="c?reqtype=BOOK_LIST_ALL&user_page=1">Book Management</a>
             </li>
 
             <li>
-                <a href="/admin/admin_all_users.jsp">User Management</a>
+                <a href="admin/admin_all_users.jsp">User Management</a>
 
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="/c?reqtype=USER_LIST&user_page=1">View All Users</a>
+                        <a href="c?reqtype=USER_LIST&user_page=1">View All Users</a>
                     </li>
                     <li>
-                        <a href="/admin/admin_usersearch.jsp">Search Users</a>
+                        <a href="admin/admin_usersearch.jsp">Search Users</a>
                     </li>
                 </ul>
             </li>

@@ -34,11 +34,11 @@
                 <jsp:param name="reqtype" value="USER_SEARCH" />
             </jsp:include>
             <!-- Search Result -->
-            <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/user_display.jsp"/>
+            <jsp:include page="/WEB-INF/jsp/user_display.jsp"/>
             <!-- Pager Result -->
             <div class="footer"> <!-- page selector-->
                 <div class="container">
-                    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/page_selector.jsp">
+                    <jsp:include page="/WEB-INF/jsp/page_selector.jsp">
                         <jsp:param name="req_prefix" value="c?reqtype=USER_SEARCH&username=${username}&user_page=" />
                     </jsp:include>
                 </div>
