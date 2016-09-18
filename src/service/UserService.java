@@ -36,6 +36,8 @@ public class UserService {
 	private static final String LOGIN_PAGE = "user/login.jsp";
 	private static final String SEARCH_PAGE = "search/search.jsp";
 	private static final String REGISTER_PAGE = "user/register.jsp";
+	private static final String FAILURE_PAGE = "user/failure.jsp";
+	private static final String CONFIRM_PAGE = "user/confirm.jsp";
 
 	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDao dao = new UserDaoImpl();
@@ -110,13 +112,12 @@ public class UserService {
 		}
 		u.setType_(0);
 		EmailUtil.sendEmail("bblib registration confirmation email",
-				"localhost:8080/rmrf/c?reqtype=confirm&username=" + u.getUsername(), u.getEmail());
+				"http://localhost:8080/rmrf/c?reqtype=confirm&username=" + u.getUsername(), u.getEmail());
 		int newRowId = dao.save(u);
 		if (0 == newRowId) {
 			request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);
 		} else {
-			// request.setAttribute(USER, u);
-			request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);
+			request.getRequestDispatcher(CONFIRM_PAGE).forward(request, response);
 		}
 	}
 
@@ -124,18 +125,15 @@ public class UserService {
 		String username = request.getParameter(USERNAME);
 		UserDao dao = new UserDaoImpl();
 		dao.confirm(username);
-//		if (null == u) {
-//			request.setAttribute(LOGIN_FAILURE, LOGIN_FAILURE);
-//			request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
-//		} else {
-//			request.setAttribute(USER, u);
-//			request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
-//		}
+		User u = dao.getUserByUserName(username);
+		if (null == u) {
+			request.getRequestDispatcher(FAILURE_PAGE).forward(request, response);
+		} else {
+			request.setAttribute(USER, u);
+			request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
+		}
 	}
 
-	
-	
-	
 	private void makeDefaultImg(File source, File target) {
 		FileChannel in = null;
 		FileChannel out = null;

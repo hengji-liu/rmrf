@@ -53,6 +53,7 @@ public class Controller extends HttpServlet {
 			case CONFIRM:
 				userService = new UserService();
 				userService.cofirm(request, response);
+				break;
 			case USER_LOGIN:
 				userService = new UserService();
 				userService.login(request, response);
