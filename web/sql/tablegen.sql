@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS `log_cart`;
 DROP TABLE IF EXISTS `book`;
 DROP TABLE IF EXISTS `user_login`;
 DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `graph_store`;
+DROP TABLE IF EXISTS `entity_store`;
 
 CREATE TABLE `user`
 (
@@ -93,5 +95,30 @@ CREATE TABLE `log_cart`
   time_added DATETIME NOT NULL,
   time_removed DATETIME NOT NULL,
   PRIMARY KEY (username,book_id)
+
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+/*
+The below two are the triplestores for the graph searching
+ref: http://webapps.cse.unsw.edu.au/webcms2/course/index.php?cid=2445
+*/
+
+CREATE TABLE `entity_store`
+(
+  subject VARCHAR(30),
+  predicate VARCHAR(30),
+  object VARCHAR(1000),
+  PRIMARY KEY (subject,predicate)
+
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE `graph_store`
+(
+  subject VARCHAR(30),
+  FOREIGN KEY (subject) REFERENCES entity_store (subject),
+  predicate VARCHAR(30),
+  object VARCHAR(30),
+  FOREIGN KEY (object) REFERENCES entity_store (subject),
+  PRIMARY KEY (predicate)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
