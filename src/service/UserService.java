@@ -39,6 +39,7 @@ public class UserService {
 	private static final String REGISTER_PAGE = "user/register.jsp";
 	private static final String FAILURE_PAGE = "user/failure.jsp";
 	private static final String CONFIRM_PAGE = "user/confirm.jsp";
+	private static final String PROFILE_PAGE = "user/profile.jsp";
 
 	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDao dao = new UserDaoImpl();
@@ -126,12 +127,82 @@ public class UserService {
 		String username = request.getParameter(USERNAME);
 		UserDao dao = new UserDaoImpl();
 		dao.confirm(username);
-		User u = dao.getUserByUserName(username);
+		User u = dao.getUserWhenConfirm(username);
 		if (null == u) {
 			request.getRequestDispatcher(FAILURE_PAGE).forward(request, response);
 		} else {
 			request.getSession().setAttribute(USER, u);
 			request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
+		}
+	}
+
+	public void update(HttpServletRequest request, HttpServletResponse response, List<FileItem> list)
+			throws ServletException, IOException {
+		UserDao dao = new UserDaoImpl();
+		User u = new User();
+		for (FileItem item : list) {
+			if (item.isFormField()) {
+				String name = item.getFieldName();
+				String value = item.getString();
+				switch (name) {
+				case USERNAME:
+					u.setUsername(value);
+					break;
+				case PS:
+					if ("".equals(value)) {
+						User user = (User) request.getSession().getAttribute(USER);
+						u.setPs(user.getPs());
+					} else {
+						u.setPs(EncryptionUtil.encryptPassword(value));
+					}
+					break;
+				case FIRSTNAME:
+					u.setFirstname(value);
+					break;
+				case LASTNAME:
+					u.setLastname(value);
+					break;
+				case EMAIL:
+					u.setEmail(value);
+					break;
+				case BIRTHDAY:
+					u.setBirthday(value);
+					break;
+				case ADDRESS:
+					u.setAddress(value);
+					break;
+				case CREDITCARD:
+					u.setCreditcard(value);
+					break;
+				default:
+					break;
+				}
+			} else {
+				String savePath = request.getSession().getServletContext().getRealPath("/profileImg");
+				String filename = item.getName();
+				if (filename == null || filename.trim().equals("")) {
+					continue;
+				}
+				String fileName = u.getUsername() + "_profile";
+				InputStream in = item.getInputStream();
+				FileOutputStream out = new FileOutputStream(savePath + File.separator + fileName);
+				byte buffer[] = new byte[1024];
+				int len = 0;
+				while ((len = in.read(buffer)) > 0) {
+					out.write(buffer, 0, len);
+				}
+				in.close();
+				out.close();
+				item.delete();
+			}
+		}
+		u.setType_(1);
+		int newRowId = dao.update(u);
+		if (0 == newRowId) {
+			request.getRequestDispatcher(FAILURE_PAGE).forward(request, response);
+		} else {
+			request.getSession().setAttribute(USER, u);
+			request.getRequestDispatcher(PROFILE_PAGE).forward(request, response);
 		}
 	}
 

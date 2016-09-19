@@ -5,11 +5,12 @@
 <html>
 <head>
 <%@ include file="/logistics/pre.jsp"%>
-<title>Login</title>
+<title>Register</title>
 </head>
 
 <body class="container-fluid">
-	<form class="col-md-4 col-md-offset-4" action="c" method="post" enctype="multipart/form-data">
+	<form class="col-md-4 col-md-offset-4" action="c" method="post"
+		enctype="multipart/form-data">
 		<input type="hidden" name="reqtype" value="user_register">
 		<div class="form-group">
 			<label for="username">Username</label> <input type="email"
@@ -37,7 +38,8 @@
 		</div>
 		<div class="form-group">
 			<label for="email">Email</label> <input type="email"
-				class="form-control" id="email" name="email" placeholder="Email" required="required">
+				class="form-control" id="email" name="email" placeholder="Email"
+				required="required">
 		</div>
 		<div class="form-group">
 			<label for="birthday">Birthday</label> <input type="date"
