@@ -20,10 +20,10 @@ VALUE ('liquan@rm.rf','3','2016-9-9 23:25','2016-9-10 20:25');
 INSERT INTO `log_cart` (username, book_id, time_added, time_removed)
   VALUE ('liquan@rm.rf','4','2016-9-9 23:25','2016-9-10 20:25');
 
-INSERT into `cart` (username, book_id, time_addded)
+INSERT into `cart` (username, book_id, time_added)
 VALUE ('liquan@rm.rf','1','2016-9-11 10:00');
 
-INSERT into `cart` (username, book_id, time_addded)
+INSERT into `cart` (username, book_id, time_added)
   VALUE ('liquan@rm.rf','2','2016-9-11 11:00');
 
 insert into `user_login` (username, time, granted) VALUE ('liquan@rm.rf','2016-9-10 23:25','1');

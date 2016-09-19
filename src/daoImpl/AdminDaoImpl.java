@@ -44,45 +44,6 @@ public class AdminDaoImpl implements AdminDao{
 
     }
 
-    @Override
-    public List<BookTransaction> purchasedItems(String userName) {
-        Connection conn = null;
-        PreparedStatement psmt = null;
-        ResultSet rs = null;
-        List<BookTransaction> bookTransactions = new ArrayList<>();
-        try {
-            conn = DBHelper.getConnection();
-            String sql = "select user.username, user.firstname, user.lastname,book.title,book.price,transactions.time\n" +
-                    "from user,book,transactions \n" +
-                    "where transactions.seller = (select seller from transactions where buyer=?)\n" +
-                    "and transactions.seller=user.username and transactions.book_id = book.book_id";
-            psmt = conn.prepareStatement(sql);
-            psmt.setString(1,userName);
-            rs = psmt.executeQuery();
-            while (rs.next()) {
-                User seller = new User();
-                seller.setFirstname(rs.getString("firstname"));
-                seller.setLastname(rs.getString("lastname"));
-                seller.setUsername(rs.getString("username"));
-                Book book = new Book();
-                book.setTitle(rs.getString("title"));
-                book.setPrice(Integer.parseInt(rs.getString("price")));
-                String time = DateUtil.getDateToDay(rs.getString("time"));
-                BookTransaction bookTransaction = new BookTransaction();
-                bookTransaction.setBook(book);
-                bookTransaction.setSeller(seller);
-                bookTransaction.setTime(time);
-                bookTransactions.add(bookTransaction);
-            }
-            return bookTransactions;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            DBHelper.realease(rs,psmt);
-        }
-    }
-
 
     @Override
     public boolean banOrReleaseUser(String userName, boolean ban) {

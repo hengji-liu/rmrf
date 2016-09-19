@@ -14,12 +14,7 @@ public interface BookDao {
 
     public Book getBookById(String bookID);
 
-    /**
-     * When provided a bookID, work out some related items
-     * @param bookID
-     * @return
-     */
-    public List<Book> getRelatedBooks(String bookID);
+
 
     public Pager<Book> getAllUnSoldBooks(int pageNum);
 

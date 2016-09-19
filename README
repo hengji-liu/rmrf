@@ -17,3 +17,8 @@ Export: export mysql database to .sql file
 cd /usr/local/mysql/bin (on my machine)
 ./mysqldump -u root -p bblib > ~/export.sql
 
+Transaction:
+1. user add item to cart
+2. user go to cart
+3. user purchase
+

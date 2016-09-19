@@ -23,7 +23,7 @@ public class XML2DB {
         try {
             conn = DBHelper.getConnection();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
 
@@ -35,7 +35,7 @@ public class XML2DB {
         try {
             conn.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         System.out.println("ALL DONE");
@@ -131,7 +131,7 @@ public class XML2DB {
             pstmt.setInt(9, 0);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
     }

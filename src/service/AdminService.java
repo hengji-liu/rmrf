@@ -129,8 +129,8 @@ public class AdminService {
     }
 
     private List<BookTransaction> getBookTransactions(String userName) {
-        AdminDao adminDao = new AdminDaoImpl();
-        List<BookTransaction> bookTransactions = adminDao.purchasedItems(userName);
+        TransactionDao transactionDao = new TransactionDaoImpl();
+        List<BookTransaction> bookTransactions = transactionDao.purchasedItems(userName);
         if (bookTransactions == null || bookTransactions.size() == 0) return null;
         return bookTransactions;
     }
