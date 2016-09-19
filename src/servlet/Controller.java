@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import service.AdminService;
+import service.BookService;
 import service.UserService;
 
 /**
@@ -44,6 +45,7 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		AdminService adminService = null;
 		UserService userService = null;
+        BookService bookService = null;
 		if (!ServletFileUpload.isMultipartContent(request)) {// no file upload
 			String requestType = request.getParameter(REQTYPE);
 			if (requestType == null) {
@@ -91,6 +93,9 @@ public class Controller extends HttpServlet {
 				adminService = new AdminService();
 				adminService.deleteBooksByID(request, response);
 				break;
+            case "SEARCH_BOOK":
+                bookService = new BookService();
+                bookService.searchBook(request, response);
 			}
 		} else {// contains file upload
 			DiskFileItemFactory factory = new DiskFileItemFactory();

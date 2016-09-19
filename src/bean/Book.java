@@ -1,6 +1,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Linus on 10/09/2016.

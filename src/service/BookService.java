@@ -26,4 +26,8 @@ public class BookService {
         //request.getRequestDispatcher().forward(request,response);
 
     }
+
+    public void searchBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
 }
