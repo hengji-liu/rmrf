@@ -11,24 +11,33 @@ import java.util.List;
  */
 public interface UserDao {
 
+	Pager<User> getUserPage(int page_num);
 
-    Pager<User> getUserPage(int page_num);
-    Pager<User> searchUser(String username,int page_num);
-    /**
-     * Get a user based on username
-     * @param userName
-     * @return User object or null if userName does not match any user;
-     */
-    public User getUserByUserName(String userName);
+	Pager<User> searchUser(String username, int page_num);
 
-    /**
-     * Get users login history
-     * @param userName
-     * @return
-     */
-    public List<LoginLog> getLoginLog(String userName);
+	/**
+	 * Get a user based on username
+	 * 
+	 * @param userName
+	 * @return User object or null if userName does not match any user;
+	 */
+	public User getUserByUserName(String userName);
 
-    User getUserWhenLogin(String username, String ps);
-    void confirm(String username);
-    int save(User u);
+	/**
+	 * Get users login history
+	 * 
+	 * @param userName
+	 * @return
+	 */
+	public List<LoginLog> getLoginLog(String userName);
+
+	User getUserWhenLogin(String username, String ps);
+
+	User getUserWhenConfirm(String username);
+
+	void confirm(String username);
+
+	int save(User u);
+
+	int update(User u);
 }
