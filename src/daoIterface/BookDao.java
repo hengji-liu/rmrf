@@ -23,6 +23,8 @@ public interface BookDao {
 
     public Pager<Book> getAllUnSoldBooks(int pageNum);
 
+    public boolean deleteBookByID(String bookID);
+
     /*TODO: Please define and implement more advanced book search!*/
 
 }

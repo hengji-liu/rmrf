@@ -113,6 +113,16 @@ public class AdminService {
     }
 
 
+    public void deleteBooksByID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String [] bookIDs = request.getParameterValues("is_remove");
+        BookDao bookDao = new BookDaoImpl();
+        for(String bookID : bookIDs){
+            bookDao.deleteBookByID(bookID);
+        }
+        request.setAttribute("book_page","1");
+        getUnSoldBookList(request,response);
+    }
+
     private User getUser(String userName) {
         UserDao userDao = new UserDaoImpl();
         return userDao.getUserByUserName(userName);

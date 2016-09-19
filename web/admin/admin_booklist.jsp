@@ -68,15 +68,12 @@
                                         <jsp:param name="req_prefix" value="${req}"/>
                                     </jsp:include>
                                 </div>
-                            </div>
-                            <!-- Remove Button-->
-                            <div class="form-group row">
-                                <div class="col-xs-4">
-                                </div>
-                                <div class="col-xs-3">
-                                    <button type="submit" class="form-control btn">Remove from cart</button>
+                                <div class="container-fluid bg-2 text-center">
+                                    <button type="submit" class="btn btn-default btn-lg">Remove Book</button>
                                 </div>
                             </div>
+
+
                         </form>
                     </c:when>
                 </c:choose>

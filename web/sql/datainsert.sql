@@ -76,6 +76,35 @@ INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
 
 
 INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','DELEME I','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','DELEME II','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','DELEME II','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
+
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
+INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
   VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
 
 INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
@@ -94,36 +123,7 @@ INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher
   VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
 
 INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');
-
-INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
-  VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 I','venu','pub','isbn','0','100');
+  VALUE ('hengji@rm.rf','book','1992','authors','editors','DELEMEads I','venu','pub','isbn','0','100');
 
 INSERT INTO `book` (seller, book_type,year,authors,editors,title,venue,publisher,isbn,paused,price)
   VALUE ('hengji@rm.rf','book','1992','authors','editors','Nimabi9321 II','venu','pub','isbn','0','100');

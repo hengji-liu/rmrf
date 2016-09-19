@@ -82,4 +82,23 @@ public class BookDaoImpl implements BookDao{
         }
 
     }
+
+    @Override
+    public boolean deleteBookByID(String bookID) {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "DELETE FROM bblib.book WHERE book_id=?;";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1,bookID);
+            psmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBHelper.realease(null, psmt);
+        }
+    }
 }

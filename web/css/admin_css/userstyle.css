@@ -30,7 +30,7 @@
 .footer ul {
     list-style: none;
     padding: 0 20px;
-    margin-bottom: 80px;
+    /*margin-bottom: 80px;*/
 }
 
 .footer li {
@@ -87,3 +87,4 @@
 @media screen and (max-width: 767px) {
     .row.content {height: auto;}
 }
+
