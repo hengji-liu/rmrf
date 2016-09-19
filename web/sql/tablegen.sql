@@ -69,16 +69,16 @@ CREATE TABLE `transactions`
 
 /*
 stores alive cart item,
-entry should be removed after purchase or remove operation,
-if it is remove, it goes to log_cart
-if it is purchase, just remove it and add into transaction of course.
+entry should be removed after purchase or removeFromCart operation,
+if it is removeFromCart, it goes to log_cart
+if it is purchase, just removeFromCart it and add into transaction of course.
 */
 CREATE TABLE `cart`
 (
   username VARCHAR(30) COMMENT 'refer to user.usename',
   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
   book_id INT(15) REFERENCES book (book_id) ON DELETE CASCADE ,
-  time_addded DATETIME NOT NULL,
+  time_added DATETIME NOT NULL,
   PRIMARY KEY (username,book_id)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

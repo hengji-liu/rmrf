@@ -27,6 +27,7 @@ public class Controller extends HttpServlet {
 	private static final String USER_LOGIN = "user_login";
 	private static final String USER_REGISTER = "user_register";
 	private static final String CONFIRM = "confirm";
+	private static final String PROFILE_CHANGE = "profile_change";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -41,14 +42,14 @@ public class Controller extends HttpServlet {
 
 	private void resolvedCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		AdminService adminService = null;
+		UserService userService = null;
 		if (!ServletFileUpload.isMultipartContent(request)) {// no file upload
 			String requestType = request.getParameter(REQTYPE);
-			if(requestType == null){
-                response.sendRedirect("welcome.jsp");
-                return;
-            }
-			AdminService adminService = null;
-			UserService userService = null;
+			if (requestType == null) {
+				response.sendRedirect("welcome.jsp");
+				return;
+			}
 			switch (requestType) {
 			case CONFIRM:
 				userService = new UserService();
@@ -78,13 +79,17 @@ public class Controller extends HttpServlet {
 				adminService = new AdminService();
 				adminService.banAUser(request, response, false);
 				break;
-            case "USER_LIST":
-                adminService = new AdminService();
-                adminService.userList(request, response);
-                break;
+			case "USER_LIST":
+				adminService = new AdminService();
+				adminService.userList(request, response);
+				break;
 			case "BOOK_LIST_ALL":
 				adminService = new AdminService();
-				adminService.getUnSoldBookList(request,response);
+				adminService.getUnSoldBookList(request, response);
+				break;
+			case "REMOVE_BOOK":
+				adminService = new AdminService();
+				adminService.deleteBooksByID(request, response);
 				break;
 			}
 		} else {// contains file upload
@@ -104,8 +109,12 @@ public class Controller extends HttpServlet {
 				}
 				switch (requestType) {
 				case USER_REGISTER:
-					UserService userService = new UserService();
+					userService = new UserService();
 					userService.register(request, response, list);
+					break;
+				case PROFILE_CHANGE:
+					userService = new UserService();
+					userService.update(request, response, list);
 					break;
 				default:
 					break;

@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="/logistics/pre.jsp"%>
+    <%@ include file="/logistics/pre.jsp" %>
     <!--  <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet'
           type_='text/css'>-->
     <link rel="stylesheet" href="css/style.css">
@@ -15,9 +15,9 @@
             <div class="col-md-3">
                 <h1>Supper Book Trader</h1>
             </div>
-			<c:if test='${not empty user}'>
-				${user.firstname }
-			</c:if>
+            <c:if test='${not empty user}'>
+                ${user.firstname }
+            </c:if>
             <div class="col-md-9">
                 <ul class="nav nav-tabs pull-right">
                     <li><a href="user/login.jsp">Log in</a></li>
@@ -36,27 +36,81 @@
     </div>
 </div>
 
-<div class="banner">
-    <div class="container">
-        <h2>The Bottom Line.</h2>
-        <p> We deliver the news that is relevant to you.</p>
-    </div>
-</div>
-<!--  
+<%--<div class="banner">--%>
+    <%--<div class="container">--%>
+        <%--<h2>The Bottom Line.</h2>--%>
+        <%--<p> We deliver the news that is relevant to you.</p>--%>
+    <%--</div>--%>
+<%--</div>--%>
+
 <div class="cards">
     <div class="container">
-        <h2>Our Expertise.</h2>
+        <h2>Our Deal.</h2>
         <div class="row">
-            <div class="col-md-4"><img src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p1.jpg"> <img
-                    src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p2.jpg"> <img
-                    src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p3.jpg"></div>
-            <div class="col-md-4"><img src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p6.jpg"> <img
-                    src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p5.jpg"> <img
-                    src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p4.jpg"></div>
-            <div class="col-md-4"><img src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p7.jpg"> <img
-                    src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p8.jpg"> <img
-                    src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p9.jpg"> <img
-                    src="https://s3.amazonaws.com/codecademy-content/projects/headlines/p10.jpg"></div>
+            <!--col 1-->
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">BOOK TITLE</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">100$</div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+            </div>
+
+            <!--col 2-->
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Book Title</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+            </div>
+            <!--col 3-->
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
+                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                                                 style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -79,7 +133,6 @@
 </div>
 
 
--->
 <jsp:include page="/logistics/js.jsp"></jsp:include>
 </body>
 </html>

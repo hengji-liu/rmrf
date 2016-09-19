@@ -18,9 +18,16 @@ public interface CartDao {
 
     public List<CartItem> getAddedThenRemovedItemsInCart(String userName);
 
-    public boolean addCartItem(CartItem cartItem);
+    /**
+     *
+     * @param userName
+     * @param bookID
+     * @return 1 ok, 2 duplicate add, 0 fail
+     */
+    int addCartItem(String userName, String bookID);
 
-    public boolean remove(CartItem cartItem);
+    //isPurchase : whether it is a purchase, if it is a purchase, record will not going to log_cart
+    boolean removeFromCart(String userName, String bookID, boolean isPurchase);
 
     //TODO: declare and implement more method if needed
 }

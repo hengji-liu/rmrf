@@ -1,15 +1,14 @@
 package util;
 
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
-public class EmailUtil {
+/**
+ * Created by Linus on 19/09/2016.
+ */
+public class EmailUtilII {
 
     private static final String  SENDER_ADDR= "rmrf.9321.service@gmail.com";
     private static final String PASSWORD = "9321Sucks";
@@ -21,7 +20,7 @@ public class EmailUtil {
      * @param recipientAddress recipientAddress e.g. john@gmail.com
      * @return true if the email is sent and false if there is error in sending.
      */
-    public static boolean sendEmail(String subject, String content, String recipientAddress){
+    public boolean sendEmail(String subject, String content, String recipientAddress){
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -52,8 +51,5 @@ public class EmailUtil {
             return false;
         }
         return true;
-    }
-    public static void main(String args[]){
-        EmailUtil.sendEmail("Registration Confirmation","Hello you registered","liquan1992@outlook.com");
     }
 }
