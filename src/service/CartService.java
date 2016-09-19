@@ -26,9 +26,13 @@ public class CartService {
         int status_code = cartDao.addCartItem(userName,bookID);
         if(status_code == 1){
             //Suceess, forward to cart page
+            //request.getRequestDispatcher().forward(request,response);
         }else if(status_code == 2){
             //Duplicate to cart page, forward to cart page
+            //request.getRequestDispatcher().forward(request,response);
         }
+
+        //request.getRequestDispatcher().forward(request,response);
 
     }
 
@@ -40,6 +44,7 @@ public class CartService {
         CartDao cartDao = new CartDaoImpl();
         cartDao.removeFromCart(userName,bookID,false);
         //Forward to cart page
+        //request.getRequestDispatcher().forward(request,response);
     }
 
     public void showCartItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,6 +55,6 @@ public class CartService {
         List<CartItem> cartItemList = cartDao.getUserCartItems(userName);
         request.setAttribute("CART_ITEMS", cartItemList);
         //To cart page
-        request.getRequestDispatcher(CART_PAGE).forward(request, response);
+        //request.getRequestDispatcher().forward(request,response);
     }
 }

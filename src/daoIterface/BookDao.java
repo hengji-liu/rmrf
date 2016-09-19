@@ -14,8 +14,6 @@ public interface BookDao {
 
     public Book getBookById(String bookID);
 
-
-
     public Pager<Book> getAllUnSoldBooks(int pageNum);
 
     public boolean deleteBookByID(String bookID);

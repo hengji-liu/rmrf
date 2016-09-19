@@ -9,6 +9,9 @@ import java.util.List;
  */
 public interface TransactionDao {
 
+    //get a user's purchased items
     public List<BookTransaction> purchasedItems(String userName);
+
+    public boolean userPurchase(String sellerID, String buyerID, String bookID);
 
 }

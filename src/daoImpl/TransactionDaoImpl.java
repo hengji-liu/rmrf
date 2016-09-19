@@ -28,7 +28,7 @@ public class TransactionDaoImpl implements TransactionDao{
             conn = DBHelper.getConnection();
             String sql = "select user.username, user.firstname, user.lastname,book.title,book.price,transactions.time\n" +
                     "from user,book,transactions \n" +
-                    "where transactions.seller = (select seller from transactions where buyer=?)\n" +
+                    "where transactions.seller IN (select seller from transactions where buyer=?)\n" +
                     "and transactions.seller=user.username and transactions.book_id = book.book_id";
             psmt = conn.prepareStatement(sql);
             psmt.setString(1,userName);
@@ -54,6 +54,29 @@ public class TransactionDaoImpl implements TransactionDao{
             return null;
         } finally {
             DBHelper.realease(rs,psmt);
+        }
+    }
+
+    @Override
+    public boolean userPurchase(String sellerID, String buyerID, String bookID) {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "INSERT INTO `transactions` (seller, buyer, book_id, time) " +
+                    "VALUE (?,?,?,?)";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1,sellerID);
+            psmt.setString(2,buyerID);
+            psmt.setString(3,bookID);
+            psmt.setString(4,DateUtil.getCurrentTimeToMin());
+            psmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBHelper.realease(null,psmt);
         }
     }
 }
