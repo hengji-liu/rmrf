@@ -96,6 +96,7 @@ public class Controller extends HttpServlet {
             case "SEARCH_BOOK":
                 bookService = new BookService();
                 bookService.searchBook(request, response);
+                break;
 			}
 		} else {// contains file upload
 			DiskFileItemFactory factory = new DiskFileItemFactory();
