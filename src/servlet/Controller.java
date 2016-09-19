@@ -93,10 +93,10 @@ public class Controller extends HttpServlet {
 				adminService = new AdminService();
 				adminService.deleteBooksByID(request, response);
 				break;
-            case "SEARCH_BOOK":
-                bookService = new BookService();
-                bookService.searchBook(request, response);
-                break;
+                case "SEARCH_BOOK":
+                    bookService = new BookService();
+                    bookService.searchBook(request, response);
+                    break;
 			}
 		} else {// contains file upload
 			DiskFileItemFactory factory = new DiskFileItemFactory();
