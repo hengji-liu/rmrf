@@ -18,6 +18,7 @@ import bean.User;
 import daoImpl.UserDaoImpl;
 import daoIterface.UserDao;
 import util.EmailUtil;
+import util.EncryptionUtil;
 
 public class UserService {
 	// para
@@ -43,12 +44,12 @@ public class UserService {
 		UserDao dao = new UserDaoImpl();
 		String username = request.getParameter(USERNAME);
 		String password = request.getParameter(PS);
-		User u = dao.getUserWhenLogin(username, password);
+		User u = dao.getUserWhenLogin(username, EncryptionUtil.encryptPassword(password));
 		if (null == u) {
 			request.setAttribute(LOGIN_FAILURE, LOGIN_FAILURE);
 			request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
 		} else {
-			request.setAttribute(USER, u);
+			request.getSession().setAttribute(USER, u);
 			request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
 		}
 	}
@@ -66,7 +67,7 @@ public class UserService {
 					u.setUsername(value);
 					break;
 				case PS:
-					u.setPs(value);
+					u.setPs(EncryptionUtil.encryptPassword(value));
 					break;
 				case FIRSTNAME:
 					u.setFirstname(value);
@@ -129,7 +130,7 @@ public class UserService {
 		if (null == u) {
 			request.getRequestDispatcher(FAILURE_PAGE).forward(request, response);
 		} else {
-			request.setAttribute(USER, u);
+			request.getSession().setAttribute(USER, u);
 			request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
 		}
 	}
