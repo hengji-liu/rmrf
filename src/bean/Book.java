@@ -20,6 +20,7 @@ public class Book implements Serializable{
     private String isbn;
     private String tag;
     private String paused;
+    private String visited;
     private byte[] img;
     private int price;
 
@@ -134,4 +135,8 @@ public class Book implements Serializable{
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public String getVisited() { return visited; }
+
+    public void setVisited(String visited) { this.visited = visited; }
 }

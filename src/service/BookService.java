@@ -4,6 +4,7 @@ import bean.Book;
 import daoImpl.AdminDaoImpl;
 import daoImpl.BookDaoImpl;
 import daoIterface.AdminDao;
+import util.DBHelper;
 import util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,14 +46,14 @@ public class BookService {
         session.setAttribute("whereList_BookSearch", whereList);
         session.setAttribute("whatList_BookSearch", whatList);
         session.setAttribute("howList_BookSearch", howList);
-        int from = 0;
+        String from = "0";
         if (! request.getParameter("from").equals("")) {
-            from = Integer.parseInt(request.getParameter("from"));
+            from = request.getParameter("from");
         }
         session.setAttribute("from_BookSearch", request.getParameter("from"));
-        int to = 9999;
+        String to = "9999";
         if (! request.getParameter("to").equals("")) {
-            to = Integer.parseInt(request.getParameter("to"));
+            to = request.getParameter("to");
         }
         session.setAttribute("to_BookSearch", request.getParameter("to"));
         String doWhat = request.getParameter("doWhat_BookSearch");
@@ -63,17 +65,82 @@ public class BookService {
             howList.add("and");
             session.setAttribute("howList_BookSearch", howList);
             session.setAttribute("itemNum_BookSearch", new Integer(itemNum + 1));
-            request.getRequestDispatcher("/bookSearching.jsp").forward(request, response);
+            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         } else if (doWhat.equals("-")) {
             if (itemNum > 1) session.setAttribute("itemNum_BookSearch", new Integer(itemNum - 1));
-            request.getRequestDispatcher("/bookSearching.jsp").forward(request, response);
+            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         } else if (doWhat.equals("Reset")) {
             session.setAttribute("itemNum_BookSearch", null);
             session.setAttribute("from_BookSearch", null);
             session.setAttribute("to_BookSearch", null);
-            request.getRequestDispatcher("/bookSearching.jsp").forward(request, response);
+            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         } else if (doWhat.equals("Search")){
+            Connection conn = null;
+            try {
+                conn = DBHelper.getConnection();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String sql = "select book_id, seller, book_type, authors, editors, " +
+                    "title, year, venue, publisher, isbn, tag, paused, price, visited " +
+                    "from book where (";
+            for (int i = 0; i < itemNum; i ++) {
+                if (whatList.get(i).equals("")) continue;
+                if (i != itemNum - 1) {
+                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i) + "%' " + howList.get(i) + " ";
+                } else {
+                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i) + "%') AND ";
+                }
+            }
+            sql += "year >= " + from + " AND year <= " + to;
+            System.out.println(sql);
+            List<Book> bookList = new ArrayList<>();
+            try {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    String book_id = rs.getString("book_id");
+                    String seller = rs.getString("seller");
+                    String book_type = rs.getString("book_type");
+                    String authors = rs.getString("authors");
+                    String editors = rs.getString("editors");
+                    String title = rs.getString("title");
+                    String year = rs.getString("year");
+                    String venue = rs.getString("venue");
+                    String publisher = rs.getString("publisher");
+                    String isbn = rs.getString("isbn");
+                    String tag = rs.getString("tag");
+                    String paused = rs.getString("paused");
+                    String price = rs.getString("price");
+                    String visited = rs.getString("visited");
+                    Book book = new Book();
+                    book.setBookID(book_id);
+                    book.setSellerID(seller);
+                    book.setType(book_type);
+                    book.setAuthors(authors);
+                    book.setEditors(editors);
+                    book.setTitle(title);
+                    book.setYear(year);
+                    book.setVenue(venue);
+                    book.setPublisher(publisher);
+                    book.setIsbn(isbn);
+                    book.setTag(tag);
+                    book.setPaused(paused);
+                    if (price != null && !price.equals("")) book.setPrice(Integer.parseInt(price));
+                    book.setVisited(visited);
+                    bookList.add(book);
+                }
+                for (Book book : bookList) {
+                    System.out.println(book.getAuthors());
+                    System.out.println(book.getTitle());
+                    System.out.println(book.getYear());
+                }
+                System.out.println(bookList.size());
 
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         }
     }
 }
