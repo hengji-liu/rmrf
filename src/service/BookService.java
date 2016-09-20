@@ -21,15 +21,17 @@ import java.util.List;
  */
 public class BookService {
 
-    public void showBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void showBook(HttpServletRequest request, HttpServletResponse response,boolean isAdmin) throws ServletException, IOException {
         //FROM admin book detail/ search result /
         String bookID = request.getParameter("book_id");
         if (StringUtil.isArgumentsContainNull(bookID)) return;
         Book book = new BookDaoImpl().getBookById(bookID);
         request.setAttribute("book",book);
+        if(isAdmin){
+            request.setAttribute("readonly","true");
+        }
         //to book detail page
-        //request.getRequestDispatcher().forward(request,response);
-
+        request.getRequestDispatcher("/book/bookdetail.jsp").forward(request,response);
     }
 
     public void searchBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -85,14 +87,18 @@ public class BookService {
                     "title, year, venue, publisher, isbn, tag, paused, price, visited " +
                     "from book where (";
             for (int i = 0; i < itemNum; i ++) {
-                if (whatList.get(i).equals("")) continue;
                 if (i != itemNum - 1) {
+                    if (whatList.get(i).equals("")) continue;
                     sql += whereList.get(i) + " LIKE '%" + whatList.get(i) + "%' " + howList.get(i) + " ";
                 } else {
-                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i) + "%') AND ";
+                    if (! whatList.get(i).equals("")) {
+                        sql += whereList.get(i) + " LIKE '%" + whatList.get(i) + "%'";
+                    } else {
+                        sql += "book_id > 0";
+                    }
                 }
             }
-            sql += "year >= " + from + " AND year <= " + to;
+            sql += ") AND year >= " + from + " AND year <= " + to + " AND paused = 0";
             System.out.println(sql);
             List<Book> bookList = new ArrayList<>();
             try {

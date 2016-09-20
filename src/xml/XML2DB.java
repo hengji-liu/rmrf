@@ -1,9 +1,10 @@
-package util;
+package xml;
 
 import bean.Book;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import util.DBHelper;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -131,6 +132,7 @@ public class XML2DB {
                     book.setVenue(venue);
                     book.setPublisher(publisher);
                     book.setIsbn(isbn);
+                    book.setSellerID("linus");
                     bookList.add(book);
                 }
             }
