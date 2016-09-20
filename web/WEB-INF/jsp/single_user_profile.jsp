@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-3 col-lg-3 " align="left">
                             <img alt="User Pic"
-                                 src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+                                 src="/profileImg/default.jpg"
                                  class="img-circle img-responsive">
                         </div>
 
@@ -66,7 +66,8 @@
                                 <c:forEach items="${CART_REMOVED}" var="cart_removed" varStatus="loop">
                                     <tr>
                                         <th scope="row"><c:out value="${count}"/></th>
-                                        <td><c:out value="${cart_removed.book.title}"/></td>
+                                        <td><a href="c?reqtype=BOOK_DETAIL_READ&book_id=${cart_removed.book.bookID}">
+                                            <c:out value="${cart_removed.book.title}"/></a></td>
                                         <td><c:out value="${cart_removed.addedTime}"/></td>
                                         <td><c:out value="${cart_removed.removeTime}"/></td>
                                     </tr>
@@ -89,8 +90,11 @@
                                 <c:set var="count" value="${1}" scope="page"/>
                                 <c:forEach items="${CART_ITEMS}" var="cart_removed" varStatus="loop">
                                     <tr>
-                                        <th scope="row"><c:out value="${count}"/></th>
-                                        <td><c:out value="${cart_removed.book.title}"/></td>
+                                        <th scope="row">
+                                            <c:out value="${count}"/>
+                                        </th>
+                                        <td><a href="c?reqtype=BOOK_DETAIL_READ&book_id=${cart_removed.book.bookID}">
+                                            <c:out value="${cart_removed.book.title}"/></a></td>
                                         <td><c:out value="${cart_removed.addedTime}"/></td>
                                     </tr>
                                     <c:set var="count" value="${count + 1}" scope="page"/>
@@ -115,7 +119,9 @@
                                 <c:forEach items="${TRANSACTIONS}" var="transactions" varStatus="loop">
                                     <tr>
                                         <th scope="row"><c:out value="${count}"/></th>
-                                        <td><c:out value="${transactions.book.title}"/></td>
+                                        <td><a href="c?reqtype=BOOK_DETAIL_READ&book_id=${transactions.book.bookID}">
+                                            <c:out value="${transactions.book.title}"/>
+                                        </a></td>
                                         <td><c:out value="${transactions.seller.username}"/></td>
                                         <td><c:out value="${transactions.book.price}"/>$</td>
                                         <td><c:out value="${transactions.time}"/></td>

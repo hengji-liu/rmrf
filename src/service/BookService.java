@@ -21,14 +21,17 @@ import java.util.List;
  */
 public class BookService {
 
-    public void showBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void showBook(HttpServletRequest request, HttpServletResponse response,boolean isAdmin) throws ServletException, IOException {
         //FROM admin book detail/ search result /
         String bookID = request.getParameter("book_id");
         if (StringUtil.isArgumentsContainNull(bookID)) return;
         Book book = new BookDaoImpl().getBookById(bookID);
         request.setAttribute("book",book);
+        if(isAdmin){
+            request.setAttribute("readonly","true");
+        }
         //to book detail page
-        //request.getRequestDispatcher().forward(request,response);
+        request.getRequestDispatcher("/book/bookdetail.jsp").forward(request,response);
 
     }
 

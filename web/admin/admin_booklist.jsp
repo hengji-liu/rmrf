@@ -49,8 +49,9 @@
                                 <c:forEach items="${pager.dataList}" var="book" varStatus="loop">
                                     <tr>
                                         <th scope="row"><c:out value="${count}"/></th>
-                                        <%--TODO: title be an link--%>
-                                        <td><c:out value="${book.title}"/></td>
+                                            <%--TODO: title be an link--%>
+                                        <td><a href="c?reqtype=BOOK_DETAIL_READ&book_id=${book.bookID}"><c:out
+                                                value="${book.title}"/></a></td>
                                         <td><c:out value="${book.authors}"/></td>
                                         <td><c:out value="${book.type}"/></td>
                                         <td><c:out value="${book.sellerID}"/></td>

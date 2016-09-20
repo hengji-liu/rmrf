@@ -51,7 +51,7 @@
             <div class="col-md-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">BOOK TITLE</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                    <div class="panel-body"><img src="/profileImg/default.jpg" class="img-responsive"
                                                  style="width:100%" alt="Image"></div>
                     <div class="panel-footer">100$</div>
                 </div>

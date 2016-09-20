@@ -26,7 +26,7 @@ public class TransactionDaoImpl implements TransactionDao{
         List<BookTransaction> bookTransactions = new ArrayList<>();
         try {
             conn = DBHelper.getConnection();
-            String sql = "select user.username, user.firstname, user.lastname,book.title,book.price,transactions.time\n" +
+            String sql = "select user.username, user.firstname, user.lastname,book.title,book.book_id,book.price,transactions.time\n" +
                     "from user,book,transactions \n" +
                     "where transactions.seller IN (select seller from transactions where buyer=?)\n" +
                     "and transactions.seller=user.username and transactions.book_id = book.book_id";
@@ -40,6 +40,7 @@ public class TransactionDaoImpl implements TransactionDao{
                 seller.setUsername(rs.getString("username"));
                 Book book = new Book();
                 book.setTitle(rs.getString("title"));
+                book.setBookID(rs.getString("book_id"));
                 book.setPrice(Integer.parseInt(rs.getString("price")));
                 String time = DateUtil.getDateToDay(rs.getString("time"));
                 BookTransaction bookTransaction = new BookTransaction();
