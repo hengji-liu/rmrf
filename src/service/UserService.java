@@ -113,13 +113,13 @@ public class UserService {
 			}
 		}
 		u.setType_(0);
-		EmailUtil.sendEmail("bblib registration confirmation email",
-				"http://localhost:8080/rmrf/c?reqtype=confirm&username=" + u.getUsername(), u.getEmail());
 		int newRowId = dao.save(u);
 		if (0 == newRowId) {
-			request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);
+			request.getRequestDispatcher(FAILURE_PAGE).forward(request, response);
 		} else {
 			request.getRequestDispatcher(CONFIRM_PAGE).forward(request, response);
+			EmailUtil.sendEmail("bblib registration confirmation email",
+					"http://localhost:8080/rmrf/c?reqtype=confirm&username=" + u.getUsername(), u.getEmail());
 		}
 	}
 
