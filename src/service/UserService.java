@@ -35,7 +35,7 @@ public class UserService {
 	private static final String LOGIN_FAILURE = "loginFailure";
 	// pages
 	private static final String LOGIN_PAGE = "user/login.jsp";
-	private static final String SEARCH_PAGE = "search/search.jsp";
+	private static final String SEARCH_PAGE = "book/search.jsp";
 	private static final String REGISTER_PAGE = "user/register.jsp";
 	private static final String FAILURE_PAGE = "user/failure.jsp";
 	private static final String CONFIRM_PAGE = "user/confirm.jsp";
