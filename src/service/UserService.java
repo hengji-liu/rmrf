@@ -45,7 +45,7 @@ public class UserService {
 		UserDao dao = new UserDaoImpl();
 		String username = request.getParameter(USERNAME);
 		String password = request.getParameter(PS);
-		User u = dao.getUserWhenLogin(username, EncryptionUtil.encryptPassword(password));
+		User u = dao.getUserWhenLogin(username, EncryptionUtil.encryptPassword(password, username));
 		if (null == u) {
 			request.setAttribute(LOGIN_FAILURE, LOGIN_FAILURE);
 			request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
@@ -68,7 +68,7 @@ public class UserService {
 					u.setUsername(value);
 					break;
 				case PS:
-					u.setPs(EncryptionUtil.encryptPassword(value));
+					u.setPs(EncryptionUtil.encryptPassword(value, u.getUsername()));
 					break;
 				case FIRSTNAME:
 					u.setFirstname(value);
@@ -153,7 +153,7 @@ public class UserService {
 						User user = (User) request.getSession().getAttribute(USER);
 						u.setPs(user.getPs());
 					} else {
-						u.setPs(EncryptionUtil.encryptPassword(value));
+						u.setPs(EncryptionUtil.encryptPassword(value, u.getUsername()));
 					}
 					break;
 				case FIRSTNAME:

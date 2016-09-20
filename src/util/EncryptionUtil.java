@@ -9,13 +9,14 @@ import java.util.Formatter;
  * Created by Linus on 10/09/2016.
  */
 public class EncryptionUtil {
-    public static String encryptPassword(String password)
+    public static String encryptPassword(String password, String salt)
     {
         String sha1 = "";
         try
         {
             MessageDigest crypt = MessageDigest.getInstance("SHA-1");
             crypt.reset();
+            crypt.update(salt.getBytes("UTF-8"));
             crypt.update(password.getBytes("UTF-8"));
             sha1 = byteToHex(crypt.digest());
         }
