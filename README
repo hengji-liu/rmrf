@@ -22,3 +22,5 @@ Transaction:
 2. user go to cart
 3. user purchase
 
+book search result in table:
+href = c?reqtype=BOOK_DETAIL&book_id=1
