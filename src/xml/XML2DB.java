@@ -8,6 +8,9 @@ import util.DBHelper;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -69,11 +72,14 @@ public class XML2DB {
 
 
     private List listBook() {
+        String path = System.getProperty("user.dir");
+        path += File.separator + "web" + File.separator + "sql" + File.separator + "dblp.xml";
+        //System.out.println(path);
         Document document = null;
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            document = builder.parse(this.getClass().getClassLoader().getResourceAsStream("dblp.xml"));
+            document = builder.parse(new FileInputStream(path));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -98,29 +104,35 @@ public class XML2DB {
                 NodeList childElementsList = rootNodeChild.getChildNodes();
                 for (int j = 0; j < childElementsList.getLength(); j++) {
                     Node element = childElementsList.item(j);
-                    String elementName = element.getNodeName().trim();
-                    String elementValue = element.getTextContent().trim();
+                    String elementName = element.getNodeName().trim().toLowerCase();
+                    String elementValue = element.getTextContent().trim().toLowerCase();
                     if (elementName.indexOf("author") > -1) {
                         authors += elementValue + ", ";
                     } else if (elementName.indexOf("editor") > -1) {
                         editors += elementValue + ", ";
                     } else if (elementName.indexOf("title") > -1) {
                         title = elementValue;
-                        if(title.indexOf("CAiSE") > -1) venue = "CAiSE";
-                        else if (title.indexOf("SIGMOD") > -1) venue = "SIGMOD";
-                        else if (title.indexOf("BPM") > -1) venue = "BPM";
-                        else if (title.indexOf("VLDB") > -1) venue = "VLDB";
-                        else if (title.indexOf("WWW") > -1) venue = "WWW";
+                        if(title.indexOf("caise") > -1) venue = "caise";
+                        else if (title.indexOf("sigmod") > -1) venue = "sigmod";
+                        else if (title.indexOf("vldb") > -1) venue = "vldb";
                     } else if (elementName.indexOf("year") > -1) {
                         year = elementValue;
                     } else if (elementName.indexOf("publisher") > -1) {
                         publisher = elementValue;
                     } else if (elementName.indexOf("isbn") > -1) {
                         isbn = elementValue;
+                    } else if (elementName.indexOf("journal") > -1) {
+                        if(elementValue.indexOf("caise") > -1) venue = "caise";
+                        else if (elementValue.indexOf("sigmod") > -1) venue = "sigmod";
+                        else if (elementValue.indexOf("vldb") > -1) venue = "vldb";
+                    } else if (elementName.indexOf("series") > -1) {
+                        if(elementValue.indexOf("caise") > -1) venue = "caise";
+                        else if (elementValue.indexOf("sigmod") > -1) venue = "sigmod";
+                        else if (elementValue.indexOf("vldb") > -1) venue = "vldb";
                     }
                 }
                 if (! title.equals("")) {
-                    if (type.indexOf("www") > -1) venue = "WWW";
+                    if (type.indexOf("www") > -1) venue = "www";
                     if (!authors.equals("")) authors = authors.substring(0, authors.length() - 3);
                     if (!editors.equals("")) editors = editors.substring(0, editors.length() - 3);
                     Book book = new Book();
@@ -144,7 +156,7 @@ public class XML2DB {
     private static void add2DB(Book book, Connection conn) {
         // add to book table
         PreparedStatement pstmt;
-        String sql4book = "insert into book (book_type, authors, editors, title, year, venue, publisher, isbn, paused) values(?,?,?,?,?,?,?,?,?)";
+        String sql4book = "insert into book (book_type, authors, editors, title, year, venue, publisher, isbn, paused, seller) values(?,?,?,?,?,?,?,?,?,?)";
         try {
             pstmt = conn.prepareStatement(sql4book);
             pstmt.setString(1, book.getType());
@@ -156,6 +168,7 @@ public class XML2DB {
             pstmt.setString(7, book.getPublisher());
             pstmt.setString(8, book.getIsbn());
             pstmt.setInt(9, 0);
+            pstmt.setString(10, book.getSellerID());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
