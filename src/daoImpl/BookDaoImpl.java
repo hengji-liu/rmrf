@@ -158,4 +158,26 @@ public class BookDaoImpl implements BookDao {
         book.setVisited(rs.getString("visited"));
         return book;
     }
+
+    @Override
+    public void increaseVisited(String bookID){
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "UPDATE bblib.book SET visited=visited+1 WHERE book_id=?;";
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, bookID);
+            psmt.executeUpdate();
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        } finally {
+            DBHelper.realease(null, psmt);
+        }
+    }
+
+
+
 }

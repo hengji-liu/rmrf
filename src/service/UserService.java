@@ -118,6 +118,7 @@ public class UserService {
 			request.getRequestDispatcher(FAILURE_PAGE).forward(request, response);
 		} else {
 			request.getRequestDispatcher(CONFIRM_PAGE).forward(request, response);
+			//TODO:send email in a new thread
 			EmailUtil.sendEmail("bblib registration confirmation email",
 					"http://localhost:8080/rmrf/c?reqtype=confirm&username=" + u.getUsername(), u.getEmail());
 		}

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/jsp/pre.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -70,7 +71,11 @@
                             <c:choose>
                                 <c:when test="${empty requestScope.readonly}">
                                     <span class="pull-right">
-                                        <a href="#" class="btn btn-primary">Add to cart</a>
+                                        <a href="c?reqtype=CART_ADD&book_id=${book.bookID}"
+                                           class="btn btn-primary">Add to cart</a>
+                                    </span>
+                                    <span class="pull-right">
+                                        <a href="c?reqtype=CART_ITEM" class="btn btn-primary">Go to cart</a>
                                     </span>
                                 </c:when>
                             </c:choose>
@@ -79,9 +84,12 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-
+                    <c:choose>
+                        <c:when test="${not empty requestScope.dup}">
+                            Item is already in cart!
+                        </c:when>
+                    </c:choose>
                 </div>
-
             </div>
         </div>
     </div>

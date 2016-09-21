@@ -7,6 +7,7 @@ import bean.User;
 import daoIterface.AdminDao;
 import util.DBHelper;
 import util.DateUtil;
+import util.EncryptionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +30,7 @@ public class AdminDaoImpl implements AdminDao{
             String sql = "select * from user where username=? and ps=? and type_='2';";
             psmt = conn.prepareStatement(sql);
             psmt.setString(1,userName);
-            psmt.setString(2,password);
+            psmt.setString(2, password);
             rs = psmt.executeQuery();
             if (rs.next()) {
                 return true;

@@ -48,8 +48,8 @@ CREATE TABLE `book`
   isbn VARCHAR(100),
   tag VARCHAR(30),/* tag for related item search*/
   paused BOOL NOT NULL ,/* 0 is false 1 is true*/
-  price INT(5),
-  visited INT(5) /*if a book is visited by user, the count should be increased*/
+  price INT(5) DEFAULT 100,
+  visited INT(10) DEFAULT 0/*if a book is visited by user, the count should be increased*/
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 

@@ -4,6 +4,7 @@ import bean.Book;
 import daoImpl.AdminDaoImpl;
 import daoImpl.BookDaoImpl;
 import daoIterface.AdminDao;
+import daoIterface.BookDao;
 import util.DBHelper;
 import util.StringUtil;
 
@@ -25,10 +26,14 @@ public class BookService {
         //FROM admin book detail/ search result /
         String bookID = request.getParameter("book_id");
         if (StringUtil.isArgumentsContainNull(bookID)) return;
-        Book book = new BookDaoImpl().getBookById(bookID);
-        request.setAttribute("book",book);
+        BookDao bookDao = new BookDaoImpl();
+        Book book = bookDao.getBookById(bookID);
+        request.getSession().setAttribute("book",book);
         if(isAdmin){
             request.setAttribute("readonly","true");
+        }else{
+            //Increase visited count by one
+            bookDao.increaseVisited(bookID);
         }
         //to book detail page
         request.getRequestDispatcher("/book/bookdetail.jsp").forward(request,response);

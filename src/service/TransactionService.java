@@ -26,12 +26,15 @@ public class TransactionService {
     public void purchaseItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         //FROM Cart page
         String bookID = request.getParameter("book_id");
-        String buyer = request.getParameter("user_name");//or maybe from session?
-        purchase(buyer,bookID);
+        User user = (User)request.getSession().getAttribute("user");
+        String userName = user.getUsername();
+        Book book = purchase(userName,bookID);
+        request.setAttribute("book",book);
         //Foward to transaction successful page
+        request.getRequestDispatcher("cart/purchase.jsp").forward(request,response);
     }
 
-    private void purchase(String buyer,String bookID){
+    private Book purchase(String buyer,String bookID){
         BookDao bookDao = new BookDaoImpl();
         Book book =  bookDao.getBookById(bookID);
         TransactionDao transactionDao = new TransactionDaoImpl();
@@ -42,10 +45,12 @@ public class TransactionService {
         String subject = subjectAssemble(seller);
         String content = contentAssemble(book);
         //Multi Thread Send, tested works
-        new Thread(new SendEmailRunnable(subject,content,seller.getEmail())).start();
+        //TODO: Enable Email(Just remove comment!)
+        //new Thread(new SendEmailRunnable(subject,content,seller.getEmail())).start();
         CartDao cartDao = new CartDaoImpl();
         cartDao.removeFromCart(buyer,bookID,true);
 //        EmailUtil.sendEmail(subject,content,seller.getEmail());
+        return book;
     }
 
     private class SendEmailRunnable implements Runnable{
@@ -72,9 +77,8 @@ public class TransactionService {
     }
 
     private String contentAssemble(Book book){
-        String s = String.format("%s: %s \n %s: %s \n","Book Title",
+        return String.format("%s: %s \n %s: %s \n","Book Title",
                 book.getTitle(),"You Earned ", book.getPrice()+"$!");
-        return s;
     }
 
 

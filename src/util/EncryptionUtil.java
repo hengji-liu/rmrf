@@ -43,4 +43,8 @@ public class EncryptionUtil {
         return result;
     }
 
+    public static void main(String []args){
+        System.out.println(EncryptionUtil.encryptPassword("123","liquan@rm.rf"));
+    }
+
 }

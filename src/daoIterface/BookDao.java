@@ -20,6 +20,7 @@ public interface BookDao {
 
     List<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList, String from, String to);
 
+    public void increaseVisited(String bookID);
 
     /*TODO: Please define and implement more advanced book search!*/
 

@@ -30,16 +30,17 @@
                             </thead>
                             <tbody>
                             <c:set var="count" value="${1}" scope="page"/>
-                            <c:forEach items="${requestScope.CART_ITEMS}" var="book" varStatus="loop">
+                            <c:forEach items="${requestScope.CART_ITEMS}" var="item" varStatus="loop">
                                 <tr>
                                     <th scope="row"><c:out value="${count}"/></th>
                                         <%--TODO: title be an link--%>
-                                    <td><c:out value="${book.title}"/></td>
+                                    <td><c:out value="${item.book.title}"/></td>
                                     <td>
-                                        <a type="button" class="btn btn-default btn-lg">Buy</a>
+                                        <a href="c?reqtype=BOOK_BUY&book_id=${item.book.bookID}" type="button" class="btn btn-default btn-lg">Buy</a>
                                     </td>
                                     <th>
-                                        <a type="button" class="btn btn-default btn-lg">Remove</a>
+                                        <a href="c?reqtype=CART_REMOVE&book_id=${item.book.bookID}"
+                                           type="button" class="btn btn-default btn-lg">Remove</a>
                                     </th>
                                 </tr>
                                 <c:set var="count" value="${count + 1}" scope="page"/>

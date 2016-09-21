@@ -14,10 +14,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import service.AdminService;
-import service.BookService;
-import service.CartService;
-import service.UserService;
+import service.*;
 
 /**
  * Created by Linus on 10/09/2016.
@@ -48,6 +45,7 @@ public class Controller extends HttpServlet {
         UserService userService = null;
         BookService bookService = null;
         CartService cartService = null;
+        TransactionService transactionService = null;
         if (!ServletFileUpload.isMultipartContent(request)) {// no file upload
             String requestType = request.getParameter(REQTYPE);
             if (requestType == null) {
@@ -111,6 +109,19 @@ public class Controller extends HttpServlet {
                     cartService = new CartService();
                     cartService.showCartItem(request,response);
                     break;
+                case "CART_REMOVE":
+                    cartService = new CartService();
+                    cartService.removeItemsFromCart(request,response);
+                    break;
+                case "CART_ADD":
+                    cartService = new CartService();
+                    cartService.addItemsToCart(request,response);
+                    break;
+                case "BOOK_BUY":
+                    transactionService = new TransactionService();
+                    transactionService.purchaseItem(request,response);
+                    break;
+
             }
         } else {// contains file upload
             DiskFileItemFactory factory = new DiskFileItemFactory();
