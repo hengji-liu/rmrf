@@ -18,6 +18,9 @@ public interface BookDao {
 
     public boolean deleteBookByID(String bookID);
 
+    List<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList, String from, String to);
+
+
     /*TODO: Please define and implement more advanced book search!*/
 
 }
