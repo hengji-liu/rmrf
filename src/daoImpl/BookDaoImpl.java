@@ -10,10 +10,7 @@ import daoIterface.RecordCountDao;
 import util.DBHelper;
 import util.DateUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +101,45 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
+    @Override
+    public List<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList, String from, String to) {
+        Connection conn = null;
+        try {
+            conn = DBHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = "select book_id, seller, book_type, authors, editors, " +
+                "title, year, venue, publisher, isbn, tag, paused, price, visited " +
+                "from book where (";
+        for (int i = 0; i < itemNum; i ++) {
+            if (i != itemNum - 1) {
+                if (whatList.get(i).equals("")) continue;
+                sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
+            } else {
+                if (! whatList.get(i).equals("")) {
+                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%'";
+                } else {
+                    sql += "book_id > 0";
+                }
+            }
+        }
+        sql += ") AND year >= " + from + " AND year <= " + to + " AND paused = 0";
+        //System.out.println(sql);
+        List<Book> bookList = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Book book = getBookDetail(rs);
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookList;
+    }
+
     private Book getBookDetail(ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setBookID(rs.getString("book_id"));
@@ -119,6 +155,7 @@ public class BookDaoImpl implements BookDao {
         book.setTag(rs.getString("tag"));
         book.setPaused(rs.getString("paused"));
         book.setPrice(rs.getInt("price"));
+        book.setVisited(rs.getString("visited"));
         return book;
     }
 }

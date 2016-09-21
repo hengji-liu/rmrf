@@ -77,75 +77,13 @@ public class BookService {
             session.setAttribute("to_BookSearch", null);
             request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         } else if (doWhat.equals("Search")){
-            Connection conn = null;
-            try {
-                conn = DBHelper.getConnection();
-            } catch (Exception e) {
-                e.printStackTrace();
+            List<Book> bookSearchResultList = new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to);
+            for (Book book : bookSearchResultList) {
+                System.out.println(book.getAuthors());
+                System.out.println(book.getTitle());
+                System.out.println(book.getYear());
             }
-            String sql = "select book_id, seller, book_type, authors, editors, " +
-                    "title, year, venue, publisher, isbn, tag, paused, price, visited " +
-                    "from book where (";
-            for (int i = 0; i < itemNum; i ++) {
-                if (i != itemNum - 1) {
-                    if (whatList.get(i).equals("")) continue;
-                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i) + "%' " + howList.get(i) + " ";
-                } else {
-                    if (! whatList.get(i).equals("")) {
-                        sql += whereList.get(i) + " LIKE '%" + whatList.get(i) + "%'";
-                    } else {
-                        sql += "book_id > 0";
-                    }
-                }
-            }
-            sql += ") AND year >= " + from + " AND year <= " + to + " AND paused = 0";
-            System.out.println(sql);
-            List<Book> bookList = new ArrayList<>();
-            try {
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql);
-                while (rs.next()) {
-                    String book_id = rs.getString("book_id");
-                    String seller = rs.getString("seller");
-                    String book_type = rs.getString("book_type");
-                    String authors = rs.getString("authors");
-                    String editors = rs.getString("editors");
-                    String title = rs.getString("title");
-                    String year = rs.getString("year");
-                    String venue = rs.getString("venue");
-                    String publisher = rs.getString("publisher");
-                    String isbn = rs.getString("isbn");
-                    String tag = rs.getString("tag");
-                    String paused = rs.getString("paused");
-                    String price = rs.getString("price");
-                    String visited = rs.getString("visited");
-                    Book book = new Book();
-                    book.setBookID(book_id);
-                    book.setSellerID(seller);
-                    book.setType(book_type);
-                    book.setAuthors(authors);
-                    book.setEditors(editors);
-                    book.setTitle(title);
-                    book.setYear(year);
-                    book.setVenue(venue);
-                    book.setPublisher(publisher);
-                    book.setIsbn(isbn);
-                    book.setTag(tag);
-                    book.setPaused(paused);
-                    if (price != null && !price.equals("")) book.setPrice(Integer.parseInt(price));
-                    book.setVisited(visited);
-                    bookList.add(book);
-                }
-                for (Book book : bookList) {
-                    System.out.println(book.getAuthors());
-                    System.out.println(book.getTitle());
-                    System.out.println(book.getYear());
-                }
-                System.out.println(bookList.size());
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            System.out.println(bookSearchResultList.size());
             request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         }
     }

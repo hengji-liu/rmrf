@@ -24,3 +24,9 @@ Transaction:
 
 book search result in table:
 href = c?reqtype=BOOK_DETAIL&book_id=1
+
+About database dump file:
+Tried to run it on Intellij AND MYSQL WORKBENCH but failed, showing strange syntax error.
+The only way to use it successfully is through command line.
+To import it to your database: mysql -u root -p -D bblib < dumpbook.sql
+(also commented off all book-inserting lines in datainsert.sql since they are included in the dumpbook.sql)
