@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import service.AdminService;
 import service.BookService;
+import service.CartService;
 import service.UserService;
 
 /**
@@ -46,6 +47,7 @@ public class Controller extends HttpServlet {
         AdminService adminService = null;
         UserService userService = null;
         BookService bookService = null;
+        CartService cartService = null;
         if (!ServletFileUpload.isMultipartContent(request)) {// no file upload
             String requestType = request.getParameter(REQTYPE);
             if (requestType == null) {
@@ -75,7 +77,7 @@ public class Controller extends HttpServlet {
                     break;
                 case "USER_LOG":
                     adminService = new AdminService();
-                    adminService.prepareUserActivity(request, response);
+                    adminService.prepareUserActivity(request,response);
                     break;
                 case "UNBAN_USER":
                     adminService = new AdminService();
@@ -104,6 +106,10 @@ public class Controller extends HttpServlet {
                 case "BOOK_DETAIL_READ":
                     bookService = new BookService();
                     bookService.showBook(request, response, true);
+                    break;
+                case "CART_ITEM":
+                    cartService = new CartService();
+                    cartService.showCartItem(request,response);
                     break;
             }
         } else {// contains file upload

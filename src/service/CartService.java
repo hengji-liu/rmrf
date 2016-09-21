@@ -55,6 +55,6 @@ public class CartService {
         List<CartItem> cartItemList = cartDao.getUserCartItems(userName);
         request.setAttribute("CART_ITEMS", cartItemList);
         //To cart page
-        //request.getRequestDispatcher().forward(request,response);
+        request.getRequestDispatcher("cart/cart.jsp").forward(request,response);
     }
 }
