@@ -1,6 +1,7 @@
 package service;
 
 import bean.Book;
+import bean.Pager;
 import daoImpl.AdminDaoImpl;
 import daoImpl.BookDaoImpl;
 import daoIterface.AdminDao;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,6 +44,12 @@ public class BookService {
     public void top10(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("display_BookSearch", "top10");
+        Long time = System.currentTimeMillis();
+        List<Book> bookSearchResultList = new BookDaoImpl().top10();
+
+
+        session.setAttribute("time_BookSearch", ((double)(System.currentTimeMillis() - time)) / 1000);
+        session.setAttribute("top10_BookSearch", bookSearchResultList);
         request.getRequestDispatcher("/book/search.jsp").forward(request, response);
     }
 
@@ -94,17 +102,14 @@ public class BookService {
             session.setAttribute("to_BookSearch", null);
         } else if (doWhat.equals("Search")){
             if (validInput) {
+                Long time = System.currentTimeMillis();
                 List<Book> bookSearchResultList = new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to);
+
+                session.setAttribute("time_BookSearch", ((double)(System.currentTimeMillis() - time)) / 1000);
                 if (bookSearchResultList.size() == 0) {
                     session.setAttribute("display_BookSearch", "noResults");
                 } else {
                     session.setAttribute("display_BookSearch", "showResults");
-                    for (Book book : bookSearchResultList) {
-                        System.out.println(book.getAuthors());
-                        System.out.println(book.getTitle());
-                        System.out.println(book.getYear());
-                    }
-                    System.out.println(bookSearchResultList.size());
                 }
             }
         }

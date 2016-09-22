@@ -124,6 +124,7 @@ public class Controller extends HttpServlet {
                 case "TOP10_BOOK":
                     bookService = new BookService();
                     bookService.top10(request, response);
+                    break;
             }
         } else {// contains file upload
             DiskFileItemFactory factory = new DiskFileItemFactory();

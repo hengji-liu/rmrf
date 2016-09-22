@@ -22,6 +22,8 @@ public interface BookDao {
 
     public void increaseVisited(String bookID);
 
+    List<Book> top10();
+
     /*TODO: Please define and implement more advanced book search!*/
 
 }

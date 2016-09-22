@@ -156,6 +156,7 @@ public class BookDaoImpl implements BookDao {
         book.setPaused(rs.getString("paused"));
         book.setPrice(rs.getInt("price"));
         book.setVisited(rs.getString("visited"));
+        book.setPhotoid(rs.getString("photoid"));
         return book;
     }
 
@@ -178,6 +179,28 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
+    @Override
+    public List<Book> top10() {
+        Connection conn = null;
+        try {
+            conn = DBHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = "SELECT * FROM bblib.book order by visited desc limit 10 offset 0";
+        List<Book> bookList = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Book book = getBookDetail(rs);
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookList;
+    }
 
 
 }

@@ -49,7 +49,8 @@ CREATE TABLE `book`
   tag VARCHAR(30),/* tag for related item search*/
   paused BOOL NOT NULL ,/* 0 is false 1 is true*/
   price INT(5) DEFAULT 100,
-  visited INT(10) DEFAULT 0/*if a book is visited by user, the count should be increased*/
+  visited INT(10) DEFAULT 0,/*if a book is visited by user, the count should be increased*/
+  photoid INT(10) DEFAULT 0 /*phtoid = 0 means no available photo*/
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 

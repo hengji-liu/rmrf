@@ -144,7 +144,7 @@ public class XML2DB {
                     book.setVenue(venue);
                     book.setPublisher(publisher);
                     book.setIsbn(isbn);
-                    book.setSellerID("linus");
+                    book.setSellerID("hengji@rm.rf");
                     bookList.add(book);
                 }
             }

@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, java.util.ArrayList"%>
+<%@ page import="daoImpl.BookDaoImpl" %>
 <html>
 <head>
     <%
@@ -15,7 +16,6 @@
             List validInputList = new ArrayList();
             validInputList.add(true);
             session.setAttribute("validInput_BookSearch", validInputList);
-            session.setAttribute("display_BookSearch", "top10");
             session.setAttribute("itemNum_BookSearch", new Integer(1));
             List whereList = new ArrayList();
             whereList.add("title");
@@ -27,6 +27,12 @@
             howList.add("and");
             session.setAttribute("howList_BookSearch", howList);
         }
+        if (session.getAttribute("display_BookSearch") == null) {
+            Long time = System.currentTimeMillis();
+            session.setAttribute("top10_BookSearch", new BookDaoImpl().top10());
+            session.setAttribute("time_BookSearch", ((double)(System.currentTimeMillis() - time)) / 1000);
+            session.setAttribute("display_BookSearch", "top10");
+        }
     %>
     <title>Search Book</title>
     <meta charset="utf-8">
@@ -36,7 +42,12 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-        .row.content {height: ${sessionScope.itemNum_BookSearch * 100 + 1500}px}
+        <c:if test="${sessionScope.display_BookSearch == 'noResults'}">
+            .row.content {height: ${sessionScope.itemNum_BookSearch * 100 + 700}px}
+        </c:if>
+        <c:if test="${sessionScope.display_BookSearch != 'noResults'}">
+            .row.content {height: ${sessionScope.itemNum_BookSearch * 100 + 2500}px}
+        </c:if>
 
         /* Set gray background color and 100% height */
         .sidenav {
@@ -145,7 +156,7 @@
                                         </select>
                                     </c:if>
                                     <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'venue'}">
-                                        <select name="where${i}" class="form-control"
+                                        <select name="where${i}" class="form-control">
                                             <option value="venue">Venue</option>
                                             <option value="title">Title</option>
                                             <option value="authors">Author</option>
@@ -198,27 +209,31 @@
                         </c:forEach>
                         <tr><td><br></td></tr>
                         <tr>
-                            <td colspan="2" align="right"><span class="label label-primary">From year:</span></td>
-                            <td><input type="text" name="from" value="${sessionScope.from_BookSearch}" placeholder="included..." class="form-control"></td>
+                            <td colspan="2" align="left"><span class="label label-primary">From year:</span></td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="right"><span class="label label-primary">To year:</span></td>
-                            <td><input type="text" name="to" value="${sessionScope.to_BookSearch}" placeholder="included..." class="form-control"></td>
+                            <td colspan="2" width="30%"><input type="text" name="from" value="${sessionScope.from_BookSearch}" placeholder="included..." class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left"><span class="label label-primary">To year:</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="text" name="to" value="${sessionScope.to_BookSearch}" placeholder="included..." class="form-control"></td>
                         </tr>
                     </table>
                 </form>
-        </span>
             </div>
         </div>
-
         <div class="col-sm-9">
             <c:if test="${sessionScope.display_BookSearch == 'top10'}">
                 <h2>Top 10 Visited Record</h2>
+                <h4><small>10 results (${sessionScope.time_BookSearch} seconds)</small></h4>
                 <hr>
+                <jsp:include page="/WEB-INF/jsp/top10book_display.jsp"/>
             </c:if>
             <c:if test="${sessionScope.display_BookSearch == 'noResults'}">
                 <h2>Search Results</h2>
-                <h4><small>Time: 100Resutls found</small></h4>
+                <h4><small>0 result (${sessionScope.time_BookSearch} seconds)</small></h4>
                 <hr>
                 <img align="center" src="../../img/noresults.jpg" class="img-responsive" alt="Cinque Terre">
             </c:if>
@@ -232,10 +247,10 @@
 </div>
 
 <footer class="container-fluid">
-    <h6>UNSW Australia</h6>
-    <h7>High St</h7>
-    <h7>Kensington, NSW 2052</h7>
-    <h7>Australia</h7>
+    <h7>UNSW</h7>
+    <h6>High St</h6>
+    <h6>Kensington, NSW 2052</h6>
+    <h6>Australia</h6>
 </footer>
 
 </body>
