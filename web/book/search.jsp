@@ -10,129 +10,233 @@
 <%@ page import="java.util.List, java.util.ArrayList"%>
 <html>
 <head>
-    <title>Book Searching</title>
+    <%
+        if (session.getAttribute("itemNum_BookSearch") == null) {
+            List validInputList = new ArrayList();
+            validInputList.add(true);
+            session.setAttribute("validInput_BookSearch", validInputList);
+            session.setAttribute("display_BookSearch", "top10");
+            session.setAttribute("itemNum_BookSearch", new Integer(1));
+            List whereList = new ArrayList();
+            whereList.add("title");
+            session.setAttribute("whereList_BookSearch", whereList);
+            List whatList = new ArrayList();
+            whatList.add("");
+            session.setAttribute("whatList_BookSearch", whatList);
+            List howList = new ArrayList();
+            howList.add("and");
+            session.setAttribute("howList_BookSearch", howList);
+        }
+    %>
+    <title>Search Book</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {height: ${sessionScope.itemNum_BookSearch * 100 + 1500}px}
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+            width: auto;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+                width: auto;
+            }
+            .row.content {height: auto;}
+        }
+    </style>
 </head>
+
 <body>
-<%
-    if (session.getAttribute("itemNum_BookSearch") == null) {
-        session.setAttribute("itemNum_BookSearch", new Integer(1));
-        List whereList = new ArrayList();
-        whereList.add("title");
-        session.setAttribute("whereList_BookSearch", whereList);
-        List whatList = new ArrayList();
-        whatList.add("");
-        session.setAttribute("whatList_BookSearch", whatList);
-        List howList = new ArrayList();
-        howList.add("and");
-        session.setAttribute("howList_BookSearch", howList);
-    }
-%>
-<form action="/c" method="post">
-    <input type="hidden" name="reqtype" value="SEARCH_BOOK">
-    <table border="0">
-        <tr>
-            <td colspan="3" align="right">
-                <input type="submit" value="Reset" name="doWhat_BookSearch">
-                <input type="submit" value="-" name="doWhat_BookSearch">
-                <input type="submit" value="+" name="doWhat_BookSearch">
-            </td>
-        </tr>
-        <c:forEach var="i" begin="1" end="${sessionScope.itemNum_BookSearch}" step="1">
-            <tr>
-                <td>Key Word ${i}: </td>
-                <td>
-                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'title'}">
-                        <select name="where${i}">
-                            <option value="title">Title</option>
-                            <option value="authors">Author</option>
-                            <option value="editors">Editor</option>
-                            <option value="venue">Venue</option>
-                            <option value="publisher">Publisher</option>
-                            <option value="isbn">ISBN</option>
-                        </select>
-                    </c:if>
-                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'authors'}">
-                        <select name="where${i}">
-                            <option value="authors">Author</option>
-                            <option value="title">Title</option>
-                            <option value="editors">Editor</option>
-                            <option value="venue">Venue</option>
-                            <option value="publisher">Publisher</option>
-                            <option value="isbn">ISBN</option>
-                        </select>
-                    </c:if>
-                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'editors'}">
-                        <select name="where${i}">
-                            <option value="editors">Editor</option>
-                            <option value="title">Title</option>
-                            <option value="authors">Author</option>
-                            <option value="venue">Venue</option>
-                            <option value="publisher">Publisher</option>
-                            <option value="isbn">ISBN</option>
-                        </select>
-                    </c:if>
-                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'venue'}">
-                        <select name="where${i}">
-                            <option value="venue">Venue</option>
-                            <option value="title">Title</option>
-                            <option value="authors">Author</option>
-                            <option value="editors">Editor</option>
-                            <option value="publisher">Publisher</option>
-                            <option value="isbn">ISBN</option>
-                        </select>
-                    </c:if>
-                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'publisher'}">
-                        <select name="where${i}">
-                            <option value="publisher">Publisher</option>
-                            <option value="title">Title</option>
-                            <option value="authors">Author</option>
-                            <option value="editors">Editor</option>
-                            <option value="venue">Venue</option>
-                            <option value="isbn">ISBN</option>
-                        </select>
-                    </c:if>
-                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'isbn'}">
-                        <select name="where${i}">
-                            <option value="isbn">ISBN</option>
-                            <option value="title">Title</option>
-                            <option value="authors">Author</option>
-                            <option value="editors">Editor</option>
-                            <option value="venue">Venue</option>
-                            <option value="publisher">Publisher</option>
-                        </select>
-                    </c:if>
-                </td>
-                <td>
-                    <input type="text" name="what${i}" value="${sessionScope.whatList_BookSearch.get(i - 1)}">
-                </td>
-                <td>
-                    <select name="how${i}">
-                        <c:if test="${sessionScope.howList_BookSearch.get(i - 1) == 'and'}">
-                            <option value="and">AND</option>
-                            <option value="or">OR</option>
-                        </c:if>
-                        <c:if test="${sessionScope.howList_BookSearch.get(i - 1) == 'or'}">
-                            <option value="or">OR</option>
-                            <option value="and">AND</option>
-                        </c:if>
-                    </select>
-                </td>
-            </tr>
-        </c:forEach>
-        <tr>
-            <td colspan="2" align="right">From year (included): </td>
-            <td><input type="text" name="from" value="${sessionScope.from_BookSearch}"></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right">To year (included): </td>
-            <td><input type="text" name="to" value="${sessionScope.to_BookSearch}"></td>
-        </tr>
-        <tr>
-            <td colspan="3" align="right">
-                <input type="submit" value="Search" name="doWhat_BookSearch">
-            </td>
-        </tr>
-    </table>
-</form>
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav">
+            <h4>Welcome to DBLP Searching Engine</h4>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="/c?reqtype=TOP10_BOOK">Top 10 Visited</a></li>
+                <li><a href="">Graph Search</a></li>
+                <li><a href="">Shopping Cart</a></li>
+                <li><a href="">Logout</a></li>
+            </ul><br>
+            <div class="input-group">
+                <!--
+                <input type="text" class="form-control" placeholder="Search Blog.."><span class="input-group-btn">
+                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                -->
+                <form action="/c" method="post">
+                    <input type="hidden" name="reqtype" value="SEARCH_BOOK">
+                    <table border="0">
+                        <tr>
+                            <td colspan="3" align="right">
+                                <button class="btn btn-default" type="submit" value="Reset" name="doWhat_BookSearch">Reset</button>
+                                <button class="btn btn-default" type="submit" value="-" name="doWhat_BookSearch">-</button>
+                                <button class="btn btn-default" type="submit" value="+" name="doWhat_BookSearch">+</button>
+                                <button class="btn btn-default" type="submit" value="Search" name="doWhat_BookSearch">Search
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <c:forEach var="i" begin="1" end="${sessionScope.itemNum_BookSearch}" step="1">
+                            <c:if test="${sessionScope.validInput_BookSearch.get(i - 1) == false}">
+                                <tr>
+                                    <td colspan="3" align="left">
+                                        <br>
+                                        <span class="label label-primary">Key word ${i}:</span>
+                                        <span class="label label-danger">Invalid input!</span>
+                                    </td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${sessionScope.validInput_BookSearch.get(i - 1) == true}">
+                                <tr>
+                                    <td colspan="3" align="left">
+                                        <br>
+                                        <span class="label label-primary">Key word ${i}:</span>
+                                    </td>
+                                </tr>
+                            </c:if>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'title'}">
+                                        <select name="where${i}" class="form-control">
+                                            <option value="title">Title</option>
+                                            <option value="authors">Author</option>
+                                            <option value="editors">Editor</option>
+                                            <option value="venue">Venue</option>
+                                            <option value="publisher">Publisher</option>
+                                            <option value="isbn">ISBN</option>
+                                        </select>
+                                    </c:if>
+                                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'authors'}">
+                                        <select name="where${i}" class="form-control">
+                                            <option value="authors">Author</option>
+                                            <option value="title">Title</option>
+                                            <option value="editors">Editor</option>
+                                            <option value="venue">Venue</option>
+                                            <option value="publisher">Publisher</option>
+                                            <option value="isbn">ISBN</option>
+                                        </select>
+                                    </c:if>
+                                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'editors'}">
+                                        <select name="where${i}" class="form-control">
+                                            <option value="editors">Editor</option>
+                                            <option value="title">Title</option>
+                                            <option value="authors">Author</option>
+                                            <option value="venue">Venue</option>
+                                            <option value="publisher">Publisher</option>
+                                            <option value="isbn">ISBN</option>
+                                        </select>
+                                    </c:if>
+                                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'venue'}">
+                                        <select name="where${i}" class="form-control"
+                                            <option value="venue">Venue</option>
+                                            <option value="title">Title</option>
+                                            <option value="authors">Author</option>
+                                            <option value="editors">Editor</option>
+                                            <option value="publisher">Publisher</option>
+                                            <option value="isbn">ISBN</option>
+                                        </select>
+                                    </c:if>
+                                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'publisher'}">
+                                        <select name="where${i}" class="form-control">
+                                            <option value="publisher">Publisher</option>
+                                            <option value="title">Title</option>
+                                            <option value="authors">Author</option>
+                                            <option value="editors">Editor</option>
+                                            <option value="venue">Venue</option>
+                                            <option value="isbn">ISBN</option>
+                                        </select>
+                                    </c:if>
+                                    <c:if test="${sessionScope.whereList_BookSearch.get(i - 1) == 'isbn'}">
+                                        <select name="where${i}" class="form-control">
+                                            <option value="isbn">ISBN</option>
+                                            <option value="title">Title</option>
+                                            <option value="authors">Author</option>
+                                            <option value="editors">Editor</option>
+                                            <option value="venue">Venue</option>
+                                            <option value="publisher">Publisher</option>
+                                        </select>
+                                    </c:if>
+                                </td>
+                                <td>
+                                    <input type="text" name="what${i}" value="${sessionScope.whatList_BookSearch.get(i - 1)}" class="form-control" placeholder="search details...">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <select name="how${i}" class="form-control">
+                                        <c:if test="${sessionScope.howList_BookSearch.get(i - 1) == 'and'}">
+                                            <option value="and">AND</option>
+                                            <option value="or">OR</option>
+                                        </c:if>
+                                        <c:if test="${sessionScope.howList_BookSearch.get(i - 1) == 'or'}">
+                                            <option value="or">OR</option>
+                                            <option value="and">AND</option>
+                                        </c:if>
+                                    </select>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </c:forEach>
+                        <tr><td><br></td></tr>
+                        <tr>
+                            <td colspan="2" align="right"><span class="label label-primary">From year:</span></td>
+                            <td><input type="text" name="from" value="${sessionScope.from_BookSearch}" placeholder="included..." class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right"><span class="label label-primary">To year:</span></td>
+                            <td><input type="text" name="to" value="${sessionScope.to_BookSearch}" placeholder="included..." class="form-control"></td>
+                        </tr>
+                    </table>
+                </form>
+        </span>
+            </div>
+        </div>
+
+        <div class="col-sm-9">
+            <c:if test="${sessionScope.display_BookSearch == 'top10'}">
+                <h2>Top 10 Visited Record</h2>
+                <hr>
+            </c:if>
+            <c:if test="${sessionScope.display_BookSearch == 'noResults'}">
+                <h2>Search Results</h2>
+                <h4><small>Time: 100Resutls found</small></h4>
+                <hr>
+                <img align="center" src="../../img/noresults.jpg" class="img-responsive" alt="Cinque Terre">
+            </c:if>
+            <c:if test="${sessionScope.display_BookSearch == 'showResults'}">
+                <h2>Search Results</h2>
+                <h4><small>Time: 100Resutls found</small></h4>
+                <hr>
+            </c:if>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid">
+    <h6>UNSW Australia</h6>
+    <h7>High St</h7>
+    <h7>Kensington, NSW 2052</h7>
+    <h7>Australia</h7>
+</footer>
+
 </body>
 </html>

@@ -39,18 +39,30 @@ public class BookService {
         request.getRequestDispatcher("/book/bookdetail.jsp").forward(request,response);
     }
 
+    public void top10(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("display_BookSearch", "top10");
+        request.getRequestDispatcher("/book/search.jsp").forward(request, response);
+    }
+
     public void searchBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Boolean validInput = true;
         HttpSession session = request.getSession();
         int itemNum = (int) session.getAttribute("itemNum_BookSearch");
         List<String> whereList = new ArrayList<>();
+        List<Boolean> validInputList = new ArrayList<>();
         List<String> whatList = new ArrayList<>();
         List<String> howList = new ArrayList<>();
         for (int i = 1; i <= itemNum; i ++) {
             whereList.add(request.getParameter("where" + String.valueOf(i)));
-            whatList.add(request.getParameter("what" + String.valueOf(i)));
+            String what = request.getParameter("what" + String.valueOf(i));
+            whatList.add(what);
+            if (what.indexOf("--") > -1) validInput = false;
+            validInputList.add(what.indexOf("--") == -1);
             howList.add(request.getParameter("how" + String.valueOf(i)));
         }
         session.setAttribute("whereList_BookSearch", whereList);
+        session.setAttribute("validInput_BookSearch", validInputList);
         session.setAttribute("whatList_BookSearch", whatList);
         session.setAttribute("howList_BookSearch", howList);
         String from = "0";
@@ -67,29 +79,35 @@ public class BookService {
         if (doWhat.equals("+")) {
             whereList.add("title");
             session.setAttribute("whereList_BookSearch", whereList);
+            validInputList.add(true);
+            session.setAttribute("validInput_BookSearch", validInputList);
             whatList.add("");
             session.setAttribute("whatList_BookSearch", whatList);
             howList.add("and");
             session.setAttribute("howList_BookSearch", howList);
             session.setAttribute("itemNum_BookSearch", new Integer(itemNum + 1));
-            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         } else if (doWhat.equals("-")) {
             if (itemNum > 1) session.setAttribute("itemNum_BookSearch", new Integer(itemNum - 1));
-            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         } else if (doWhat.equals("Reset")) {
             session.setAttribute("itemNum_BookSearch", null);
             session.setAttribute("from_BookSearch", null);
             session.setAttribute("to_BookSearch", null);
-            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         } else if (doWhat.equals("Search")){
-            List<Book> bookSearchResultList = new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to);
-            for (Book book : bookSearchResultList) {
-                System.out.println(book.getAuthors());
-                System.out.println(book.getTitle());
-                System.out.println(book.getYear());
+            if (validInput) {
+                List<Book> bookSearchResultList = new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to);
+                if (bookSearchResultList.size() == 0) {
+                    session.setAttribute("display_BookSearch", "noResults");
+                } else {
+                    session.setAttribute("display_BookSearch", "showResults");
+                    for (Book book : bookSearchResultList) {
+                        System.out.println(book.getAuthors());
+                        System.out.println(book.getTitle());
+                        System.out.println(book.getYear());
+                    }
+                    System.out.println(bookSearchResultList.size());
+                }
             }
-            System.out.println(bookSearchResultList.size());
-            request.getRequestDispatcher("/book/search.jsp").forward(request, response);
         }
+        request.getRequestDispatcher("/book/search.jsp").forward(request, response);
     }
 }
