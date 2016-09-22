@@ -9,7 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Business logic layer
@@ -33,6 +36,22 @@ public class AdminService {
             request.getRequestDispatcher("admin/admin_login.jsp").forward(request, response);
         }
         return adminDao.adminLogin(userName, password);
+    }
+
+    //prepare overal statistics
+    public void prepareOvelallStat(HttpServletRequest request){
+        BookDao bookDao = new BookDaoImpl();
+        int bookNum = bookDao.getTotalBook();
+        int totalPrice= bookDao.countTotalPrice();
+        request.setAttribute("book_num",bookNum);//put total booknum
+        request.setAttribute("total_price",totalPrice);//
+        Map<String,Integer> catMap = bookDao.getCategoryCount();
+        Iterator<String> itr = catMap.keySet().iterator();
+        while (itr.hasNext()){
+            String key = itr.next();
+            request.setAttribute(key,catMap.get(key));
+        }//put category count
+
     }
 
 

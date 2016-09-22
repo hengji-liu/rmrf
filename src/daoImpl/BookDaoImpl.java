@@ -12,7 +12,9 @@ import util.DateUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Linus on 10/09/2016.
@@ -178,6 +180,72 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
+    @Override
+    public int getTotalBook() {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "SELECT COUNT(*) as COUNT FROM book";
+            psmt = conn.prepareStatement(sql);
+            rs = psmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("count");
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            DBHelper.realease(rs, psmt);
+        }
+    }
+
+    @Override
+    public Map<String, Integer> getCategoryCount() {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        Map<String,Integer> map = new HashMap<>();
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "SELECT book_type,COUNT(*) as count FROM book GROUP BY book_type;";
+            psmt = conn.prepareStatement(sql);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                map.put(rs.getString(1),rs.getInt(2));
+            }
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            DBHelper.realease(rs, psmt);
+        }
+    }
+
+
+    public int countTotalPrice(){
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.getConnection();
+            String sql = "SELECT SUM(price) as price FROM book";
+            psmt = conn.prepareStatement(sql);
+            rs = psmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("price");
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            DBHelper.realease(rs, psmt);
+        }
+    }
 
 
 }

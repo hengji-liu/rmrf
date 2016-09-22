@@ -3,7 +3,9 @@ package daoIterface;
 import bean.Book;
 import bean.Pager;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Linus on 10/09/2016.
@@ -22,6 +24,11 @@ public interface BookDao {
 
     public void increaseVisited(String bookID);
 
+    public int getTotalBook();
+
+    public Map<String,Integer> getCategoryCount();
+
+    public int countTotalPrice();
     /*TODO: Please define and implement more advanced book search!*/
 
 }

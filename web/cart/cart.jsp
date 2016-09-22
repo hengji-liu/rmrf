@@ -48,6 +48,9 @@
                             </tbody>
                         </table>
                     </c:when>
+                    <c:otherwise>
+                        <p>Cart is empty!</p>
+                    </c:otherwise>
                 </c:choose>
 
             </form>
