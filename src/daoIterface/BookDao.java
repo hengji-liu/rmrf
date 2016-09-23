@@ -24,6 +24,10 @@ public interface BookDao {
 
     List<Book> top10();
 
+    Pager<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList, String from, String to, int pageNum);
+
+    Pager<Book> searchBooks(Pager pager, int pageNum);
+
     /*TODO: Please define and implement more advanced book search!*/
 
 }

@@ -46,8 +46,6 @@ public class BookService {
         session.setAttribute("display_BookSearch", "top10");
         Long time = System.currentTimeMillis();
         List<Book> bookSearchResultList = new BookDaoImpl().top10();
-
-
         session.setAttribute("time_BookSearch", ((double)(System.currentTimeMillis() - time)) / 1000);
         session.setAttribute("top10_BookSearch", bookSearchResultList);
         request.getRequestDispatcher("/book/search.jsp").forward(request, response);
@@ -62,12 +60,12 @@ public class BookService {
         List<String> whatList = new ArrayList<>();
         List<String> howList = new ArrayList<>();
         for (int i = 1; i <= itemNum; i ++) {
-            whereList.add(request.getParameter("where" + String.valueOf(i)));
-            String what = request.getParameter("what" + String.valueOf(i));
+            whereList.add(request.getParameter("where" + String.valueOf(i)).trim());
+            String what = request.getParameter("what" + String.valueOf(i)).trim();
             whatList.add(what);
             if (what.indexOf("--") > -1) validInput = false;
             validInputList.add(what.indexOf("--") == -1);
-            howList.add(request.getParameter("how" + String.valueOf(i)));
+            howList.add(request.getParameter("how" + String.valueOf(i)).trim());
         }
         session.setAttribute("whereList_BookSearch", whereList);
         session.setAttribute("validInput_BookSearch", validInputList);
@@ -75,12 +73,12 @@ public class BookService {
         session.setAttribute("howList_BookSearch", howList);
         String from = "0";
         if (! request.getParameter("from").equals("")) {
-            from = request.getParameter("from");
+            from = request.getParameter("from").trim();
         }
         session.setAttribute("from_BookSearch", request.getParameter("from"));
         String to = "9999";
         if (! request.getParameter("to").equals("")) {
-            to = request.getParameter("to");
+            to = request.getParameter("to").trim();
         }
         session.setAttribute("to_BookSearch", request.getParameter("to"));
         String doWhat = request.getParameter("doWhat_BookSearch");
@@ -103,16 +101,40 @@ public class BookService {
         } else if (doWhat.equals("Search")){
             if (validInput) {
                 Long time = System.currentTimeMillis();
-                List<Book> bookSearchResultList = new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to);
-
+                Pager<Book> bookPager = new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to, 1);
                 session.setAttribute("time_BookSearch", ((double)(System.currentTimeMillis() - time)) / 1000);
-                if (bookSearchResultList.size() == 0) {
+                if (bookPager.getDataList().size() == 0) {
                     session.setAttribute("display_BookSearch", "noResults");
                 } else {
                     session.setAttribute("display_BookSearch", "showResults");
+                    session.setAttribute("pager_BookSearch", bookPager);
+                    session.setAttribute("top10_BookSearch", bookPager.getDataList());
                 }
             }
         }
+        request.getRequestDispatcher("/book/search.jsp").forward(request, response);
+    }
+
+    public void page(HttpServletRequest request, HttpServletResponse response, String btn, String num) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        int pageNum = 1;
+        if (btn.equals("+")) {
+            pageNum = ((Pager) session.getAttribute("pager_BookSearch")).getCurrentPage() + 1;
+        } else if (btn.equals("-")) {
+            pageNum = ((Pager) session.getAttribute("pager_BookSearch")).getCurrentPage() - 1;
+        } else {
+            try {
+                pageNum = Integer.parseInt(num);
+            } catch (Exception e) {
+                request.getRequestDispatcher("/book/search.jsp").forward(request, response);
+            }
+        }
+        Pager<Book> bookPager = (Pager<Book>) session.getAttribute("pager_BookSearch");
+        Long time = System.currentTimeMillis();
+        bookPager = new BookDaoImpl().searchBooks(bookPager, pageNum);
+        session.setAttribute("time_BookSearch", ((double)(System.currentTimeMillis() - time)) / 1000);
+        session.setAttribute("pager_BookSearch", bookPager);
+        session.setAttribute("top10_BookSearch", bookPager.getDataList());
         request.getRequestDispatcher("/book/search.jsp").forward(request, response);
     }
 }

@@ -109,9 +109,7 @@ public class BookDaoImpl implements BookDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String sql = "select book_id, seller, book_type, authors, editors, " +
-                "title, year, venue, publisher, isbn, tag, paused, price, visited " +
-                "from book where (";
+        String sql = "select * from book where (";
         for (int i = 0; i < itemNum; i ++) {
             if (i != itemNum - 1) {
                 if (whatList.get(i).equals("")) continue;
@@ -200,6 +198,75 @@ public class BookDaoImpl implements BookDao {
             e.printStackTrace();
         }
         return bookList;
+    }
+
+    @Override
+    public Pager<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList, String from, String to, int pageNum) {
+        Connection conn = null;
+        try {
+            conn = DBHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = "select * from book where (";
+        for (int i = 0; i < itemNum; i ++) {
+            if (i != itemNum - 1) {
+                if (whatList.get(i).equals("")) continue;
+                sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
+            } else {
+                if (! whatList.get(i).equals("")) {
+                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%'";
+                } else {
+                    sql += "book_id > 0";
+                }
+            }
+        }
+        sql += ") AND year >= " + from + " AND year <= " + to + " AND paused = 0 ORDER BY visited DESC ";
+        sql += "LIMIT " + ServiceConfig.USER_PAGE_LIMIT + " OFFSET ";
+        String pagerSql = sql;
+        sql += (pageNum - 1) * ServiceConfig.USER_PAGE_LIMIT;
+        //System.out.println(sql);
+        List<Book> bookList = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Book book = getBookDetail(rs);
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        int totalRecord = (new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to)).size();
+        //System.out.println(totalRecord);
+        Pager<Book> pager = new Pager<>(ServiceConfig.USER_PAGE_LIMIT, pageNum, totalRecord, bookList);
+        pager.setSql(pagerSql);
+        return pager;
+    }
+
+    @Override
+    public Pager<Book> searchBooks(Pager pager, int pageNum) {
+        Connection conn = null;
+        try {
+            conn = DBHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = pager.getSql() + (pageNum - 1) * ServiceConfig.USER_PAGE_LIMIT;
+        List<Book> bookList = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Book book = getBookDetail(rs);
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        pager.setCurrentPage(pageNum);
+        pager.setDataList(bookList);
+        return pager;
     }
 
 

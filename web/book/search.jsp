@@ -46,7 +46,7 @@
             .row.content {height: ${sessionScope.itemNum_BookSearch * 100 + 700}px}
         </c:if>
         <c:if test="${sessionScope.display_BookSearch != 'noResults'}">
-            .row.content {height: ${sessionScope.itemNum_BookSearch * 100 + 2500}px}
+            .row.content {height: ${sessionScope.itemNum_BookSearch * 100 + 2700}px}
         </c:if>
 
         /* Set gray background color and 100% height */
@@ -214,6 +214,7 @@
                         <tr>
                             <td colspan="2" width="30%"><input type="text" name="from" value="${sessionScope.from_BookSearch}" placeholder="included..." class="form-control"></td>
                         </tr>
+                        <tr><td><br></td></tr>
                         <tr>
                             <td colspan="2" align="left"><span class="label label-primary">To year:</span></td>
                         </tr>
@@ -226,10 +227,35 @@
         </div>
         <div class="col-sm-9">
             <c:if test="${sessionScope.display_BookSearch == 'top10'}">
-                <h2>Top 10 Visited Record</h2>
-                <h4><small>10 results (${sessionScope.time_BookSearch} seconds)</small></h4>
+                <h2>Top 10 Visited Records</h2>
+                <h4><small>(${sessionScope.time_BookSearch} seconds)</small></h4>
                 <hr>
-                <jsp:include page="/WEB-INF/jsp/top10book_display.jsp"/>
+                <c:set var="count" value="1" scope="page"/>
+                <table >
+                    <c:forEach items="${sessionScope.top10_BookSearch}" var="book" varStatus="loop">
+                        <tr>
+                            <td><br></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4><small>#${' '}${count}</small></h4>
+                                <a href=""><h4>${book.getTitle()}</h4></a>  <!-- **************************************** the link for top 10 page is here **************************************** -->
+                                <h5><span class="label label-info">${book.getType()}</span></h5>
+                                <p>Authors:${' '}${book.getAuthors()}</p>
+                                <p>Year: ${book.getYear()}</p>
+                                <p>Price: $${book.getPrice()}</p>
+                                <p>Visited times: ${book.getVisited()}</p>
+                                <form role="form" action="">
+                                    <button type="submit" class="btn btn-success">Add to Shopping Cart</button>
+                                </form>
+                            </td>
+                            <td>
+                                <img src="../../img/book${book.getPhotoid()}.jpg" width="200" height="200">
+                            </td>
+                        </tr>
+                        <c:set var="count" value="${count + 1}" scope="page"/>
+                    </c:forEach>
+                </table>
             </c:if>
             <c:if test="${sessionScope.display_BookSearch == 'noResults'}">
                 <h2>Search Results</h2>
@@ -239,8 +265,75 @@
             </c:if>
             <c:if test="${sessionScope.display_BookSearch == 'showResults'}">
                 <h2>Search Results</h2>
-                <h4><small>Time: 100Resutls found</small></h4>
+                <h4><small>${sessionScope.pager_BookSearch.getTotalRecord()} results (${sessionScope.time_BookSearch} seconds)</small></h4>
                 <hr>
+                <c:set var="count" value="1" scope="page"/>
+                <table >
+                    <c:forEach items="${sessionScope.top10_BookSearch}" var="book" varStatus="loop">
+                        <tr>
+                            <td><br></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4><small>#${' '}${count}</small></h4>
+                                <a href=""><h4>${book.getTitle()}</h4></a> <!-- **************************************** the link for search result page is here **************************************** -->
+                                <h5><span class="label label-info">${book.getType()}</span></h5>
+                                <p>Authors:${' '}${book.getAuthors()}</p>
+                                <p>Year: ${book.getYear()}</p>
+                                <p>Price: $${book.getPrice()}</p>
+                                <p>Visited times: ${book.getVisited()}</p>
+                                <form role="form" action="">
+                                    <button type="submit" class="btn btn-success">Add to Shopping Cart</button>
+                                </form>
+                            </td>
+                            <td>
+                                <img src="../../img/book${book.getPhotoid()}.jpg" width="200" height="200">
+                            </td>
+                        </tr>
+                        <c:set var="count" value="${count + 1}" scope="page"/>
+                    </c:forEach>
+                    <tr><td><br></td></tr>
+                    <tr><td><br></td></tr>
+                    <tr><td><br></td></tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <form action="/c" method="post">
+                                <input type="hidden" name="reqtype" value="PAGE_BOOK">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td align="right" width="44%">
+                                            <c:if test="${sessionScope.pager_BookSearch.getCurrentPage() == 1}">
+                                                <button type="submit" class="btn btn-warning" disabled><c:out value="<Previous"></c:out></button>
+                                            </c:if>
+                                            <c:if test="${sessionScope.pager_BookSearch.getCurrentPage() != 1}">
+                                                <button type="submit" class="btn btn-primary" name="btn" value="-"><c:out value="<Previous"></c:out></button>
+                                            </c:if>
+                                        </td>
+                                        <td width="10%">
+                                            <input type="text" class="form-control" placeholder="Page..."  name="num">
+                                        </td>
+                                        <td width="4%">
+                                            <button class="btn btn-default" type="submit" name="btn" value="?">Go</button>
+                                        </td>
+                                        <td align="left">
+                                            <c:if test="${sessionScope.pager_BookSearch.getCurrentPage() == sessionScope.pager_BookSearch.getTotalPage()}">
+                                                <button type="submit" class="btn btn-warning" disabled><c:out value="Next>"></c:out></button>
+                                            </c:if>
+                                            <c:if test="${sessionScope.pager_BookSearch.getCurrentPage() != sessionScope.pager_BookSearch.getTotalPage()}">
+                                                <button type="submit" class="btn btn-primary" name="btn" value="+"><c:out value="Next>"></c:out></button>
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" align="center">
+                                            <h4><small>Total Page: ${sessionScope.pager_BookSearch.getTotalPage()}, Current Page: ${sessionScope.pager_BookSearch.getCurrentPage()}</small></h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
             </c:if>
         </div>
     </div>

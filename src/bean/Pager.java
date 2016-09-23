@@ -17,6 +17,8 @@ public class Pager<T> implements Serializable {
 
     private List<T> dataList;
 
+    private String sql;
+
     public Pager() {
 
     }
@@ -78,4 +80,11 @@ public class Pager<T> implements Serializable {
         this.dataList = dataList;
     }
 
+    public String getSql() {
+        return sql;
+    }
+
+    public void setSql(String sql) {
+        this.sql = sql;
+    }
 }
