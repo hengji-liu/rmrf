@@ -36,10 +36,10 @@ public class BookDaoImpl implements BookDao {
             conn = DBHelper.getConnection();
             String sql = "select * from book where book.book_id=?;";
             psmt = conn.prepareStatement(sql);
-            psmt.setString(1,bookID);
+            psmt.setString(1, bookID);
             rs = psmt.executeQuery();
             if (rs.next()) {
-                 book = getBookDetail(rs);
+                book = getBookDetail(rs);
             }
             return book;
         } catch (Exception e) {
@@ -111,15 +111,13 @@ public class BookDaoImpl implements BookDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String sql = "select book_id, seller, book_type, authors, editors, " +
-                "title, year, venue, publisher, isbn, tag, paused, price, visited " +
-                "from book where (";
-        for (int i = 0; i < itemNum; i ++) {
+        String sql = "select * from book where (";
+        for (int i = 0; i < itemNum; i++) {
             if (i != itemNum - 1) {
                 if (whatList.get(i).equals("")) continue;
                 sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
             } else {
-                if (! whatList.get(i).equals("")) {
+                if (!whatList.get(i).equals("")) {
                     sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%'";
                 } else {
                     sql += "book_id > 0";
@@ -158,11 +156,12 @@ public class BookDaoImpl implements BookDao {
         book.setPaused(rs.getString("paused"));
         book.setPrice(rs.getInt("price"));
         book.setVisited(rs.getString("visited"));
+        book.setPhotoid(rs.getString("photoid"));
         return book;
     }
 
     @Override
-    public void increaseVisited(String bookID){
+    public void increaseVisited(String bookID) {
         Connection conn = null;
         PreparedStatement psmt = null;
         try {
@@ -181,6 +180,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
+
     public int getTotalBook() {
         Connection conn = null;
         PreparedStatement psmt = null;
@@ -207,14 +207,14 @@ public class BookDaoImpl implements BookDao {
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
-        Map<String,Integer> map = new HashMap<>();
+        Map<String, Integer> map = new HashMap<>();
         try {
             conn = DBHelper.getConnection();
             String sql = "SELECT book_type,COUNT(*) as count FROM book GROUP BY book_type;";
             psmt = conn.prepareStatement(sql);
             rs = psmt.executeQuery();
             while (rs.next()) {
-                map.put(rs.getString(1),rs.getInt(2));
+                map.put(rs.getString(1), rs.getInt(2));
             }
             return map;
         } catch (Exception e) {
@@ -226,7 +226,7 @@ public class BookDaoImpl implements BookDao {
     }
 
 
-    public int countTotalPrice(){
+    public int countTotalPrice() {
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
@@ -245,7 +245,100 @@ public class BookDaoImpl implements BookDao {
         } finally {
             DBHelper.realease(rs, psmt);
         }
+
     }
 
+    public List<Book> top10 () {
+        Connection conn = null;
+        try {
+            conn = DBHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = "SELECT * FROM bblib.book order by visited desc limit 10 offset 0";
+        List<Book> bookList = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Book book = getBookDetail(rs);
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookList;
+    }
+
+    @Override
+    public Pager<Book> searchBooks ( int itemNum, List<
+            String > whereList, List < String > whatList, List < String > howList, String from, String to,int pageNum){
+        Connection conn = null;
+        try {
+            conn = DBHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = "select * from book where (";
+        for (int i = 0; i < itemNum; i++) {
+            if (i != itemNum - 1) {
+                if (whatList.get(i).equals("")) continue;
+                sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
+            } else {
+                if (!whatList.get(i).equals("")) {
+                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%'";
+                } else {
+                    sql += "book_id > 0";
+                }
+            }
+        }
+        sql += ") AND year >= " + from + " AND year <= " + to + " AND paused = 0 ORDER BY visited DESC ";
+        sql += "LIMIT " + ServiceConfig.USER_PAGE_LIMIT + " OFFSET ";
+        String pagerSql = sql;
+        sql += (pageNum - 1) * ServiceConfig.USER_PAGE_LIMIT;
+        //System.out.println(sql);
+        List<Book> bookList = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Book book = getBookDetail(rs);
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        int totalRecord = (new BookDaoImpl().searchBooks(itemNum, whereList, whatList, howList, from, to)).size();
+        //System.out.println(totalRecord);
+        Pager<Book> pager = new Pager<>(ServiceConfig.USER_PAGE_LIMIT, pageNum, totalRecord, bookList);
+        pager.setSql(pagerSql);
+        return pager;
+    }
+
+    @Override
+    public Pager<Book> searchBooks (Pager pager,int pageNum){
+        Connection conn = null;
+        try {
+            conn = DBHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = pager.getSql() + (pageNum - 1) * ServiceConfig.USER_PAGE_LIMIT;
+        List<Book> bookList = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Book book = getBookDetail(rs);
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        pager.setCurrentPage(pageNum);
+        pager.setDataList(bookList);
+        return pager;
+
+    }
 
 }

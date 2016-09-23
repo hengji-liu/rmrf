@@ -121,7 +121,14 @@ public class Controller extends HttpServlet {
                     transactionService = new TransactionService();
                     transactionService.purchaseItem(request,response);
                     break;
-
+                case "TOP10_BOOK":
+                    bookService = new BookService();
+                    bookService.top10(request, response);
+                    break;
+                case "PAGE_BOOK":
+                    bookService = new BookService();
+                    bookService.page(request, response, request.getParameter("btn"), request.getParameter("num"));
+                    break;
             }
         } else {// contains file upload
             DiskFileItemFactory factory = new DiskFileItemFactory();
