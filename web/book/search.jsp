@@ -93,7 +93,7 @@
                 -->
                 <form action="/c" method="post">
                     <input type="hidden" name="reqtype" value="SEARCH_BOOK">
-                    <table border="0">
+                    <table border="0" width="330">
                         <tr>
                             <td colspan="3" align="right">
                                 <button class="btn btn-default" type="submit" value="Reset" name="doWhat_BookSearch">Reset</button>
