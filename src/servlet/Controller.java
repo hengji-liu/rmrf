@@ -45,6 +45,7 @@ public class Controller extends HttpServlet {
         UserService userService = null;
         BookService bookService = null;
         CartService cartService = null;
+        GraphService graphService = null;
         TransactionService transactionService = null;
         if (!ServletFileUpload.isMultipartContent(request)) {// no file upload
             String requestType = request.getParameter(REQTYPE);
@@ -128,6 +129,10 @@ public class Controller extends HttpServlet {
                 case "PAGE_BOOK":
                     bookService = new BookService();
                     bookService.page(request, response, request.getParameter("btn"), request.getParameter("num"));
+                    break;
+                case "GRAPH_SEARCH":
+                    graphService = new GraphService();
+                    graphService.search(request, response);
                     break;
             }
         } else {// contains file upload
