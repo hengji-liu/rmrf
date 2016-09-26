@@ -34,7 +34,7 @@ public class GraphService {
         String edgesString = dataToString(showEdges);
         request.setAttribute("nodeData",nodesString);
         request.setAttribute("edgeData",edgesString);
-        request.getRequestDispatcher("/graph/graphResult.jsp").forward(request, response);
+        request.getRequestDispatcher("/graph/graphSandR.jsp").forward(request, response);
     }
 
     private String dataToString(ArrayList showData) {
