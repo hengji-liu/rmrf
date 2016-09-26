@@ -54,6 +54,7 @@ public class GraphNode {
 
     @Override
     public String toString() {
+        label = label.replace("\""," ");
         return '{' +
                 "id:\"" + id  +
                 "\", label:\"" + label +

@@ -15,7 +15,7 @@
         <option value="Venue">Venue</option>
     </select>
     <input type="text" name="keyword" value="keyword">
-    <input type="text" name="maxNumberOfNodes" value="10">
+    <input type="text" name="maxNumberOfNodes" value="30">
     <input type="submit" name="search" value="search">
 </form>
 </body>

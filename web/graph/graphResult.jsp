@@ -17,6 +17,7 @@
 </head>
 <body>
 <div id="mynetwork"></div>
+<a href="graph/graphSearch.jsp">back to search</a>
 <script type="text/javascript">
     var nodes = new vis.DataSet(<%out.print((String) request.getAttribute("nodeData")); %>);
     var edges = new vis.DataSet(<%out.print((String)request.getAttribute("edgeData"));%>);
