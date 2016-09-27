@@ -104,8 +104,8 @@ public class XML2DB {
                 NodeList childElementsList = rootNodeChild.getChildNodes();
                 for (int j = 0; j < childElementsList.getLength(); j++) {
                     Node element = childElementsList.item(j);
-                    String elementName = element.getNodeName().trim().toLowerCase();
-                    String elementValue = element.getTextContent().trim().toLowerCase();
+                    String elementName = element.getNodeName().trim();
+                    String elementValue = element.getTextContent().trim();
                     if (elementName.indexOf("author") > -1) {
                         authors += elementValue + ", ";
                     } else if (elementName.indexOf("editor") > -1) {
@@ -133,8 +133,8 @@ public class XML2DB {
                 }
                 if (! title.equals("")) {
                     if (type.indexOf("www") > -1) venue = "www";
-                    if (!authors.equals("")) authors = authors.substring(0, authors.length() - 3);
-                    if (!editors.equals("")) editors = editors.substring(0, editors.length() - 3);
+                    if (!authors.equals("")) authors = authors.substring(0, authors.length() - 2);
+                    if (!editors.equals("")) editors = editors.substring(0, editors.length() - 2);
                     Book book = new Book();
                     book.setType(type);
                     book.setAuthors(authors);

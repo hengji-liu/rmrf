@@ -271,6 +271,32 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
+	public Pager<Book> searchBooks(Pager pager, int pageNum) {
+		Connection conn = null;
+		try {
+			conn = DBHelper.getConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String sql = pager.getSql() + (pageNum - 1) * ServiceConfig.USER_PAGE_LIMIT;
+		List<Book> bookList = new ArrayList<>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Book book = getBookDetail(rs);
+				bookList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		pager.setCurrentPage(pageNum);
+		pager.setDataList(bookList);
+		return pager;
+
+	}
+
+	@Override
 	public Pager<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList,
 			String from, String to, int pageNum) {
 		Connection conn = null;
@@ -284,10 +310,11 @@ public class BookDaoImpl implements BookDao {
 			if (i != itemNum - 1) {
 				if (whatList.get(i).equals(""))
 					continue;
-				sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
+				sql += "LOWER(" + whereList.get(i) + ") LIKE '%" + whatList.get(i).toLowerCase() + "%' "
+						+ howList.get(i) + " ";
 			} else {
 				if (!whatList.get(i).equals("")) {
-					sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%'";
+					sql += "LOWER(" + whereList.get(i) + ") LIKE '%" + whatList.get(i).toLowerCase() + "%'";
 				} else {
 					sql += "book_id > 0";
 				}
@@ -315,33 +342,8 @@ public class BookDaoImpl implements BookDao {
 		pager.setSql(pagerSql);
 		return pager;
 	}
-
-	@Override
-	public Pager<Book> searchBooks(Pager pager, int pageNum) {
-		Connection conn = null;
-		try {
-			conn = DBHelper.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String sql = pager.getSql() + (pageNum - 1) * ServiceConfig.USER_PAGE_LIMIT;
-		List<Book> bookList = new ArrayList<>();
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Book book = getBookDetail(rs);
-				bookList.add(book);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		pager.setCurrentPage(pageNum);
-		pager.setDataList(bookList);
-		return pager;
-
-	}
 	
+
 	@Override
 	public int save(Book b) {
 		Connection conn = null;
@@ -365,11 +367,11 @@ public class BookDaoImpl implements BookDao {
 			psmt.setInt(12, 0);
 			psmt.setInt(13, 0);
 			newRowCount = psmt.executeUpdate();
-			if(1==newRowCount){
+			if (1 == newRowCount) {
 				ResultSet rs = psmt.getGeneratedKeys();
 				rs.next();
 				newRowCount = rs.getInt(1);
-			}	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -393,6 +395,6 @@ public class BookDaoImpl implements BookDao {
 			e.printStackTrace();
 		} finally {
 			DBHelper.realease(null, psmt);
-		}		
+		}
 	}
 }
