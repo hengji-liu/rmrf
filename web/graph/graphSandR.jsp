@@ -59,11 +59,11 @@
         <div class="col-sm-3 sidenav">
             <h4>Graph Search</h4>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href=/welcome.jsp>Home</a></li>
+                <li class="active"><a href=c?reqtype=goto_search>Home</a></li>
 
             </ul><br>
             <div class="input-group">
-                <form action="/c" method="post">
+                <form action="c" method="post">
                     graph search:&nbsp&nbsp&nbsp
                     <input type="hidden" name="reqtype" value="GRAPH_SEARCH">
                     <select name="searchType" >

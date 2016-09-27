@@ -14,7 +14,6 @@
                 <h1 class="page-header">My Cart</h1>
             </div>
             <%--Display books--%>
-
             <form action="c" method="post">
                 <input type="hidden" name="reqtype" value="REMOVE_BOOK">
                 <c:choose>

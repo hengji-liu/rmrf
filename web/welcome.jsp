@@ -20,7 +20,7 @@
             </c:if>
             <div class="col-md-9">
                 <ul class="nav nav-tabs pull-right">
-                    <li><a href="user/login.jsp">Log in</a></li>
+                    <li><a href="c?reqtype=goto_login">Log in</a></li>
                     <li><a href="user/register.jsp">Sign up</a></li>
                 </ul>
             </div>

@@ -9,6 +9,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, java.util.ArrayList"%>
 <%@ page import="daoImpl.BookDaoImpl" %>
+
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path +'/';
+%>
+
 <html>
 <head>
     <%
@@ -81,17 +89,17 @@
         <div class="col-sm-3 sidenav">
             <h4>Welcome to DBLP Searching Engine</h4>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="/c?reqtype=TOP10_BOOK">Top 10 Visited</a></li>
-                <li><a href="">Graph Search</a></li>
-                <li><a target="_blank" href="/c?reqtype=CART_ITEM">Shopping Cart</a></li>
-                <li><a href="">Logout</a></li>
+                <li><a href="c?reqtype=TOP10_BOOK">Top 10 Visited</a></li>
+                <li><a href="c?reqtype=goto_graph">Graph Search</a></li>
+                <li><a target="_blank" href="c?reqtype=CART_ITEM">Shopping Cart</a></li>
+                <li><a href="c?reqtype=logout">Logout</a></li>
             </ul><br>
             <div class="input-group">
                 <!--
                 <input type="text" class="form-control" placeholder="Search Blog.."><span class="input-group-btn">
                 <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                 -->
-                <form action="/c" method="post">
+                <form action="c" method="post">
                     <input type="hidden" name="reqtype" value="SEARCH_BOOK">
                     <table border="0" width="330">
                         <tr>
@@ -256,7 +264,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <img src="../../img/book${book.getPhotoid()}.jpg" width="200" height="200">
+                                            <img src="img/book${book.getPhotoid()}" width="200" height="200">
                                         </td>
                                     </tr>
                                     <c:set var="count" value="${count + 1}" scope="page"/>
@@ -267,7 +275,7 @@
                             <h2>Search Results</h2>
                             <h4><small>0 result (${sessionScope.time_BookSearch} seconds)</small></h4>
                             <hr>
-                            <img align="center" src="../../img/noresults.jpg" class="img-responsive" alt="Cinque Terre">
+                            <img align="center" src="img/noresults.jpg" class="img-responsive" alt="Cinque Terre">
                         </c:if>
                         <c:if test="${sessionScope.display_BookSearch == 'showResults'}">
                             <h2>Search Results</h2>
@@ -295,7 +303,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <img src="../../img/book${book.getPhotoid()}.jpg" width="200" height="200">
+                                            <img src="img/book${book.getPhotoid()}" width="200" height="200">
                                         </td>
                                     </tr>
                                     <c:set var="count" value="${count + 1}" scope="page"/>
@@ -305,7 +313,7 @@
                                 <tr><td><br></td></tr>
                                 <tr>
                                     <td colspan="2" align="center">
-                                        <form action="/c" method="post">
+                                        <form action="c" method="post">
                                             <input type="hidden" name="reqtype" value="PAGE_BOOK">
                                             <table style="width:100%">
                                                 <tr>
