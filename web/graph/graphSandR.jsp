@@ -46,8 +46,8 @@
             .row.content {height: auto;}
         }
         #mynetwork {
-            width: 600px;
-            height: 400px;
+            width: 950px;
+            height: 600px;
             border: 1px solid lightgray;
         }
     </style>
@@ -71,7 +71,7 @@
                         <option value="Author">Author</option>
                         <option value="Venue">Venue</option>
                     </select><br>
-                    keyword: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="keyword" placeholder="keyword" "><br>
+                    keyword: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="keyword" placeholder="keyword"><br>
                     number of node:<input type="text" name="maxNumberOfNodes" placeholder="input integer"><br>
                     <input type="submit" name="search" value="search">
                 </form>

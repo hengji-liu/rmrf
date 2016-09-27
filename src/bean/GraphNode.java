@@ -54,10 +54,26 @@ public class GraphNode {
 
     @Override
     public String toString() {
+        int LINELEGNTH = 15;
         label = label.replace("\""," ");
+        String showLabel = "";
+        if(label.length()>LINELEGNTH){
+            StringBuilder sb = new StringBuilder();
+            int i=0;
+
+            for(;i<label.length()/LINELEGNTH;i++){
+                sb.append(label.substring(i*LINELEGNTH,(i+1)*LINELEGNTH));
+                sb.append("\\n");
+            }
+            sb.append(label.substring(i*LINELEGNTH));
+            showLabel = sb.toString();
+        }else{
+            showLabel = label;
+        }
+
         return '{' +
                 "id:\"" + id  +
-                "\", label:\"" + label +
+                "\", label:\"" + showLabel +
                 "\", group:\"" + type  +
                 "\"}";
     }
