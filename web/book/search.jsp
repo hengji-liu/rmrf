@@ -83,7 +83,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/c?reqtype=TOP10_BOOK">Top 10 Visited</a></li>
                 <li><a href="">Graph Search</a></li>
-                <li><a href="">Shopping Cart</a></li>
+                <li><a target="_blank" href="/c?reqtype=CART_ITEM">Shopping Cart</a></li>
                 <li><a href="">Logout</a></li>
             </ul><br>
             <div class="input-group">
