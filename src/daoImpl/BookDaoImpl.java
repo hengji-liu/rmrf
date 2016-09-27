@@ -115,10 +115,10 @@ public class BookDaoImpl implements BookDao {
         for (int i = 0; i < itemNum; i++) {
             if (i != itemNum - 1) {
                 if (whatList.get(i).equals("")) continue;
-                sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
+                sql += "LOWER(" + whereList.get(i) + ") LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
             } else {
                 if (!whatList.get(i).equals("")) {
-                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%'";
+                    sql += "LOWER(" + whereList.get(i) + ") LIKE '%" + whatList.get(i).toLowerCase() + "%'";
                 } else {
                     sql += "book_id > 0";
                 }
@@ -283,10 +283,10 @@ public class BookDaoImpl implements BookDao {
         for (int i = 0; i < itemNum; i++) {
             if (i != itemNum - 1) {
                 if (whatList.get(i).equals("")) continue;
-                sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
+                sql += "LOWER(" + whereList.get(i) + ") LIKE '%" + whatList.get(i).toLowerCase() + "%' " + howList.get(i) + " ";
             } else {
                 if (!whatList.get(i).equals("")) {
-                    sql += whereList.get(i) + " LIKE '%" + whatList.get(i).toLowerCase() + "%'";
+                    sql += "LOWER(" + whereList.get(i) + ") LIKE '%" + whatList.get(i).toLowerCase() + "%'";
                 } else {
                     sql += "book_id > 0";
                 }
