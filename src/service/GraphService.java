@@ -14,6 +14,7 @@ public class GraphService {
 
     public void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = (String) request.getParameter("keyword");
+        keyword = keyword.toLowerCase();
         String searchType = (String) request.getParameter("searchType");
         String size  =  (String) request.getParameter("size");
         int maxNode;
