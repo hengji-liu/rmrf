@@ -11,33 +11,36 @@ import java.util.Map;
  * Created by Linus on 10/09/2016.
  */
 public interface BookDao {
-    /* Search book by name */
-    public List<Book> searchBookByName(String bookName);
+	/* Search book by name */
+	public List<Book> searchBookByName(String bookName);
 
-    public Book getBookById(String bookID);
+	public Book getBookById(String bookID);
 
-    public Pager<Book> getAllUnSoldBooks(int pageNum);
+	public Pager<Book> getAllUnSoldBooks(int pageNum);
 
-    public boolean deleteBookByID(String bookID);
+	public boolean deleteBookByID(String bookID);
 
-    List<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList, String from, String to);
+	List<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList,
+			String from, String to);
 
-    public void increaseVisited(String bookID);
+	public void increaseVisited(String bookID);
 
+	public int getTotalBook();
 
-    public int getTotalBook();
+	public Map<String, Integer> getCategoryCount();
 
-    public Map<String,Integer> getCategoryCount();
+	public int countTotalPrice();
 
-    public int countTotalPrice();
+	List<Book> top10();
 
-    List<Book> top10();
+	Pager<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList,
+			String from, String to, int pageNum);
 
-    Pager<Book> searchBooks(int itemNum, List<String> whereList, List<String> whatList, List<String> howList, String from, String to, int pageNum);
+	Pager<Book> searchBooks(Pager pager, int pageNum);
 
-    Pager<Book> searchBooks(Pager pager, int pageNum);
-
-
-    /*TODO: Please define and implement more advanced book search!*/
+	int save(Book b);
+	
+	void updatePhotoId(String s);
+	/* TODO: Please define and implemzent more advanced book search! */
 
 }

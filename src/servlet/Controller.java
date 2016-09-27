@@ -27,15 +27,21 @@ public class Controller extends HttpServlet {
 	private static final String USER_REGISTER = "user_register";
 	private static final String CONFIRM = "confirm";
 	private static final String PROFILE_CHANGE = "profile_change";
+	private static final String LOGOUT = "logout";
+	private static final String UPLOAD = "upload";
+	// goto
 	private static final String GOTO_GRAPH = "goto_graph";
 	private static final String GOTO_SEARCH = "goto_search";
 	private static final String GOTO_LOGIN = "goto_login";
+	private static final String GOTO_UPLOAD = "goto_upload";
+	// page
 	private static final String GRAPH_PAGE = "graph/graphSandR.jsp";
 	private static final String SEARCH_PAGE = "book/search.jsp";
 	private static final String LOGIN_PAGE = "user/login.jsp";
-	private static final String LOGOUT = "logout";
-	private static final String USER = "user";
 	private static final String HOMEPAGE = "welcome.jsp";
+	private static final String UPLOAD_PAGE = "book/upload.jsp";
+	// attribute
+	private static final String USER = "user";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -156,9 +162,12 @@ public class Controller extends HttpServlet {
 			case GOTO_LOGIN:
 				if (null != request.getSession().getAttribute(USER)) {
 					request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
-				}else {
+				} else {
 					request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
 				}
+				break;
+			case GOTO_UPLOAD:
+				request.getRequestDispatcher(UPLOAD_PAGE).forward(request, response);
 				break;
 			}
 		} else {// contains file upload
@@ -184,6 +193,15 @@ public class Controller extends HttpServlet {
 				case PROFILE_CHANGE:
 					userService = new UserService();
 					userService.update(request, response, list);
+					break;
+				case UPLOAD:
+					bookService = new BookService();
+					int result = bookService.save(request, response, list);
+					if (0 == result) {
+						request.getRequestDispatcher("book/failure.jsp").forward(request, response);
+					} else {
+						request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
+					}
 					break;
 				default:
 					break;

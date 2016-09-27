@@ -92,6 +92,7 @@
                 <li><a href="c?reqtype=TOP10_BOOK">Top 10 Visited</a></li>
                 <li><a href="c?reqtype=goto_graph">Graph Search</a></li>
                 <li><a target="_blank" href="c?reqtype=CART_ITEM">Shopping Cart</a></li>
+                <li><a href="c?reqtype=goto_upload">Upload</a></li>
                 <li><a href="c?reqtype=logout">Logout</a></li>
             </ul><br>
             <div class="input-group">
