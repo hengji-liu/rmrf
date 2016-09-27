@@ -243,13 +243,15 @@
                                     <tr>
                                         <td>
                                             <h4><small>#${' '}${count}</small></h4>
-                                            <a href=""><h4>${book.getTitle()}</h4></a>  <!-- **************************************** the link for top 10 page is here **************************************** -->
+                                            <a target="_blank" href="c?reqtype=BOOK_DETAIL&book_id=${book.bookID}"><h4>${book.getTitle()}</h4></a>  <!-- **************************************** the link for top 10 page is here **************************************** -->
                                             <h5><span class="label label-info">${book.getType()}</span></h5>
                                             <p>Authors:${' '}${book.getAuthors()}</p>
                                             <p>Year: ${book.getYear()}</p>
                                             <p>Price: $${book.getPrice()}</p>
                                             <p>Visited times: ${book.getVisited()}</p>
                                             <form role="form" action="">
+                                                <input type="hidden" name="reqtype" value="CART_ADD">
+                                                <input type="hidden" name="book_id" value="${book.bookID}">
                                                 <button type="submit" class="btn btn-success">Add to Shopping Cart</button>
                                             </form>
                                         </td>
@@ -280,13 +282,15 @@
                                     <tr>
                                         <td>
                                             <h4><small>#${' '}${count}</small></h4>
-                                            <a href=""><h4>${book.getTitle()}</h4></a> <!-- **************************************** the link for search result page is here **************************************** -->
+                                            <a target="_blank" href="c?reqtype=BOOK_DETAIL&book_id=${book.bookID}"><h4>${book.getTitle()}</h4></a> <!-- **************************************** the link for search result page is here **************************************** -->
                                             <h5><span class="label label-info">${book.getType()}</span></h5>
                                             <p>Authors:${' '}${book.getAuthors()}</p>
                                             <p>Year: ${book.getYear()}</p>
                                             <p>Price: $${book.getPrice()}</p>
                                             <p>Visited times: ${book.getVisited()}</p>
                                             <form role="form" action="">
+                                                <input type="hidden" name="reqtype" value="CART_ADD">
+                                                <input type="hidden" name="book_id" value="${book.bookID}">
                                                 <button type="submit" class="btn btn-success">Add to Shopping Cart</button>
                                             </form>
                                         </td>

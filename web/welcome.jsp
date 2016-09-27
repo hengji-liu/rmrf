@@ -43,77 +43,77 @@
     <%--</div>--%>
 <%--</div>--%>
 
-<div class="cards">
-    <div class="container">
-        <h2>Our Deal.</h2>
-        <div class="row">
-            <!--col 1-->
-            <div class="col-md-4">
-                <div class="panel panel-info">
-                    <div class="panel-heading">BOOK TITLE</div>
-                    <div class="panel-body"><img src="/profileImg/default.jpg" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">100$</div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-            </div>
+<%--<div class="cards">--%>
+    <%--<div class="container">--%>
+        <%--<h2>Our Deal.</h2>--%>
+        <%--<div class="row">--%>
+            <%--<!--col 1-->--%>
+            <%--<div class="col-md-4">--%>
+                <%--<div class="panel panel-info">--%>
+                    <%--<div class="panel-heading">BOOK TITLE</div>--%>
+                    <%--<div class="panel-body"><img src="/profileImg/default.jpg" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">100$</div>--%>
+                <%--</div>--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">BLACK FRIDAY DEAL</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">BLACK FRIDAY DEAL</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
 
-            <!--col 2-->
-            <div class="col-md-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Book Title</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-            </div>
-            <!--col 3-->
-            <div class="col-md-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                    <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                                                 style="width:100%" alt="Image"></div>
-                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            <%--<!--col 2-->--%>
+            <%--<div class="col-md-4">--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">Book Title</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">BLACK FRIDAY DEAL</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">BLACK FRIDAY DEAL</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<!--col 3-->--%>
+            <%--<div class="col-md-4">--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">BLACK FRIDAY DEAL</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">BLACK FRIDAY DEAL</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+                <%--<div class="panel panel-primary">--%>
+                    <%--<div class="panel-heading">BLACK FRIDAY DEAL</div>--%>
+                    <%--<div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive"--%>
+                                                 <%--style="width:100%" alt="Image"></div>--%>
+                    <%--<div class="panel-footer">Buy 50 mobiles and get a gift card</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+<%--</div>--%>
 
 <div class="footer">
     <div class="container">
