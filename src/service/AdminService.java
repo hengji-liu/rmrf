@@ -26,10 +26,12 @@ public class AdminService {
         if (StringUtil.isArgumentsContainNull(userName, password)) return false;
 
         AdminDao adminDao = new AdminDaoImpl();
+
         if (adminDao.adminLogin(userName, password)) {
             request.getSession().setAttribute("admin_name", userName);
             request.getSession().setAttribute("password", password);
-            request.getRequestDispatcher("admin/admin_overall.jsp").forward(request, response);
+            //prepare
+            openOverall(request,response);
 
         } else {
             request.setAttribute("wrong", "true");
@@ -38,18 +40,33 @@ public class AdminService {
         return adminDao.adminLogin(userName, password);
     }
 
+
+    public void openOverall(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BookDao bookDao = new BookDaoImpl();
+        int totalbook = bookDao.getTotalBook(); //count book total
+        Map<String, Integer> catemap = bookDao.getCategoryCount(); //count category
+        request.setAttribute("totalbook", totalbook);
+        Iterator<String> itr = catemap.keySet().iterator();
+        while (itr.hasNext()) {
+            String key = itr.next();
+            request.setAttribute(key, catemap.get(key));
+        }
+        request.getRequestDispatcher("admin/admin_overall.jsp").forward(request, response);
+    }
+
+
     //prepare overal statistics
-    public void prepareOvelallStat(HttpServletRequest request){
+    public void prepareOvelallStat(HttpServletRequest request) {
         BookDao bookDao = new BookDaoImpl();
         int bookNum = bookDao.getTotalBook();
-        int totalPrice= bookDao.countTotalPrice();
-        request.setAttribute("book_num",bookNum);//put total booknum
-        request.setAttribute("total_price",totalPrice);//
-        Map<String,Integer> catMap = bookDao.getCategoryCount();
+        int totalPrice = bookDao.countTotalPrice();
+        request.setAttribute("book_num", bookNum);//put total booknum
+        request.setAttribute("total_price", totalPrice);//
+        Map<String, Integer> catMap = bookDao.getCategoryCount();
         Iterator<String> itr = catMap.keySet().iterator();
-        while (itr.hasNext()){
+        while (itr.hasNext()) {
             String key = itr.next();
-            request.setAttribute(key,catMap.get(key));
+            request.setAttribute(key, catMap.get(key));
         }//put category count
 
     }
@@ -73,12 +90,12 @@ public class AdminService {
         String pageNum = request.getParameter("user_page");
         Pager<User> pager = null;
         if (pageNum == null || pageNum.equals("1")) {
-            pager = searchUser(keyWord,1);
+            pager = searchUser(keyWord, 1);
         } else {
-            pager = searchUser(keyWord,Integer.parseInt(pageNum));
+            pager = searchUser(keyWord, Integer.parseInt(pageNum));
         }
         request.setAttribute("pager", pager);
-        request.setAttribute("username",keyWord);
+        request.setAttribute("username", keyWord);
         request.getRequestDispatcher("admin/admin_usersearch.jsp").forward(request, response);
     }
 
@@ -122,24 +139,24 @@ public class AdminService {
         String pageNum = request.getParameter("book_page");
         BookDao bookDao = new BookDaoImpl();
         Pager<Book> bookPager = null;
-        if(pageNum == null || pageNum.equals("1")){
+        if (pageNum == null || pageNum.equals("1")) {
             bookPager = bookDao.getAllUnSoldBooks(1);
-        }else{
+        } else {
             bookPager = bookDao.getAllUnSoldBooks(Integer.parseInt(pageNum));
         }
-        request.setAttribute("pager",bookPager);
-        request.getRequestDispatcher("admin/admin_booklist.jsp").forward(request,response);
+        request.setAttribute("pager", bookPager);
+        request.getRequestDispatcher("admin/admin_booklist.jsp").forward(request, response);
     }
 
 
-    public void deleteBooksByID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        String [] bookIDs = request.getParameterValues("is_remove");
+    public void deleteBooksByID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String[] bookIDs = request.getParameterValues("is_remove");
         BookDao bookDao = new BookDaoImpl();
-        for(String bookID : bookIDs){
+        for (String bookID : bookIDs) {
             bookDao.deleteBookByID(bookID);
         }
-        request.setAttribute("book_page","1");
-        getUnSoldBookList(request,response);
+        request.setAttribute("book_page", "1");
+        getUnSoldBookList(request, response);
     }
 
     private User getUser(String userName) {
@@ -181,9 +198,9 @@ public class AdminService {
     }
 
 
-    private Pager<User> searchUser(String keyWord,int page) {
+    private Pager<User> searchUser(String keyWord, int page) {
         UserDao userListDao = new UserDaoImpl();
-        return userListDao.searchUser(keyWord,page);
+        return userListDao.searchUser(keyWord, page);
     }
 
     public boolean adminVerification(String userName, String password) {

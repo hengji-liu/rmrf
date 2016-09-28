@@ -5,7 +5,7 @@
 
         <ul class="nav" id="side-menu">
             <li>
-                <a href="#">Site Management</a>
+                <a href="c?reqtype=ADMIN_OVERALL">Site Management</a>
 
             </li>
 
