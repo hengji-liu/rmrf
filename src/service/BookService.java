@@ -231,4 +231,11 @@ public class BookService {
 
 	}
 
+	public void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BookDao dao = new BookDaoImpl();
+		User u = (User) request.getSession().getAttribute("user");
+		List<Book> list = dao.getBooksByUsername(u.getUsername());
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("book/manage.jsp").forward(request, response);
+	}
 }

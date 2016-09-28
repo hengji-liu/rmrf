@@ -342,7 +342,6 @@ public class BookDaoImpl implements BookDao {
 		pager.setSql(pagerSql);
 		return pager;
 	}
-	
 
 	@Override
 	public int save(Book b) {
@@ -396,5 +395,58 @@ public class BookDaoImpl implements BookDao {
 		} finally {
 			DBHelper.realease(null, psmt);
 		}
+	}
+
+	public List<Book> getBooksByUsername(String username) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		List<Book> list = new ArrayList<Book>();
+		try {
+			conn = DBHelper.getConnection();
+			String sql = "SELECT * FROM book WHERE seller=?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, username);
+			ResultSet rs = psmt.executeQuery();
+			while (rs.next()) {
+				int bookId = rs.getInt(1);
+				String seller = rs.getString(2);
+				String bookType = rs.getString(3);
+				String authors = rs.getString(4);
+				String editors = rs.getString(5);
+				String title = rs.getString(6);
+				String year = rs.getString(7);
+				String venue = rs.getString(8);
+				String publisher = rs.getString(9);
+				String isbn = rs.getString(10);
+				String tag = rs.getString(11);
+				int paused = rs.getInt(12);
+				int price = rs.getInt(13);
+				int visited = rs.getInt(14);
+				int photoid = rs.getInt(15);
+
+				Book b = new Book();
+				b.setBookID(String.valueOf(bookId));
+				b.setSellerID(seller);
+				b.setType(bookType);
+				b.setAuthors(authors);
+				b.setEditors(editors);
+				b.setTitle(title);
+				b.setYear(year);
+				b.setVenue(venue);
+				b.setPublisher(publisher);
+				b.setIsbn(isbn);
+				b.setTag(tag);
+				b.setPaused(String.valueOf(paused));
+				b.setPrice(price);
+				b.setVisited(String.valueOf(visited));
+				b.setPhotoid(String.valueOf(photoid));
+				list.add(b);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.realease(null, psmt);
+		}
+		return list;
 	}
 }

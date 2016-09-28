@@ -39,8 +39,10 @@ public interface BookDao {
 	Pager<Book> searchBooks(Pager pager, int pageNum);
 
 	int save(Book b);
-	
+
 	void updatePhotoId(String s);
+
+	List<Book> getBooksByUsername(String username);
 	/* TODO: Please define and implemzent more advanced book search! */
 
 }
