@@ -93,7 +93,8 @@
                 <li><a href="c?reqtype=goto_graph">Graph Search</a></li>
                 <li><a target="_blank" href="c?reqtype=CART_ITEM">Shopping Cart</a></li>
                 <li><a href="c?reqtype=goto_upload">Upload</a></li>
-                <li><a href="c?reqtype=goto_manage">Manage My Items</a></li>
+                <li><a href="c?reqtype=goto_paused">My Paused Items</a></li>
+                <li><a href="c?reqtype=goto_selling">My Selling Items</a></li>
                 <li><a href="c?reqtype=logout">Logout</a></li>
             </ul><br>
             <div class="input-group">

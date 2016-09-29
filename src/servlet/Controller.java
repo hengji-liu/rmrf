@@ -14,7 +14,12 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import service.*;
+import service.AdminService;
+import service.BookService;
+import service.CartService;
+import service.GraphService;
+import service.TransactionService;
+import service.UserService;
 
 /**
  * Created by Linus on 10/09/2016.
@@ -29,12 +34,16 @@ public class Controller extends HttpServlet {
 	private static final String PROFILE_CHANGE = "profile_change";
 	private static final String LOGOUT = "logout";
 	private static final String UPLOAD = "upload";
+	private static final String PAUSED = "changeto_paused";
+	private static final String SELLING = "changeto_selling";
+
 	// goto
 	private static final String GOTO_LOGIN = "goto_login";
 	private static final String GOTO_GRAPH = "goto_graph";
 	private static final String GOTO_SEARCH = "goto_search";
 	private static final String GOTO_UPLOAD = "goto_upload";
-	private static final String GOTO_MANAGE = "goto_manage";
+	private static final String GOTO_PAUSED = "goto_paused";
+	private static final String GOTO_SELLING = "goto_selling";
 	// page
 	private static final String HOMEPAGE = "welcome.jsp";
 	private static final String LOGIN_PAGE = "user/login.jsp";
@@ -174,9 +183,21 @@ public class Controller extends HttpServlet {
 			case GOTO_UPLOAD:
 				request.getRequestDispatcher(UPLOAD_PAGE).forward(request, response);
 				break;
-			case GOTO_MANAGE:
+			case GOTO_PAUSED:
 				bookService = new BookService();
-				bookService.manage(request, response);
+				bookService.paused(request, response);
+				break;
+			case GOTO_SELLING:
+				bookService = new BookService();
+				bookService.selling(request, response);
+				break;
+			case PAUSED:
+				bookService = new BookService();
+				bookService.makePaused(request, response);
+				break;
+			case SELLING:
+				bookService = new BookService();
+				bookService.makeSelling(request, response);
 				break;
 			}
 		} else {// contains file upload

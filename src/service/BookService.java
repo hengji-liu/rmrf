@@ -1,18 +1,12 @@
 package service;
 
-import bean.Book;
-import bean.Pager;
-import bean.User;
-import daoImpl.AdminDaoImpl;
-import daoImpl.BookDaoImpl;
-import daoImpl.UserDaoImpl;
-import daoIterface.AdminDao;
-import daoIterface.BookDao;
-import daoIterface.UserDao;
-import util.DBHelper;
-import util.EmailUtil;
-import util.EncryptionUtil;
-import util.StringUtil;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import bean.Book;
+import bean.Pager;
+import bean.User;
+import daoImpl.BookDaoImpl;
+import daoIterface.BookDao;
+import util.EncryptionUtil;
+import util.StringUtil;
 
 /**
  * Created by Linus on 19/09/2016.
@@ -231,11 +224,37 @@ public class BookService {
 
 	}
 
-	public void manage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void paused(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BookDao dao = new BookDaoImpl();
 		User u = (User) request.getSession().getAttribute("user");
-		List<Book> list = dao.getBooksByUsername(u.getUsername());
+		List<Book> list = dao.getPausedBooksByUsername(u.getUsername());
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("book/manage.jsp").forward(request, response);
+		request.getRequestDispatcher("book/paused.jsp").forward(request, response);
 	}
+
+	public void selling(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BookDao dao = new BookDaoImpl();
+		User u = (User) request.getSession().getAttribute("user");
+		List<Book> list = dao.getSellingBooksByUsername(u.getUsername());
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("book/selling.jsp").forward(request, response);
+	}
+
+	public void makeSelling(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		BookDao dao = new BookDaoImpl();
+		String bookid = (String) request.getParameter("bookid");
+		dao.makeSelling(bookid);
+		request.getRequestDispatcher("c?reqtype=goto_paused").forward(request, response);
+	}
+
+	public void makePaused(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		BookDao dao = new BookDaoImpl();
+		String bookid = (String) request.getParameter("bookid");
+		System.out.println(bookid);
+		dao.makePaused(bookid);
+		request.getRequestDispatcher("c?reqtype=goto_selling").forward(request, response);
+	}
+
 }

@@ -1,11 +1,10 @@
 package daoIterface;
 
-import bean.Book;
-import bean.Pager;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import bean.Book;
+import bean.Pager;
 
 /**
  * Created by Linus on 10/09/2016.
@@ -42,7 +41,14 @@ public interface BookDao {
 
 	void updatePhotoId(String s);
 
-	List<Book> getBooksByUsername(String username);
+	List<Book> getPausedBooksByUsername(String username);
+
+	List<Book> getSellingBooksByUsername(String username);
+
+	void makePaused(String bookid);
+
+	void makeSelling(String bookid);
+
 	/* TODO: Please define and implemzent more advanced book search! */
 
 }
