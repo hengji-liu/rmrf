@@ -88,6 +88,7 @@
     <div class="row content">
         <div class="col-sm-3 sidenav">
             <h4>Welcome to DBLP Searching Engine</h4>
+            <p>Hi, ${user.username }</p>
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="c?reqtype=TOP10_BOOK">Top 10 Visited</a></li>
                 <li><a href="c?reqtype=goto_graph">Graph Search</a></li>
