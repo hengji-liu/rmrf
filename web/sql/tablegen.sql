@@ -88,16 +88,16 @@ CREATE TABLE `cart`
 stores items added to cart but was removed without purchasing, if later on user purchases this item,
 it should also be removed.
 */
-# CREATE TABLE `log_cart`
-# (
-#   username VARCHAR(30) NOT NULL COMMENT 'refer to user.usename',
-#   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
-#   book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE CASCADE,
-#   time_added DATETIME NOT NULL,
-#   time_removed DATETIME NOT NULL,
-#   PRIMARY KEY (username,book_id)
-#
-# ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+ CREATE TABLE `log_cart`
+ (
+   username VARCHAR(30) NOT NULL COMMENT 'refer to user.usename',
+   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
+   book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE CASCADE,
+   time_added DATETIME NOT NULL,
+   time_removed DATETIME NOT NULL,
+   PRIMARY KEY (username,book_id)
+
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 /*
 The below two are the triplestores for the graph searching
