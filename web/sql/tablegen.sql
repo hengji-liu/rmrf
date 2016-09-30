@@ -127,5 +127,5 @@ CREATE TABLE `user_login` /*for tracking user activity*/
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
   VALUE ('rmrf@admin','Li','Quan','123','liquan1992@outlook.com','2','Sydney','1992-7-2');
 
-INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
-  VALUE ('hengji@rm.rf','Hengji','Liu','ddcff2fe2be5b4a78b37da29fab3593498d2adb0','hengji.liu@outlook.com','1','Sydney','1992-1-2');
+-- INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
+--   VALUE ('hengji@rm.rf','Hengji','Liu','2dc66adb6b8a47eb0264fbf0dcef8783f2a558e9','hengji.liu@outlook.com','1','Sydney','1992-1-2');

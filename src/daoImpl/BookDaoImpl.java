@@ -255,7 +255,8 @@ public class BookDaoImpl implements BookDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String sql = "SELECT * FROM bblib.book order by visited desc limit 10 offset 0";
+		//String sql = "SELECT * FROM bblib.book order by visited desc limit 10 offset 0";
+		String sql = "SELECT * FROM bblib.book ORDER BY RAND() LIMIT 10";
 		List<Book> bookList = new ArrayList<>();
 		try {
 			Statement stmt = conn.createStatement();

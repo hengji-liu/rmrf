@@ -10,8 +10,8 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-3 col-lg-3 " align="left">
-                            <img alt="User Pic"
-                                 src="/profileImg/default.jpg"
+                            <img alt="User Img"
+                                 src="/profileImg/${USER_INFO.username}_profile"
                                  class="img-circle img-responsive">
                         </div>
 
@@ -42,14 +42,7 @@
 
                                 </tbody>
                             </table>
-                            <!-- LOGIN_LOG-->
-                            <div class="list-group">
-                                <a href="#" class="list-group-item active">Login Log</a>
-                                <c:forEach items="${LOGIN_LOG}" var="login_log" varStatus="loop">
-                                    <a href="#" class="list-group-item list-group-item-action"><c:out
-                                            value="${login_log.time}"/></a>
-                                </c:forEach>
-                            </div>
+
                             <!-- CART_REMOVED-->
                             <h5 class="panel-title">Books Removed From Cart:</h5>
                             <table class="table .table-sm">

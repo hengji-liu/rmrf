@@ -90,7 +90,7 @@
             <h4>Welcome to DBLP Searching Engine</h4>
             <p>Hi, ${user.username }</p>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="c?reqtype=TOP10_BOOK">Top 10 Visited</a></li>
+                <li><a href="c?reqtype=TOP10_BOOK">Random 10</a></li>
                 <li><a href="c?reqtype=goto_graph">Graph Search</a></li>
                 <li><a target="_blank" href="c?reqtype=CART_ITEM">Shopping Cart</a></li>
                 <li><a href="c?reqtype=goto_upload">Upload</a></li>
@@ -244,7 +244,7 @@
                     <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
                     <td>
                         <c:if test="${sessionScope.display_BookSearch == 'top10'}">
-                            <h2>Top 10 Visited Records</h2>
+                            <h2>Random 10 books</h2>
                             <h4><small>(${sessionScope.time_BookSearch} seconds)</small></h4>
                             <hr>
                             <c:set var="count" value="1" scope="page"/>
@@ -265,7 +265,7 @@
                                             <form role="form" action="">
                                                 <input type="hidden" name="reqtype" value="CART_ADD">
                                                 <input type="hidden" name="book_id" value="${book.bookID}">
-                                                <button type="submit" class="btn btn-success">Add to Shopping Cart</button>
+                                                <a target="_blank" href="c?reqtype=CART_ADD&book_id=${book.bookID}" class="btn btn-success">Add to Shopping Cart</a>
                                             </form>
                                         </td>
                                         <td>
@@ -304,7 +304,7 @@
                                             <form role="form" action="">
                                                 <input type="hidden" name="reqtype" value="CART_ADD">
                                                 <input type="hidden" name="book_id" value="${book.bookID}">
-                                                <button type="submit" class="btn btn-success">Add to Shopping Cart</button>
+                                                <a target="_blank" href="c?reqtype=CART_ADD&book_id=${book.bookID}" class="btn btn-success">Add to Shopping Cart</a>
                                             </form>
                                         </td>
                                         <td>
