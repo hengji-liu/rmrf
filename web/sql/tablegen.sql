@@ -124,6 +124,17 @@ CREATE TABLE `graph_store`
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE `user_login` /*for tracking user activity*/
+(
+  username   VARCHAR(30),
+  FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
+  time DATETIME NOT NULL,
+  granted BOOL,
+  ip VARCHAR(30),
+  PRIMARY KEY (username,time)
+
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
   VALUE ('rmrf@admin','Li','Quan','123','liquan1992@outlook.com','2','Sydney','1992-7-2');
 
