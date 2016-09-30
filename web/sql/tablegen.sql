@@ -128,4 +128,4 @@ INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
   VALUE ('rmrf@admin','Li','Quan','123','liquan1992@outlook.com','2','Sydney','1992-7-2');
 
 INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
-  VALUE ('hengji@rm.rf','Hengji','Liu','380068630e55ed77783dbdb0678ee151797cea52','hengji.liu@outlook.com','1','Sydney','1992-1-2');
+  VALUE ('hengji@rm.rf','Hengji','Liu','ddcff2fe2be5b4a78b37da29fab3593498d2adb0','hengji.liu@outlook.com','1','Sydney','1992-1-2');
