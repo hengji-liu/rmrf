@@ -88,16 +88,16 @@ CREATE TABLE `cart`
 stores items added to cart but was removed without purchasing, if later on user purchases this item,
 it should also be removed.
 */
-CREATE TABLE `log_cart`
-(
-  username VARCHAR(30) NOT NULL COMMENT 'refer to user.usename',
-  FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
-  book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE CASCADE,
-  time_added DATETIME NOT NULL,
-  time_removed DATETIME NOT NULL,
-  PRIMARY KEY (username,book_id)
-
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+# CREATE TABLE `log_cart`
+# (
+#   username VARCHAR(30) NOT NULL COMMENT 'refer to user.usename',
+#   FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
+#   book_id INT(15) NOT NULL REFERENCES book (book_id) ON DELETE CASCADE,
+#   time_added DATETIME NOT NULL,
+#   time_removed DATETIME NOT NULL,
+#   PRIMARY KEY (username,book_id)
+#
+# ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 /*
 The below two are the triplestores for the graph searching
@@ -123,3 +123,9 @@ CREATE TABLE `graph_store`
   PRIMARY KEY (predicate)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
+  VALUE ('rmrf@admin','Li','Quan','123','liquan1992@outlook.com','2','Sydney','1992-7-2');
+
+INSERT INTO `user` (username,firstname,lastname,ps,email,type_,address,birthday)
+  VALUE ('liquan@rm.rf','Liquan','Luo','380068630e55ed77783dbdb0678ee151797cea52','luoliquan@outlook.com','1','Sydney','1992-1-2');
