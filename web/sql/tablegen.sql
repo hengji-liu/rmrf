@@ -22,17 +22,6 @@ CREATE TABLE `user`
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 ALTER TABLE user AUTO_INCREMENT = 100;
 
-CREATE TABLE `user_login` /*for tracking user activity*/
-(
-  username   VARCHAR(30),
-  FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE,
-  time DATETIME NOT NULL,
-  granted BOOL,
-  ip VARCHAR(30),
-  PRIMARY KEY (username,time)
-
-)ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
 CREATE TABLE `book`
 (
   book_id INT(15) PRIMARY KEY AUTO_INCREMENT,
