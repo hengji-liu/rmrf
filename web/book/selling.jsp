@@ -9,7 +9,10 @@
 
 <body class="container-fluid">
 	<h1>My Selling Books</h1>
-	<c:choose>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href=c?reqtype=goto_search>Home</a></li>
+
+            </ul>	<c:choose>
 		<c:when test="${not empty list}">
 			<table class="table table-striped table-hover table-bordered">
 				<tr>

@@ -9,7 +9,10 @@
 </head>
 
 <body class="container-fluid">
-	<form class="col-md-8 col-md-offset-2 form-horizontal" action="c"
+            <ul class="col-md-2 col-md-offset-3 nav nav-pills nav-stacked">
+                <li class="active"><a href=c?reqtype=goto_search>Home</a></li>
+            </ul>
+       <form class="col-md-8 col-md-offset-2 form-horizontal" action="c"
 		method="post" enctype="multipart/form-data">
 		<input type="hidden" name="reqtype" value="profile_change">
 		<div class="form-group">
