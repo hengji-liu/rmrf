@@ -21,7 +21,7 @@
 				<c:forEach var="book" items="${list}" varStatus="status">
 					<tr>
 						<td>${status.count}</td>
-						<td>${book.title}</td>
+						<td><a target="_blank" href="c?reqtype=BOOK_DETAIL&book_id=${book.bookID}">${book.title}</a></td>
 						<td>${book.price }</td>
 						<td><a href="c?reqtype=changeto_selling&bookid=${book.bookID }">Change to selling</a></td>
 					</tr>

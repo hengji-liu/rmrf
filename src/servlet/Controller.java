@@ -44,9 +44,11 @@ public class Controller extends HttpServlet {
 	private static final String GOTO_UPLOAD = "goto_upload";
 	private static final String GOTO_PAUSED = "goto_paused";
 	private static final String GOTO_SELLING = "goto_selling";
+	private static final String GOTO_PROFILE = "goto_profilechange";
 	// page
 	private static final String HOMEPAGE = "welcome.jsp";
 	private static final String LOGIN_PAGE = "user/login.jsp";
+	private static final String PROFILE_PAGE = "user/profile.jsp";
 	private static final String GRAPH_PAGE = "graph/graphSandR.jsp";
 	private static final String SEARCH_PAGE = "book/search.jsp";
 	private static final String UPLOAD_PAGE = "book/upload.jsp";
@@ -190,6 +192,9 @@ public class Controller extends HttpServlet {
 			case GOTO_SELLING:
 				bookService = new BookService();
 				bookService.selling(request, response);
+				break;
+			case GOTO_PROFILE:
+				request.getRequestDispatcher(PROFILE_PAGE).forward(request, response);
 				break;
 			case PAUSED:
 				bookService = new BookService();

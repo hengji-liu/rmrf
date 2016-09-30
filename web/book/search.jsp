@@ -95,6 +95,7 @@
                 <li><a href="c?reqtype=goto_upload">Upload</a></li>
                 <li><a href="c?reqtype=goto_paused">My Paused Items</a></li>
                 <li><a href="c?reqtype=goto_selling">My Selling Items</a></li>
+                <li><a href="c?reqtype=goto_profilechange">Change My Profile</a></li>
                 <li><a href="c?reqtype=logout">Logout</a></li>
             </ul><br>
             <div class="input-group">
