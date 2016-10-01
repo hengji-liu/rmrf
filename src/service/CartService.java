@@ -1,8 +1,10 @@
 package service;
 
+import bean.Book;
 import bean.CartItem;
 import bean.User;
 import daoImpl.AdminDaoImpl;
+import daoImpl.BookDaoImpl;
 import daoImpl.CartDaoImpl;
 import daoIterface.AdminDao;
 import daoIterface.CartDao;
@@ -31,6 +33,8 @@ public class CartService {
         }else if(status_code == 2){
             //Duplicate to cart page, forward to cart page
             request.setAttribute("dup","true");
+            Book book = new BookDaoImpl().getBookById(bookID);
+            request.setAttribute("book",book);
             request.getRequestDispatcher("book/bookdetail.jsp").forward(request,response);
         }
 

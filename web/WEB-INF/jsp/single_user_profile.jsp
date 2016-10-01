@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-3 col-lg-3 " align="left">
                             <img alt="User Img"
-                                 src="/profileImg/${USER_INFO.username}_profile"
+                                 src="profileImg/${USER_INFO.username}_profile"
                                  class="img-circle img-responsive">
                         </div>
 
