@@ -49,18 +49,6 @@
 
 </div>
 
-<!-- jQuery -->
-<script src="../js/admin_js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="../js/admin_js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="../js/admin_js/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="../js/admin_js/startmin.js"></script>
-
 </body>
 </html>
 

@@ -12,13 +12,13 @@
 <div class="header">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <h1>Supper Book Trader</h1>
             </div>
             <c:if test='${not empty requestScope.user}'>
                 ${requestScope.user.firstname }
             </c:if>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <ul class="nav nav-tabs pull-right">
                     <li><a href="c?reqtype=goto_login">Log in</a></li>
                     <li><a href="user/register.jsp">Sign up</a></li>
