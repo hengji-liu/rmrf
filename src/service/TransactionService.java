@@ -46,7 +46,7 @@ public class TransactionService {
         String content = contentAssemble(book);
         //Multi Thread Send, tested works
 
-        new Thread(new SendEmailRunnable(subject,content,seller.getEmail())).start();
+        //new Thread(new SendEmailRunnable(subject,content,seller.getEmail())).start();
         CartDao cartDao = new CartDaoImpl();
         cartDao.removeFromCart(buyer,bookID,true);
 //      EmailUtil.sendEmail(subject,content,seller.getEmail());
