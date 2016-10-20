@@ -87,7 +87,7 @@ public class CartDaoImpl implements CartDao{
 
     @Override
     public int addCartItem(String userName, String bookID) {
-        if(exists(userName,bookID)){ //CHECK IF Already in cart
+        if(exists(userName,bookID)){ //CHECK IF Already in cart // database read
             return 2;
         }
         removeLogCart(userName,bookID);// remove log cart if it is in user's log cart
@@ -96,7 +96,7 @@ public class CartDaoImpl implements CartDao{
         try {
             conn = DBHelper.getConnection();
             String sql = "INSERT into `cart` (username, book_id, time_added)\n" +
-                    "VALUE (?,?,?);";
+                    "VALUE (?,?,?);"; //write
             psmt = conn.prepareStatement(sql);
             psmt.setString(1,userName);
             psmt.setString(2,bookID);

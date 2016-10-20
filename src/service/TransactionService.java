@@ -34,9 +34,10 @@ public class TransactionService {
         request.getRequestDispatcher("cart/purchase.jsp").forward(request,response);
     }
 
+    //3 dabase calls
     private Book purchase(String buyer,String bookID){
         BookDao bookDao = new BookDaoImpl();
-        Book book =  bookDao.getBookById(bookID);
+        Book book =  bookDao.getBookById(bookID); //book
         TransactionDao transactionDao = new TransactionDaoImpl();
         transactionDao.userPurchase(book.getSellerID(),buyer,bookID);
         //Email
